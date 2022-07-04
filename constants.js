@@ -5,3 +5,5 @@ const theme = {
   grayText: "#A09C9A",
   //font:"proxima-nova"
 };
+
+export default constants;

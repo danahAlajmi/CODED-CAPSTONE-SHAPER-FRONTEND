@@ -11,7 +11,6 @@ class ProfileStore {
     try {
       const response = await instance.get("/api/profile");
       this.profiles = response.data;
-      console.log(this.profiles);
       this.isLoading = false;
     } catch (error) {
       console.log("ProfileStore -> fetchProfile -> error", error);
