@@ -83,6 +83,8 @@ const styles = StyleSheet.create({
   image: {
     height: 140,
     width: 120,
+    maxHeight: 140,
+    maxWidth: 120,
     borderRadius: 10,
   },
   textContainer: {

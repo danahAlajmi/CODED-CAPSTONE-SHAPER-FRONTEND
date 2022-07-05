@@ -41,13 +41,15 @@ export function CreateProfile({ navigation }) {
         bio: bio,
       }
     }
+
+
       profileStore.updateProfile(profile,userStore.user.profile)
   };
   const handleUpload = async () => {
     let result = await ImagePicker.launchImageLibraryAsync();
 
     const file = await FileSystem.uploadAsync(
-      "http://192.168.1.5:8090/api/profile/image-upload",
+      "http://192.168.100.151:8090/api/profile/image-upload",
       result.uri
     );
     imageUri = file.body;
@@ -64,7 +66,7 @@ export function CreateProfile({ navigation }) {
               <Image style={styles.image} source={{uri:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png" }}>
                 </Image>
                 <View style={styles.imageOverlay}/>
-                <AntDesign name="camera" size={24} color="white" style={{marginTop:40,marginLeft:38}}/>
+                <AntDesign name="camera" size={24} color="white" style={{marginTop:60,marginLeft:53}}/>
                 </TouchableOpacity>
         </View>
 
@@ -112,21 +114,21 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   imageContainer:{
-    height:100,
-    width:100,
-    borderRadius:100,
+    height:140,
+    width:130,
+    borderRadius:10,
   },
   image:{
-    height:100,
-    width:100,
-    borderRadius:100,
+    height:140,
+    width:130,
+    borderRadius:10,
     position: "absolute",
     overflow:"hidden"
   }, 
   imageOverlay:{
-    height:100,
-    width:100,
-    borderRadius:100,
+    height:140,
+    width:130,
+    borderRadius:10,
     backgroundColor:"rgba(0,0,0,0.4)",
     ...StyleSheet.absoluteFill
   },
@@ -135,19 +137,19 @@ const styles = StyleSheet.create({
   },
   inputView: {
     backgroundColor: "white",
-    borderRadius: 30,
+    borderRadius: 10,
     width: "90%",
     minWidth:"70%",
     height: 45,
     marginBottom: 20,
     shadowOffset: {
-        width: 0,
-        height: 12,
-      },
-      shadowOpacity: 0.58,
-      shadowRadius: 16.0,
-  
-      elevation: 4,
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 4.0,
+
+    elevation: 3,
   },
   backgroundImage: {
     position: "absolute",
@@ -162,7 +164,7 @@ const styles = StyleSheet.create({
   },
   SignUpBtn: {
     minWidth: "40%",
-    borderRadius: 25,
+    borderRadius: 10,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
@@ -171,12 +173,12 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 12,
+      height: 5,
     },
-    shadowOpacity: 0.58,
-    shadowRadius: 16.0,
+    shadowOpacity: 0.2,
+    shadowRadius: 4.0,
 
-    elevation: 4,
+    elevation: 3,
   },
   SignUpText: {
     color: "#FFA90D",

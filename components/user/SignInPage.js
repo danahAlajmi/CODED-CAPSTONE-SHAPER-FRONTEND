@@ -78,19 +78,19 @@ const styles = StyleSheet.create({
   inputView: {
     marginTop:"10%",
     backgroundColor: "#EAEAEA",
-    borderRadius: 30,
+    borderRadius: 10,
     width: "90%",
     minWidth:"70%",
     height: 45,
     marginBottom: 20,
     shadowOffset: {
-        width: 0,
-        height: 12,
-      },
-      shadowOpacity: 0.58,
-      shadowRadius: 16.0,
-  
-      elevation: 4,
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 4.0,
+
+    elevation: 3,
   },
   backgroundImage: {
     position: "absolute",
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
   },
   signinBtn: {
     minWidth: "40%",
-    borderRadius: 25,
+    borderRadius: 10,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
@@ -114,12 +114,12 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 12,
+      height: 5,
     },
-    shadowOpacity: 0.58,
-    shadowRadius: 16.0,
+    shadowOpacity: 0.2,
+    shadowRadius: 4.0,
 
-    elevation: 4,
+    elevation: 3,
   },
   signinText: {
     color: "white",

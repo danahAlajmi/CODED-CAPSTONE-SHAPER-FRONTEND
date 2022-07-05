@@ -44,6 +44,7 @@ class UserStore {
   };
   checkForToken = async () => {
     const userToken = await SecureStore.getItemAsync("token");
+    console.log(userToken)
     if (userToken) {
       const newUser = jwt_decode(userToken);
       this.user = newUser;
