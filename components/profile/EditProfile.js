@@ -14,27 +14,28 @@ import {
 } from "react-native";
 import { observer } from "mobx-react";
 import { Card } from "react-native-elements";
-import { Divider } from "react-native-elements/dist/divider/Divider";
+import userStore from "../../stores/userStore";
+import { useNavigation } from "@react-navigation/native";
+
 function EditProfile() {
-  if (profileStore.isLoading) return <Text>Loading</Text>;
-  //   let user = userStore.user;
-  const userID = "62c28f730d74ef71cdc30f82";
-  let profile = profileStore.getProfileById(userID);
-  // console.log(profile);
   const [bio, onChangeBio] = useState(profile.bio);
   const [image, onChangeImage] = useState(profile.image);
   const [firstName, onChangeFirstName] = useState(profile.firstName);
   const [lastName, onChangeLastName] = useState(profile.lastName);
+  if (profileStore.isLoading) return <Text>Loading</Text>;
+  const navigation = useNavigation();
+  let user = userStore.user;
+  let profile = profileStore.getProfileById(user._id);
 
-  // const handleUpload = async () => {
-  //   let result = await ImagePicker.launchImageLibraryAsync();
-  //   // onChangeImage(result.uri);
-  //   // console.log(image)
-  //   const file = await FileSystem.uploadAsync('http://192.168.150.146:8095/api/trips/trip-image',result.uri);
-  //   // console.log(file.body)
-  //   imageUri = file.body;
-  //   // console.log(imageUri)
-  // }
+  const handleUpload = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync();
+
+    const file = await FileSystem.uploadAsync(
+      "http://192.168.1.5:8090/api/profile/image-upload",
+      result.uri
+    );
+    imageUri = file.body;
+  };
 
   const handleSubmit = () => {
     const update = {
@@ -65,12 +66,27 @@ function EditProfile() {
               <Text style={styles.btnText}>Cancle</Text>
             </TouchableOpacity>
           </View>
+          {/*  */}
+          <View style={styles.imageContainer}>
+            <TouchableOpacity onPress={handleUpload}>
+              <Image
+                style={styles.image}
+                source={{ uri: profile.image }}
+              ></Image>
+              <View style={styles.imageOverlay} />
+              <AntDesign
+                name="camera"
+                size={24}
+                color="white"
+                style={{ marginTop: 40, marginLeft: 38 }}
+              />
+            </TouchableOpacity>
+          </View>
+          {/*  */}
           <View style={styles.imageContainer}>
             <TouchableOpacity
               style={styles.imageViewContainer}
-              onPress={() => {
-                //   navigation.navigate("EditProfile");
-              }}
+              onPress={handleUpload}
             ></TouchableOpacity>
             <Text style={styles.imageText}>Change profile photo</Text>
           </View>
