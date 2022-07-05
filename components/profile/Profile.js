@@ -72,6 +72,13 @@ const styles = StyleSheet.create({
     // paddingTop: StatusBar.currentHeight,
     backgroundColor: "white",
     height: "100%",
+
+    //css from app.js
+    // flex: 1,
+    // backgroundColor: "#fff",
+    // alignItems: "center",
+    // justifyContent: "center",
+
   },
   profileItems: {
     flex: 1,
@@ -83,8 +90,6 @@ const styles = StyleSheet.create({
   image: {
     height: 140,
     width: 120,
-    maxHeight: 140,
-    maxWidth: 120,
     borderRadius: 10,
   },
   textContainer: {

@@ -24,6 +24,10 @@ export function SignInPage({ navigation }) {
     };
     userStore.signin(user);
   };
+  
+  const handleSignUp = () => {
+    navigation.navigate("Signup")
+  }
 
   return (
 <View style={styles.container}>
@@ -58,7 +62,7 @@ export function SignInPage({ navigation }) {
 
         <Text style={styles.askText}>Don't have an account?</Text>
         <View stylle={styles.signUpContainer}>
-        <TouchableOpacity><Text style={{marginTop:20, fontWeight:"bold"}}>Sign up<Text style={{color:"#FFA90D"}}> Here</Text></Text></TouchableOpacity>
+        <TouchableOpacity onPress={handleSignUp}><Text style={{marginTop:20, fontWeight:"bold"}}>Sign up<Text style={{color:"#FFA90D"}}> Here</Text></Text></TouchableOpacity>
         </View>
 
       </View>
@@ -73,14 +77,14 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   inputContainer:{
-    marginTop:"40%"
+    marginTop:"0%"
   },
   inputView: {
     marginTop:"10%",
     backgroundColor: "#EAEAEA",
     borderRadius: 10,
-    width: "90%",
-    minWidth:"70%",
+    maxWidth: "90%",
+    minWidth:"75%",
     height: 45,
     marginBottom: 20,
     shadowOffset: {
@@ -132,7 +136,7 @@ const styles = StyleSheet.create({
   askText: {
     marginTop:40,
     color: "black",
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: "bold",
 
   },

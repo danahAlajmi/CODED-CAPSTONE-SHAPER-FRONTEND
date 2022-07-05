@@ -23,6 +23,9 @@ class ProfileStore {
         `/api/profile/${profileId}`,
         updatedProfile
       );
+      console.log(updatedProfile)
+      console.log(profileId)
+
       const updateProfile = Object.assign(
         this.profiles.find((profile) => profile._id === profileId),
         updatedProfile
@@ -33,7 +36,7 @@ class ProfileStore {
     }
   };
   getProfileById = (userId) => {
-    return this.profiles.find((profile) => profile.user === userId);
+    return this.profiles.find((profile) => profile.user._id === userId);
   };
   //   getNumOfTrips(profileId) {
   //     const profile = this.profiles.find((profile) => profile._id === profileId);
