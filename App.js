@@ -5,11 +5,11 @@ import EditProfile from "./components/profile/EditProfile";
 import { SignInPage } from "./components/user/SignInPage";
 import { SignUpPage } from "./components/user/SignUpPage";
 import { CreateProfile } from "./components/user/CreateProfile";
-import { HelloWorldApp } from "./components/user/ph";
+import { SignOutWhenStuck } from "./components/user/SignOutWhenStuck";
 export default function App() {
   return (
     <View style={styles.container}>
-      <CreateProfile />
+      <SignInPage />
       <StatusBar style="auto" />
     </View>
   );
