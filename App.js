@@ -6,15 +6,15 @@ import { SignInPage } from "./components/user/SignInPage";
 import { SignUpPage } from "./components/user/SignUpPage";
 import { CreateProfile } from "./components/user/CreateProfile";
 import { SignOutWhenStuck } from "./components/user/SignOutWhenStuck";
+import ProfileUserView from "./components/profile/ProfileUserView";
 export default function App() {
   return (
-    <View style={styles.container}>
-      <EditProfile />
+    <View>
+      <Profile />
       <StatusBar style="auto" />
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -3,7 +3,6 @@ import instance from "./instance";
 import jwt_decode from "jwt-decode";
 import * as SecureStore from "expo-secure-store";
 
-
 class UserStore {
   constructor() {
     makeAutoObservable(this);
@@ -18,9 +17,7 @@ class UserStore {
       instance.defaults.headers.common.Authorization = `Bearer${response.data.token}`;
       this.user = jwt_decode(response.data.token);
       await SecureStore.setItemAsync("token", response.data.token);
-    } catch (error) {
-
-    }
+    } catch (error) {}
   };
   signup = async (newUser) => {
     try {
@@ -30,10 +27,7 @@ class UserStore {
       await SecureStore.setItemAsync("token", response.data.token);
       profileStore.fetchProfile();
       userStore.getUsers();
-
-    } catch (error) {
-
-    }
+    } catch (error) {}
   };
   signout = async () => {
     try {
@@ -44,7 +38,7 @@ class UserStore {
   };
   checkForToken = async () => {
     const userToken = await SecureStore.getItemAsync("token");
-    console.log(userToken)
+    //console.log(userToken);
     if (userToken) {
       const newUser = jwt_decode(userToken);
       this.user = newUser;
@@ -54,7 +48,7 @@ class UserStore {
     try {
       const response = await instance.get("/api/users/trainers");
       this.trainers = response.data;
-      console.log(this.sessions);
+      //console.log(this.sessions);
     } catch (error) {
       console.log(error);
     }

@@ -13,37 +13,34 @@ import userStore from "../../stores/userStore";
 import profileStore from "../../stores/profileStore";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign } from "@expo/vector-icons";
 
 let imageUri = null;
-
 
 export function CreateProfile({ navigation }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [bio, setBio] = useState("");
-  const [image, setImage] = useState("")
-    // no image upload at the moment
+  const [image, setImage] = useState("");
+  // no image upload at the moment
   const handleCreateProfile = () => {
-    let profile = null
-    if(imageUri!==null){
-    profile = {
+    let profile = null;
+    if (imageUri !== null) {
+      profile = {
         firstName: firstName,
         lastName: lastName,
         bio: bio,
         image: imageUri,
-      }
-    }
-    else {
-     profile = {
+      };
+    } else {
+      profile = {
         firstName: firstName,
         lastName: lastName,
         bio: bio,
-      }
+      };
     }
 
-
-      profileStore.updateProfile(profile,userStore.user.profile)
+    profileStore.updateProfile(profile, userStore.user.profile);
   };
   const handleUpload = async () => {
     let result = await ImagePicker.launchImageLibraryAsync();
@@ -55,22 +52,32 @@ export function CreateProfile({ navigation }) {
     imageUri = file.body;
   };
   return (
-<View style={styles.container}>
-        <ImageBackground
-          source={require("../../assets/appBackground2.png")}
-          style={styles.backgroundImage}
-        />
+    <View style={styles.container}>
+      <ImageBackground
+        source={require("../../assets/appBackground2.png")}
+        style={styles.backgroundImage}
+      />
 
-        <View style={styles.imageContainer}>
-            <TouchableOpacity onPress={handleUpload}>
-              <Image style={styles.image} source={{uri:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png" }}>
-                </Image>
-                <View style={styles.imageOverlay}/>
-                <AntDesign name="camera" size={24} color="white" style={{marginTop:60,marginLeft:53}}/>
-                </TouchableOpacity>
-        </View>
+      <View style={styles.imageContainer}>
+        <TouchableOpacity onPress={handleUpload}>
+          <Image
+            style={styles.image}
+            source={{
+              uri: "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png",
+            }}
+          />
 
-        <View style={styles.inputContainer}>
+          <View style={styles.imageOverlay} />
+          <AntDesign
+            name="camera"
+            size={24}
+            color="white"
+            style={{ marginTop: 60, marginLeft: 53 }}
+          />
+        </TouchableOpacity>
+      </View>
+
+      <View style={styles.inputContainer}>
         <View style={styles.inputView}>
           <TextInput
             style={styles.TextInput}
@@ -97,12 +104,11 @@ export function CreateProfile({ navigation }) {
             onChangeText={(bio) => setBio(bio)}
           />
         </View>
-        </View>
-        <TouchableOpacity onPress={handleCreateProfile} style={styles.SignUpBtn}>
-          <Text style={styles.SignUpText}>Sign Up</Text>
-        </TouchableOpacity>
-
       </View>
+      <TouchableOpacity onPress={handleCreateProfile} style={styles.SignUpBtn}>
+        <Text style={styles.SignUpText}>Sign Up</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 
@@ -113,33 +119,33 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  imageContainer:{
-    height:140,
-    width:130,
-    borderRadius:10,
+  imageContainer: {
+    height: 140,
+    width: 130,
+    borderRadius: 10,
   },
-  image:{
-    height:140,
-    width:130,
-    borderRadius:10,
+  image: {
+    height: 140,
+    width: 130,
+    borderRadius: 10,
     position: "absolute",
-    overflow:"hidden"
-  }, 
-  imageOverlay:{
-    height:140,
-    width:130,
-    borderRadius:10,
-    backgroundColor:"rgba(0,0,0,0.4)",
-    ...StyleSheet.absoluteFill
+    overflow: "hidden",
   },
-  inputContainer:{
-    marginTop:"40%"
+  imageOverlay: {
+    height: 140,
+    width: 130,
+    borderRadius: 10,
+    backgroundColor: "rgba(0,0,0,0.4)",
+    ...StyleSheet.absoluteFill,
+  },
+  inputContainer: {
+    marginTop: "40%",
   },
   inputView: {
     backgroundColor: "white",
     borderRadius: 10,
     width: "90%",
-    minWidth:"70%",
+    minWidth: "70%",
     height: 45,
     marginBottom: 20,
     shadowOffset: {
@@ -184,6 +190,5 @@ const styles = StyleSheet.create({
     color: "#FFA90D",
     fontWeight: "bold",
     alignSelf: "center",
-    
   },
 });
