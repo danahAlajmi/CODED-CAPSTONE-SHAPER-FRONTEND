@@ -7,13 +7,13 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
 //import { useNavigation } from "@react-navigation/native";
 import { observer } from "mobx-react";
 import profileStore from "../../stores/profileStore";
 
-function Profile() {
+function ProfileUserView() {
+  //const user = route.params;
   //const navigation = useNavigation();
   if (profileStore.isLoading) return <Text>Loading</Text>;
   //   let user = userStore.user;
@@ -34,18 +34,6 @@ function Profile() {
             <Text style={styles.profileName}>
               {profile.firstName} {profile.lastName}
             </Text>
-            <TouchableOpacity
-              style={styles.EditBtn}
-              onPress={() => {
-                //   navigation.navigate("EditProfile");
-              }}
-            >
-              <MaterialCommunityIcons
-                name="account-edit-outline"
-                size={30}
-                color="black"
-              />
-            </TouchableOpacity>
           </View>
           <Text style={styles.bio}>{profile.bio}</Text>
           <View style={styles.containerNumOfHOurs}>
@@ -61,7 +49,7 @@ function Profile() {
     </View>
   );
 }
-export default observer(Profile);
+export default observer(ProfileUserView);
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
