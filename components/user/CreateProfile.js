@@ -13,6 +13,9 @@ import userStore from "../../stores/userStore";
 import profileStore from "../../stores/profileStore";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
+import { AntDesign } from '@expo/vector-icons';
+
+let imageUri = null;
 
 
 export function CreateProfile({ navigation }) {
@@ -22,14 +25,33 @@ export function CreateProfile({ navigation }) {
   const [image, setImage] = useState("")
     // no image upload at the moment
   const handleCreateProfile = () => {
-    let profile = {
+    let profile = null
+    if(imageUri!==null){
+    profile = {
         firstName: firstName,
         lastName: lastName,
         bio: bio,
-      };
+        image: imageUri,
+      }
+    }
+    else {
+     profile = {
+        firstName: firstName,
+        lastName: lastName,
+        bio: bio,
+      }
+    }
       profileStore.updateProfile(profile,userStore.user.profile)
   };
+  const handleUpload = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync();
 
+    const file = await FileSystem.uploadAsync(
+      "http://192.168.1.5:8090/api/profile/image-upload",
+      result.uri
+    );
+    imageUri = file.body;
+  };
   return (
 <View style={styles.container}>
         <ImageBackground
@@ -37,8 +59,13 @@ export function CreateProfile({ navigation }) {
           style={styles.backgroundImage}
         />
 
-        <View>
-            <TouchableOpacity><Text>Here</Text></TouchableOpacity>
+        <View style={styles.imageContainer}>
+            <TouchableOpacity onPress={handleUpload}>
+              <Image style={styles.image} source={{uri:"https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_640.png" }}>
+                </Image>
+                <View style={styles.imageOverlay}/>
+                <AntDesign name="camera" size={24} color="white" style={{marginTop:40,marginLeft:38}}/>
+                </TouchableOpacity>
         </View>
 
         <View style={styles.inputContainer}>
@@ -84,8 +111,27 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+  imageContainer:{
+    height:100,
+    width:100,
+    borderRadius:100,
+  },
+  image:{
+    height:100,
+    width:100,
+    borderRadius:100,
+    position: "absolute",
+    overflow:"hidden"
+  }, 
+  imageOverlay:{
+    height:100,
+    width:100,
+    borderRadius:100,
+    backgroundColor:"rgba(0,0,0,0.4)",
+    ...StyleSheet.absoluteFill
+  },
   inputContainer:{
-    marginTop:"60%"
+    marginTop:"40%"
   },
   inputView: {
     backgroundColor: "white",
