@@ -18,14 +18,15 @@ import { AntDesign } from '@expo/vector-icons';
 let imageUri = null;
 
 
-export function CreateProfile({ navigation }) {
+export function CreateProfile({route}) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [bio, setBio] = useState("");
   const [image, setImage] = useState("")
-    // no image upload at the moment
+  const user = route.params.user
   const handleCreateProfile = () => {
     let profile = null
+    // const user = route.params
     if(imageUri!==null){
     profile = {
         firstName: firstName,
@@ -41,9 +42,7 @@ export function CreateProfile({ navigation }) {
         bio: bio,
       }
     }
-
-
-      profileStore.updateProfile(profile,userStore.user.profile)
+      userStore.signup(user,profile)
   };
   const handleUpload = async () => {
     let result = await ImagePicker.launchImageLibraryAsync();

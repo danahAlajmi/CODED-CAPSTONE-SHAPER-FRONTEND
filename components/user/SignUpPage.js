@@ -22,8 +22,6 @@ export function SignUpPage({ navigation }) {
     {label: 'Trainer', value: true }
   ];
 
-// Should take into another page instead of sign up needs more work
-
   const handleSignUp = () => {
     let user = {
       username: userName,
@@ -31,7 +29,8 @@ export function SignUpPage({ navigation }) {
       email: email,
       isTrainer: isTrainer,
     };
-    userStore.signup(user);
+
+    navigation.navigate("CreateProfile",{user})
   };
 
   return (
