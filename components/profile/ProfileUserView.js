@@ -39,8 +39,10 @@ function ProfileUserView() {
             </View>
             <Text style={styles.bio}>{profile.bio}</Text>
             <View style={styles.containerNumOfHOurs}>
-              <Text style={styles.number}>15 </Text>
-              <Text>Hours 🏋️</Text>
+              <Text style={styles.number}>
+                {profileStore.getNumOfHours(profile._id)}{" "}
+              </Text>
+              <Text> Hours 🏋️</Text>
             </View>
           </View>
         </View>
