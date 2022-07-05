@@ -12,13 +12,16 @@ import React from "react";
 //import { useNavigation } from "@react-navigation/native";
 import { observer } from "mobx-react";
 import profileStore from "../../stores/profileStore";
+import { Button } from "native-base";
+import userStore from "../../stores/userStore";
 
 function Profile() {
   //const navigation = useNavigation();
   if (profileStore.isLoading) return <Text>Loading</Text>;
   //   let user = userStore.user;
   const userID = "62c28f730d74ef71cdc30f82";
-  let profile = profileStore.getProfileById(userID);
+  // Ali added this line to make sure upload works
+  let profile = profileStore.getProfileById(userStore.user._id);
   // console.log(profile);
   return (
     <View style={styles.container}>
