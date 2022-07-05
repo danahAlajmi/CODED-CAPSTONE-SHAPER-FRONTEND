@@ -9,11 +9,7 @@ import { SignOutWhenStuck } from "./components/user/SignOutWhenStuck";
 export default function App() {
   return (
     <View style={styles.container}>
-<<<<<<< HEAD
-      <SignInPage />
-=======
       <EditProfile />
->>>>>>> origin/main
       <StatusBar style="auto" />
     </View>
   );
