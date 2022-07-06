@@ -13,6 +13,9 @@ import { Ionicons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 
+import TrainersListItem from "../trainer/TrainersListItem";
+import TrainersList from "../trainer/TrainersList";
+import SessionsList from "../session/SessionsList";
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -33,7 +36,7 @@ function BottomTabNavigation() {
         >
           <Tab.Screen
             name="ph"
-            component={SignOutWhenStuck}
+            component={SessionsList}
             options={{
               tabBarShowLabel: false,
               tabBarIcon: (tabInfo) => {

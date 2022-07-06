@@ -12,7 +12,6 @@ class SessionStore {
     try {
       const response = await instance.get("/api/sessions");
       this.sessions = response.data;
-      console.log(this.sessions);
     } catch (error) {
       console.log(error);
     }

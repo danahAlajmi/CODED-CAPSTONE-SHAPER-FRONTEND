@@ -12,7 +12,7 @@ import sessionStore from "../../stores/sessionStore";
 import SessionsListItem from "./SessionsListItem";
 function SessionsList() {
   const sessionsList = sessionStore.sessions.map((session) => {
-    return <SessionsListItem session={session} />;
+    return <SessionsListItem key={session._id} session={session} />;
   });
   return (
     <SafeAreaView style={styles.container}>
@@ -20,5 +20,14 @@ function SessionsList() {
     </SafeAreaView>
   );
 }
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    //justifyContent: "center",
+    alignItems: "center",
+    height: "auto",
+  },
+  scrollView: {
+    width: 330,
+  },
+});
 export default observer(SessionsList);

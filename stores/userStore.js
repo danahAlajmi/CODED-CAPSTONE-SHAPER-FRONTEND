@@ -25,11 +25,10 @@ class UserStore {
       const response = await instance.post("api/users/signup", newUser);
       instance.defaults.headers.common.Authorization = `Bearer${response.data.token}`;
       const decodedUser = jwt_decode(response.data.token);
-      console.log(decodedUser);
       profileStore.fetchProfile();
       profileStore.updateProfile(newProfile, decodedUser.profile);
       this.user = decodedUser;
-      profileStore.profiles.push(newProfile)
+      profileStore.profiles.push(newProfile);
       await SecureStore.setItemAsync("token", response.data.token);
       userStore.getUsers();
     } catch (error) {}
@@ -46,7 +45,6 @@ class UserStore {
     //console.log(userToken);
     if (userToken) {
       const newUser = jwt_decode(userToken);
-      console.log(newUser);
 
       this.user = newUser;
     }
@@ -55,8 +53,6 @@ class UserStore {
     try {
       const response = await instance.get("/api/users/trainers");
       this.trainers = response.data;
-      //console.log(this.sessions);
-      // console.log(this.sessions);
     } catch (error) {
       console.log(error);
     }
