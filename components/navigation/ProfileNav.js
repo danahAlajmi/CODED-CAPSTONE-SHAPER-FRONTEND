@@ -1,6 +1,5 @@
 import * as React from "react";
 import { useNavigation } from "@react-navigation/native";
-import { HelloWorldApp } from "../ph";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { observer } from "mobx-react";
 import EditProfile from "../profile/EditProfile";
