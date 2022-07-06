@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
 
     marginVertical: 10,
+    marginHorizontal: 30,
   },
   leftSection: {
     width: 115,
