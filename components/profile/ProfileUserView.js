@@ -22,7 +22,7 @@ function ProfileUserView() {
   let profile = profileStore.getProfileById(userID);
   // console.log(profile);
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.containerSaveView}>
       <View style={styles.container}>
         <View style={styles.profileItems}>
           <Image
@@ -56,6 +56,11 @@ function ProfileUserView() {
 }
 export default observer(ProfileUserView);
 const styles = StyleSheet.create({
+  containerSaveView: {
+    backgroundColor: "white",
+    height: "100%",
+    // marginTop: 10,
+  },
   container: {
     // position: "absolute",
     // flex: 1,
