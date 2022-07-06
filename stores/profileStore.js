@@ -38,7 +38,6 @@ class ProfileStore {
     }
   };
   getProfileById = (userId) => {
-    // console.log(userId);
     return this.profiles.find((profile) => profile.user._id === userId);
   };
 
