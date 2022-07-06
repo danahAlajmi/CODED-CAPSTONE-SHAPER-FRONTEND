@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, View,TouchableOpacity } from 'react-native';
+import userStore from '../../stores/userStore';
 
 export function SignOutWhenStuck() {
   const handleSignout = () => {

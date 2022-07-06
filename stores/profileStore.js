@@ -25,6 +25,9 @@ class ProfileStore {
         `/api/profile/${profileId}`,
         updatedProfile
       );
+      console.log(updatedProfile);
+      console.log(profileId);
+
       const updateProfile = Object.assign(
         this.profiles.find((profile) => profile._id === profileId),
         updatedProfile

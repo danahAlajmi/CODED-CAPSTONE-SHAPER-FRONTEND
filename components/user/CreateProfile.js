@@ -17,6 +17,7 @@ import { AntDesign } from "@expo/vector-icons";
 
 let imageUri = null;
 
+<<<<<<< HEAD
 export function CreateProfile({ navigation }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -27,6 +28,20 @@ export function CreateProfile({ navigation }) {
     let profile = null;
     if (imageUri !== null) {
       profile = {
+=======
+
+export function CreateProfile({route}) {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [bio, setBio] = useState("");
+  const [image, setImage] = useState("")
+  const user = route.params.user
+  const handleCreateProfile = () => {
+    let profile = null
+    // const user = route.params
+    if(imageUri!==null){
+    profile = {
+>>>>>>> origin/main
         firstName: firstName,
         lastName: lastName,
         bio: bio,
@@ -39,8 +54,12 @@ export function CreateProfile({ navigation }) {
         bio: bio,
       };
     }
+<<<<<<< HEAD
 
     profileStore.updateProfile(profile, userStore.user.profile);
+=======
+      userStore.signup(user,profile)
+>>>>>>> origin/main
   };
   const handleUpload = async () => {
     let result = await ImagePicker.launchImageLibraryAsync();
