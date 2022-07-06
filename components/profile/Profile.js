@@ -104,6 +104,8 @@ const styles = StyleSheet.create({
   },
   textContainer: {
     paddingHorizontal: 10,
+    // marginTop:
+    // paddingVertical: 10,
   },
   profileName: {
     fontSize: 20,
@@ -112,6 +114,8 @@ const styles = StyleSheet.create({
     textShadowColor: "rgba(0, 0, 0, 0.75)",
     textShadowOffset: { width: 1.5, height: 2 },
     textShadowRadius: 2,
+    maxWidth: 120,
+    overflow: "hidden",
   },
   bio: {
     fontSize: 15,
@@ -135,16 +139,15 @@ const styles = StyleSheet.create({
     // alignItems: "center",
     // justifyContent: "center",
     // alignContent: "center",
-    borderWidth: 0.5,
+    borderWidth: 0.4,
     marginTop: 30,
-    borderColor: "#A09C9A",
-    width: 350,
+    borderColor: "#D9D9D9",
+    width: 360,
     // top: 200,
-    right: -30,
+    right: -20,
     marginBottom: 25,
   },
   EditBtn: {
-    // position: "absolute",
     left: 100,
     // top: -5,
     // width: 50,
