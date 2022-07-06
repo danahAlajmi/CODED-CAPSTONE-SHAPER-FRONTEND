@@ -14,29 +14,11 @@ function ProfileNav() {
     <Navigator
       initialRouteName="Profile"
       screenOptions={{
-        headerShown: true,
+        headerShown: false,
       }}
     >
       <Screen name="Profile" component={Profile} />
-      <Screen
-        name="EditProfile"
-        component={EditProfile}
-        options={{
-          headerRight: () => (
-            <Button
-              onPress={() => navigation.navigate("Profile")}
-              title="Done"
-            />
-          ),
-          headerLeft: () => (
-            <Button
-              onPress={() => navigation.navigate("Profile")}
-              title="Cancle"
-              color="#A09C9A"
-            />
-          ),
-        }}
-      />
+      <Screen name="EditProfile" component={EditProfile} />
     </Navigator>
   );
 }

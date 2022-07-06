@@ -53,23 +53,25 @@ function EditProfile() {
     navigation.navigate("Profile");
   };
 
-  const handleClear = () => {
-    onChangeBio("");
-    onChangeImage("");
-    onChangeFirstName("");
-    onChangeLastName("");
+  const handleCancle = () => {
+    navigation.navigate("Profile");
   };
 
   return (
     <SafeAreaView style={styles.containerSaveView}>
       <View style={styles.container}>
         <Card containerStyle={styles.cardContainer}>
-          <View style={{ flexDirection: "row" }}>
-            {/* <Card.Title>Edit Your Profile</Card.Title> */}
-            {/* <TouchableOpacity style={styles.cancleBtn} onPress={handleClear}>
-              <Text style={styles.btnText}>Cancle</Text>
-            </TouchableOpacity> */}
+          <View style={styles.headerContainer}>
+            <TouchableOpacity onPress={handleCancle}>
+              <Text style={styles.cancleText}>Cancle</Text>
+            </TouchableOpacity>
+            <Card.Title style={{ fontSize: 17 }}>Edit Your Profile</Card.Title>
+            <TouchableOpacity onPress={handleSubmit}>
+              <Text style={styles.doneText}>Done</Text>
+            </TouchableOpacity>
           </View>
+          <Card.Divider />
+
           <View style={styles.imageContainer}>
             <TouchableOpacity onPress={handleUpload}>
               <Image
@@ -142,9 +144,6 @@ function EditProfile() {
               marginTop: 30,
             }}
           >
-            <TouchableOpacity style={styles.doneBtn} onPress={handleSubmit}>
-              <Text style={styles.btnText}>Done</Text>
-            </TouchableOpacity>
             {/* <TouchableOpacity style={styles.cancleBtn} onPress={handleClear}>
               <Text style={styles.btnText}>Cancle</Text>
             </TouchableOpacity> */}
@@ -207,42 +206,50 @@ const styles = StyleSheet.create({
   imageText: {
     color: "#6FB6F6",
   },
-  doneBtn: {
-    marginTop: 10,
-    width: 90,
-    borderRadius: 10,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#FFA90D",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 10,
+  // doneBtn: {
+  //   marginTop: 10,
+  //   width: 90,
+  //   borderRadius: 10,
+  //   height: 50,
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  //   backgroundColor: "#FFA90D",
+  //   shadowColor: "#000",
+  //   shadowOffset: {
+  //     width: 0,
+  //     height: 5,
+  //   },
+  //   shadowOpacity: 0.2,
+  //   shadowRadius: 10,
+  // },
+  // cancleBtn: {
+  //   // marginLeft: 160,
+  //   //marginTop: 10,
+  //   alignItems: "flex-start",
+  //   width: 90,
+  //   borderRadius: 10,
+  //   height: 50,
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  //   color: "black",
+  //   shadowColor: "#000",
+  //   shadowOffset: {
+  //     width: 0,
+  //     height: 5,
+  //   },
+  //   shadowOpacity: 0.2,
+  //   shadowRadius: 10,
+  // },
+  headerContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
-  cancleBtn: {
-    // marginLeft: 160,
-    //marginTop: 10,
-    alignItems: "flex-start",
-    width: 90,
-    borderRadius: 10,
-    height: 50,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#D9D9D9",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.2,
-    shadowRadius: 10,
+  cancleText: {
+    color: "#A09C9A",
+    fontSize: 17,
   },
-  btnText: {
-    color: "#FFFFFF",
-    fontSize: 20,
+  doneText: {
+    color: "#0D99FF",
+    fontSize: 17,
   },
 });

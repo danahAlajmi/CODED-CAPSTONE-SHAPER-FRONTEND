@@ -111,9 +111,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "#000000",
     fontWeight: "600",
-    textShadowColor: "rgba(0, 0, 0, 0.75)",
-    textShadowOffset: { width: 1.5, height: 2 },
-    textShadowRadius: 2,
+
     maxWidth: 120,
     overflow: "hidden",
   },
@@ -121,9 +119,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "#A09C9A",
     fontWeight: "300",
-    textShadowColor: "rgba(0, 0, 0, 0.75)",
-    textShadowOffset: { width: 1, height: 1 },
-    textShadowRadius: 2,
   },
   number: {
     color: "#FFA90D",
@@ -162,8 +157,5 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     // marginTop: -650,
     // right: 110,
-    textShadowColor: "rgba(0, 0, 0, 0.75)",
-    textShadowOffset: { width: 1, height: 2 },
-    textShadowRadius: 2,
   },
 });

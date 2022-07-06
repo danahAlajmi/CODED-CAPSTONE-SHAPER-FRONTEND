@@ -23,7 +23,7 @@ function BottomTabNavigation() {
         <Tab.Navigator
           initialRouteName="ph"
           screenOptions={{
-            tabBarStyle: { borderTopWidth: 0, height: "7%" },
+            tabBarStyle: { borderTopWidth: 0, height: "7%", marginTop: 10 },
             headerTitleStyle: {
               color: "black",
               fontWeight: "bold",
@@ -68,6 +68,7 @@ function BottomTabNavigation() {
             component={ProfileNav}
             options={{
               tabBarShowLabel: false,
+              headerShown: false,
               tabBarIcon: (tabInfo) => {
                 return (
                   <Ionicons
