@@ -10,14 +10,14 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
-//import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { observer } from "mobx-react";
 import profileStore from "../../stores/profileStore";
 import { Button } from "native-base";
 import userStore from "../../stores/userStore";
 
 function Profile() {
-  //const navigation = useNavigation();
+  const navigation = useNavigation();
   if (profileStore.isLoading) return <Text>Loading</Text>;
   let user = userStore.user;
   //console.log(user._id);
@@ -25,7 +25,7 @@ function Profile() {
   let profile = profileStore.getProfileById(user._id);
   //console.log(profile);
   return (
-    <SafeAreaView>
+    <SafeAreaView style={styles.containerSaveView}>
       <View style={styles.container}>
         <View style={styles.profileItems}>
           <Image
@@ -42,7 +42,7 @@ function Profile() {
               <TouchableOpacity
                 style={styles.EditBtn}
                 onPress={() => {
-                  //navigation.navigate("EditProfile");
+                  navigation.navigate("EditProfile");
                 }}
               >
                 <MaterialCommunityIcons
@@ -71,19 +71,23 @@ function Profile() {
 }
 export default observer(Profile);
 const styles = StyleSheet.create({
+  containerSaveView: {
+    backgroundColor: "white",
+    height: "100%",
+    // marginTop: 10,
+  },
   container: {
     // position: "absolute",
     // flex: 1,
     // // paddingTop: StatusBar.currentHeight,
     backgroundColor: "white",
     height: "100%",
-
+    marginTop: 10,
     //css from app.js
     // flex: 1,
     // backgroundColor: "#fff",
     // alignItems: "center",
     // justifyContent: "center",
-
   },
   profileItems: {
     // flex: 1,

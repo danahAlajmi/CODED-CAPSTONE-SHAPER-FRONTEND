@@ -13,7 +13,7 @@ import {
 import { observer } from "mobx-react";
 import { Card } from "react-native-elements";
 import userStore from "../../stores/userStore";
-//import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 import { AntDesign } from "@expo/vector-icons";
@@ -30,7 +30,7 @@ function EditProfile() {
   const [image, onChangeImage] = useState(profile.image);
   const [firstName, onChangeFirstName] = useState(profile.firstName);
   const [lastName, onChangeLastName] = useState(profile.lastName);
-  //const navigation = useNavigation();
+  const navigation = useNavigation();
 
   const handleUpload = async () => {
     let result = await ImagePicker.launchImageLibraryAsync();
@@ -50,7 +50,7 @@ function EditProfile() {
       lastName: lastName,
     };
     profileStore.updateProfile(update, profile._id);
-    // navigation.navigate("Profile");
+    navigation.navigate("Profile");
   };
 
   const handleClear = () => {
