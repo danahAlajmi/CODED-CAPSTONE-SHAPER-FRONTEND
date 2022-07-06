@@ -61,14 +61,14 @@ function EditProfile() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View>
+    <SafeAreaView style={styles.containerSaveView}>
+      <View style={styles.container}>
         <Card containerStyle={styles.cardContainer}>
           <View style={{ flexDirection: "row" }}>
             {/* <Card.Title>Edit Your Profile</Card.Title> */}
-            <TouchableOpacity style={styles.cancleBtn} onPress={handleClear}>
+            {/* <TouchableOpacity style={styles.cancleBtn} onPress={handleClear}>
               <Text style={styles.btnText}>Cancle</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </View>
           <View style={styles.imageContainer}>
             <TouchableOpacity onPress={handleUpload}>
@@ -157,6 +157,11 @@ function EditProfile() {
 export default observer(EditProfile);
 
 const styles = StyleSheet.create({
+  containerSaveView: {
+    backgroundColor: "white",
+    height: "100%",
+    // marginTop: 10,
+  },
   container: {
     height: "100%",
     width: "100%",
