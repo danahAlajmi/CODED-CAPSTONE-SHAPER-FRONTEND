@@ -7,7 +7,11 @@ import { SignOutWhenStuck } from "../user/SignOutWhenStuck";
 import { SignInPage } from "../user/SignInPage";
 import { SignUpPage } from "../user/SignUpPage";
 import { CreateProfile } from "../user/CreateProfile";
+import { Image } from "react-native";
 import ProfileNav from "./ProfileNav";
+import { Ionicons } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
+import { FontAwesome5 } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -16,13 +20,64 @@ function BottomTabNavigation() {
   return (
     <>
       {userStore.user ? (
-        <Tab.Navigator>
-          <Tab.Screen name="ph" component={SignOutWhenStuck} />
-          <Tab.Screen name="ph2" component={SignOutWhenStuck} />
+        <Tab.Navigator
+          initialRouteName="ph"
+          screenOptions={{
+            tabBarStyle: { borderTopWidth: 0, height: "7%" },
+            headerTitleStyle: {
+              color: "black",
+              fontWeight: "bold",
+            },
+            headerTitleAlign: "center",
+          }}
+        >
+          <Tab.Screen
+            name="ph"
+            component={SignOutWhenStuck}
+            options={{
+              tabBarShowLabel: false,
+              tabBarIcon: (tabInfo) => {
+                return (
+                  <Ionicons
+                    name="md-home"
+                    size={28}
+                    color={tabInfo.focused ? "#FFA90D" : "black"}
+                  />
+                );
+              },
+            }}
+          />
+          <Tab.Screen
+            name="ph2"
+            component={SignOutWhenStuck}
+            options={{
+              tabBarShowLabel: false,
+              tabBarIcon: (tabInfo) => {
+                return (
+                  <FontAwesome5
+                    name="dumbbell"
+                    size={28}
+                    color={tabInfo.focused ? "#FFA90D" : "black"}
+                  />
+                );
+              },
+            }}
+          />
           <Tab.Screen
             name="Profile"
             component={ProfileNav}
-            options={{ headerShown: false }}
+            options={{
+              tabBarShowLabel: false,
+              tabBarIcon: (tabInfo) => {
+                return (
+                  <Ionicons
+                    name="person"
+                    size={28}
+                    color={tabInfo.focused ? "#FFA90D" : "black"}
+                  />
+                );
+              },
+            }}
           />
         </Tab.Navigator>
       ) : (

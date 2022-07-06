@@ -29,8 +29,8 @@ class UserStore {
       profileStore.fetchProfile();
       profileStore.updateProfile(newProfile, decodedUser.profile);
       this.user = decodedUser;
+      profileStore.profiles.push(newProfile)
       await SecureStore.setItemAsync("token", response.data.token);
-      profileStore.fetchProfile();
       userStore.getUsers();
     } catch (error) {}
   };
