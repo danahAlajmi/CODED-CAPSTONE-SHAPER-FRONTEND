@@ -20,7 +20,8 @@ const styles = StyleSheet.create({
     width: 330,
     borderRadius: 20,
     overflow: "hidden",
-    marginVertical: 20,
+    marginVertical: 10,
+    marginHorizontal: 30,
   },
   sessionImage: {
     width: "100%",

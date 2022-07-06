@@ -24,11 +24,11 @@ const styles = StyleSheet.create({
   container: {
     //justifyContent: "center",
     alignItems: "center",
-    height: "auto",
+    height: "100%",
     backgroundColor: "white",
   },
   scrollView: {
-    width: 330,
+    width: 390,
   },
 });
 export default observer(TrainersList);

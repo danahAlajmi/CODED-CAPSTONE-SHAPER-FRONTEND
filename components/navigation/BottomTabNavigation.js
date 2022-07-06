@@ -12,10 +12,7 @@ import ProfileNav from "./ProfileNav";
 import { Ionicons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
-
-import TrainersListItem from "../trainer/TrainersListItem";
-import TrainersList from "../trainer/TrainersList";
-import SessionsList from "../session/SessionsList";
+import Explore from "../Explore";
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -36,7 +33,7 @@ function BottomTabNavigation() {
         >
           <Tab.Screen
             name="ph"
-            component={SessionsList}
+            component={Explore}
             options={{
               tabBarShowLabel: false,
               tabBarIcon: (tabInfo) => {
