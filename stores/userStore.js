@@ -2,8 +2,7 @@ import { makeAutoObservable } from "mobx";
 import instance from "./instance";
 import jwt_decode from "jwt-decode";
 import * as SecureStore from "expo-secure-store";
-import profileStore from './profileStore';
-
+import profileStore from "./profileStore";
 
 class UserStore {
   constructor() {
@@ -19,26 +18,21 @@ class UserStore {
       instance.defaults.headers.common.Authorization = `Bearer${response.data.token}`;
       this.user = jwt_decode(response.data.token);
       await SecureStore.setItemAsync("token", response.data.token);
-    } catch (error) {
-
-    }
+    } catch (error) {}
   };
-  signup = async (newUser,newProfile) => {
+  signup = async (newUser, newProfile) => {
     try {
       const response = await instance.post("api/users/signup", newUser);
       instance.defaults.headers.common.Authorization = `Bearer${response.data.token}`;
       const decodedUser = jwt_decode(response.data.token);
-      console.log(decodedUser)
+      console.log(decodedUser);
       profileStore.fetchProfile();
-      profileStore.updateProfile(newProfile,decodedUser.profile)
-      this.user = decodedUser
+      profileStore.updateProfile(newProfile, decodedUser.profile);
+      this.user = decodedUser;
       await SecureStore.setItemAsync("token", response.data.token);
       profileStore.fetchProfile();
       userStore.getUsers();
-
-    } catch (error) {
-
-    }
+    } catch (error) {}
   };
   signout = async () => {
     try {
@@ -49,10 +43,10 @@ class UserStore {
   };
   checkForToken = async () => {
     const userToken = await SecureStore.getItemAsync("token");
-    console.log(userToken)
+    //console.log(userToken);
     if (userToken) {
       const newUser = jwt_decode(userToken);
-    console.log(newUser)
+      console.log(newUser);
 
       this.user = newUser;
     }
@@ -61,6 +55,7 @@ class UserStore {
     try {
       const response = await instance.get("/api/users/trainers");
       this.trainers = response.data;
+      //console.log(this.sessions);
       // console.log(this.sessions);
     } catch (error) {
       console.log(error);

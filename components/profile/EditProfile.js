@@ -1,7 +1,6 @@
 import React from "react";
 import profileStore from "../../stores/profileStore";
 import { useState } from "react";
-import { StatusBar } from "expo-status-bar";
 import {
   StyleSheet,
   Text,
@@ -9,23 +8,29 @@ import {
   Image,
   TextInput,
   SafeAreaView,
-  Button,
   TouchableOpacity,
 } from "react-native";
 import { observer } from "mobx-react";
 import { Card } from "react-native-elements";
 import userStore from "../../stores/userStore";
-import { useNavigation } from "@react-navigation/native";
+//import { useNavigation } from "@react-navigation/native";
+import * as ImagePicker from "expo-image-picker";
+import * as FileSystem from "expo-file-system";
+import { AntDesign } from "@expo/vector-icons";
+let imageUri = null;
 
 function EditProfile() {
+  if (profileStore.isLoading) return <Text>Loading</Text>;
+  let user = userStore.user;
+  // console.log(user._id);
+  let profile = profileStore.getProfileById(user._id);
+  //console.log(profile);
+
   const [bio, onChangeBio] = useState(profile.bio);
   const [image, onChangeImage] = useState(profile.image);
   const [firstName, onChangeFirstName] = useState(profile.firstName);
   const [lastName, onChangeLastName] = useState(profile.lastName);
-  if (profileStore.isLoading) return <Text>Loading</Text>;
-  const navigation = useNavigation();
-  let user = userStore.user;
-  let profile = profileStore.getProfileById(user._id);
+  //const navigation = useNavigation();
 
   const handleUpload = async () => {
     let result = await ImagePicker.launchImageLibraryAsync();
@@ -40,12 +45,12 @@ function EditProfile() {
   const handleSubmit = () => {
     const update = {
       bio: bio,
-      image: imageUri,
+      image: image,
       firstName: firstName,
       lastName: lastName,
     };
     profileStore.updateProfile(update, profile._id);
-    navigation.navigate("Profile");
+    // navigation.navigate("Profile");
   };
 
   const handleClear = () => {
@@ -54,7 +59,6 @@ function EditProfile() {
     onChangeFirstName("");
     onChangeLastName("");
   };
-  if (profileStore.isLoading) return <Text>Loading</Text>;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -66,31 +70,31 @@ function EditProfile() {
               <Text style={styles.btnText}>Cancle</Text>
             </TouchableOpacity>
           </View>
-          {/*  */}
           <View style={styles.imageContainer}>
             <TouchableOpacity onPress={handleUpload}>
               <Image
                 style={styles.image}
-                source={{ uri: profile.image }}
-              ></Image>
+                source={{
+                  uri: image,
+                }}
+              />
+
               <View style={styles.imageOverlay} />
               <AntDesign
                 name="camera"
                 size={24}
-                color="white"
+                color="black"
                 style={{ marginTop: 40, marginLeft: 38 }}
               />
             </TouchableOpacity>
           </View>
-          {/*  */}
-          <View style={styles.imageContainer}>
+          {/* <View style={styles.imageContainer}>
             <TouchableOpacity
               style={styles.imageViewContainer}
               onPress={handleUpload}
             ></TouchableOpacity>
             <Text style={styles.imageText}>Change profile photo</Text>
-          </View>
-
+          </View> */}
           <View style={{ flexDirection: "row", marginTop: 40 }}>
             <Card.Title style={styles.text}>First Name</Card.Title>
             <View style={styles.textContainer}>
@@ -150,6 +154,8 @@ function EditProfile() {
     </SafeAreaView>
   );
 }
+export default observer(EditProfile);
+
 const styles = StyleSheet.create({
   container: {
     height: "100%",
@@ -235,4 +241,3 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
 });
-export default observer(EditProfile);

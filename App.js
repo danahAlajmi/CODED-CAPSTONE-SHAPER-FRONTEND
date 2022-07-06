@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer } from "@react-navigation/native";
 import Profile from "./components/profile/Profile";
 import EditProfile from "./components/profile/EditProfile";
 import { SignInPage } from "./components/user/SignInPage";
@@ -12,12 +12,9 @@ export default function App() {
   return (
     <>
       <NavigationContainer>
-      <BottomTabNavigation />
+        <BottomTabNavigation />
       </NavigationContainer>
       {/* <Profile /> */}
-      </>
+    </>
   );
 }
-
-
-
