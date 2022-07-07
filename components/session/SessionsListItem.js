@@ -1,16 +1,30 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View, ImageBackground } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ImageBackground,
+  TouchableOpacity,
+} from "react-native";
 import { observer } from "mobx-react";
+// import SessionDetails from "./SessionDetails";
+// import { useNavigation } from "@react-navigation/native";
 
 function SessionsListItem({ session }) {
   return (
     <View style={styles.container}>
-      <ImageBackground
-        style={styles.sessionImage}
-        source={{ uri: session.image }}
+      <TouchableOpacity
+      // onPress={() => {
+      //   navigation.navigate("SessionDetailes");
+      // }}
       >
-        <Text style={styles.sessionTitle}>{session.title}</Text>
-      </ImageBackground>
+        <ImageBackground
+          style={styles.sessionImage}
+          source={{ uri: session.image }}
+        >
+          <Text style={styles.sessionTitle}>{session.title}</Text>
+        </ImageBackground>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -20,7 +34,8 @@ const styles = StyleSheet.create({
     width: 330,
     borderRadius: 20,
     overflow: "hidden",
-    marginVertical: 20,
+    marginVertical: 10,
+    marginHorizontal: 30,
   },
   sessionImage: {
     width: "100%",

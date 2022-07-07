@@ -12,7 +12,8 @@ import ProfileNav from "./ProfileNav";
 import { Ionicons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
-import SessionsList from "../session/SessionsList";
+import Explore from "../Explore";
+import SessionDetails from "../session/SessionDetails";
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -33,7 +34,7 @@ function BottomTabNavigation() {
         >
           <Tab.Screen
             name="ph"
-            component={SessionsList}
+            component={Explore}
             options={{
               tabBarShowLabel: false,
               tabBarIcon: (tabInfo) => {
@@ -49,9 +50,10 @@ function BottomTabNavigation() {
           />
           <Tab.Screen
             name="ph2"
-            component={SignOutWhenStuck}
+            component={SessionDetails}
             options={{
               tabBarShowLabel: false,
+              headerShown: false,
               tabBarIcon: (tabInfo) => {
                 return (
                   <FontAwesome5
