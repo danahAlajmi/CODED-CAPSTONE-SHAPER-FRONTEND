@@ -7,6 +7,8 @@ import ProfileUserView from "../profile/ProfileUserView";
 import SessionDetails from "../session/SessionDetails";
 import sessionStore from './../../stores/sessionStore';
 import { SuccessfulJoinPage } from "../session/SeccessfulJoinPage";
+import { SessionEditDetail } from "../session/SessionEditDetail";
+import { SessionEditTime } from "../session/SessionEditTime";
 const Stack = createNativeStackNavigator();
 
 
@@ -28,6 +30,9 @@ function Home() {
           };
         }}/>
       <Stack.Screen name="SuccessJoin" component={SuccessfulJoinPage} options={{headerShown:false}} />
+      <Stack.Screen name="SessionEditDetail" component={SessionEditDetail} options={{title: "Edit"}} />
+      <Stack.Screen name="SessionEditTime" component={SessionEditTime} options={{title: "Edit"}} />
+
 
 
     </Stack.Navigator>

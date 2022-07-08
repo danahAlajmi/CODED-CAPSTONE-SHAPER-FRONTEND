@@ -15,14 +15,17 @@ import profileStore from "../../stores/profileStore";
 import ParticipantInfo from "./ParticipantInfo";
 import userStore from "../../stores/userStore";
 import { useNavigation } from "@react-navigation/native";
+import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
 import { useState } from "react";
+import { Entypo } from '@expo/vector-icons';
 
 function SessionDetails({route}) {
-  const navigation = useNavigation();
+  const [visible, setVisible] = useState(false);
   const [btnText, setBtnText] = useState("Join");
   const [isPress, setIsPress] = useState(false);
   const [btnStyle, setBtnStyle] = useState(styles.btn);
-
+  
+  const navigation = useNavigation();
   let user = userStore.user;
   const session = route.params;
   const participantsList = session.participants.map((participant) => {
@@ -38,6 +41,21 @@ function SessionDetails({route}) {
     setBtnText("Unjoin");
     navigation.navigate("SuccessJoin",{session})
   };
+
+  const handleEdit = () => {
+    hideMenu()
+    navigation.navigate("SessionEditDetail",{session})
+  };
+
+  const handleDelete = () => {
+    hideMenu()
+    sessionStore.DeleteSession(session,session._id)
+    navigation.navigate("Explore")
+  };
+  const hideMenu = () => setVisible(false);
+
+  const showMenu = () => setVisible(true);
+
 
   return (
     <View style={styles.container}>
@@ -63,6 +81,24 @@ function SessionDetails({route}) {
           <Text style={styles.trainerName}>
             {profile.firstName} {profile.lastName}
           </Text>
+          {userStore.user._id===session.trainer?(
+        <View style={{position: 'absolute', right: 0,marginTop:"15%",marginRight:30}}>
+      <Menu
+        visible={visible}
+        anchor={<Entypo onPress={showMenu} name="dots-three-horizontal" size={24} color="white" />}
+        onRequestClose={hideMenu}
+      >
+        <MenuItem pressColor="#FFA90D" textStyle={{color:"black",}} onPress={handleEdit}>Edit Session</MenuItem>
+        <MenuItem pressColor="red" textStyle={{color:"black",}} onPress={handleDelete}>Delete Session</MenuItem>
+
+      </Menu>
+      </View>
+      )
+      :
+      (
+      <></>
+      )
+      }
         </View>
         <View style={styles.card}>
           <View style={styles.textCard}>

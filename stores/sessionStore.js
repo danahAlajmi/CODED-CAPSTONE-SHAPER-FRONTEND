@@ -46,6 +46,24 @@ class SessionStore {
       console.log(error);
     }
   };
+
+  UpdateSession = async (session,sessionId) => {
+    try {
+      const response = await instance.put(`/api/sessions/update/${sessionId}`, session);
+      this.fetchAllSessions();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  DeleteSession = async (session,sessionId) => {
+    try {
+      const response = await instance.delete(`/api/sessions/delete/${sessionId}`, session);
+      this.fetchAllSessions();
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 const sessionStore = new SessionStore();
