@@ -16,6 +16,15 @@ class SessionStore {
       console.log(error);
     }
   };
+  CreateSession = async (session) => {
+    try {
+      const response = await instance.post("/api/sessions/create",session);
+      this.sessions.push(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 }
 
 const sessionStore = new SessionStore();

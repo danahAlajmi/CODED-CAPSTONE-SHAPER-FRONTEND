@@ -14,6 +14,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import Explore from "../Explore";
 import SessionDetails from "../session/SessionDetails";
+import CreateNavigation from "./CreateNavigation";
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -50,7 +51,7 @@ function BottomTabNavigation() {
           />
           <Tab.Screen
             name="ph2"
-            component={SessionDetails}
+            component={CreateNavigation}
             options={{
               tabBarShowLabel: false,
               headerShown: false,
