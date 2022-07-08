@@ -12,14 +12,25 @@ import {
 import { observer } from "mobx-react";
 import sessionStore from "../../stores/sessionStore";
 import SessionsListItem from "./SessionsListItem";
+import { useNavigation } from "@react-navigation/native";
 function SessionsList() {
   const [search, setSearch] = useState("");
+
+  const navigation = useNavigation();
   const sessionsList = sessionStore.sessions
     .filter((session) =>
       session.title.toLowerCase().includes(search.toLowerCase())
     )
     .map((session) => {
-      return <SessionsListItem key={session._id} session={session} />;
+      return (
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("SessionDetails", session);
+          }}
+        >
+          <SessionsListItem key={session._id} session={session} />
+        </TouchableOpacity>
+      );
     });
   return (
     <SafeAreaView style={styles.container}>

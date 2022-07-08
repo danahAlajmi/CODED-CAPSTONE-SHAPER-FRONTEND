@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
+import SessionProfileItem from "../session/SessionProfileItem";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -15,7 +16,7 @@ import { observer } from "mobx-react";
 import profileStore from "../../stores/profileStore";
 import { Button } from "native-base";
 import userStore from "../../stores/userStore";
-
+import SessionsListItem from "../session/SessionsListItem";
 function Profile() {
   const navigation = useNavigation();
   if (profileStore.isLoading) return <Text>Loading</Text>;
@@ -24,6 +25,10 @@ function Profile() {
   // Ali added this line to make sure upload works
   let profile = profileStore.getProfileById(user._id);
   //console.log(profile);
+  const sessionsList = profile.user?.enrolled?.map((session) => {
+    return <SessionProfileItem key={session} session={session} />;
+  });
+  // console.log(sessionsList);
   return (
     <SafeAreaView style={styles.containerSaveView}>
       <View style={styles.container}>
@@ -64,6 +69,15 @@ function Profile() {
         <View style={styles.border} />
         <View>
           <Text style={styles.sessionText}>Sissions</Text>
+          <ScrollView
+            contentContainerStyle={{ paddingBottom: 200 }}
+            showsVerticalScrollIndicator={false}
+            showsHorizontalScrollIndicator={false}
+            alignItems="center"
+            style={styles.scrollView}
+          >
+            {sessionsList}
+          </ScrollView>
         </View>
       </View>
     </SafeAreaView>
@@ -71,6 +85,9 @@ function Profile() {
 }
 export default observer(Profile);
 const styles = StyleSheet.create({
+  scrollView: {
+    width: "100%",
+  },
   containerSaveView: {
     backgroundColor: "white",
     height: "100%",

@@ -11,7 +11,6 @@ import {
 import { observer } from "mobx-react";
 import TrainersList from "./trainer/TrainersList";
 import SessionsList from "./session/SessionsList";
-
 const Tab = createMaterialTopTabNavigator();
 function Explore() {
   return (
@@ -23,6 +22,7 @@ function Explore() {
     >
       <Tab.Screen name="Trainers" component={TrainersList} />
       <Tab.Screen name="Sessions" component={SessionsList} />
+
     </Tab.Navigator>
   );
 }
