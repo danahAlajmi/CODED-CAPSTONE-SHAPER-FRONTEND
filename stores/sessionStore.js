@@ -33,8 +33,10 @@ class SessionStore {
     }
   };
   getSessionById = (id) => {
+    console.log(this.sessions)
     return this.sessions.find((session) => session._id === id);
   };
+  
 
   CreateSession = async (session) => {
     try {

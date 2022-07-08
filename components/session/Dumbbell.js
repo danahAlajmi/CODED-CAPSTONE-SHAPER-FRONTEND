@@ -8,15 +8,23 @@ import {
   View,
 } from "react-native";
 import { observer } from "mobx-react";
-import sessionStore from "../stores/sessionStore";
-import SessionDumbbellCard from "./session/SessionDumbbellCard";
-import userStore from "../stores/userStore";
+import sessionStore from "../../stores/sessionStore";
+import SessionDumbbellCard from "./SessionDumbbellCard";
+import userStore from "../../stores/userStore";
+import { FontAwesome } from '@expo/vector-icons';
+import { useNavigation } from "@react-navigation/native";
+
 function Dumbbell() {
+  const navigation = useNavigation()
   const timeSections = {
     today: [],
     upcoming: [],
     past: [],
-  };
+  }
+
+  const goToCreate = () => {
+    navigation.navigate("SessionCreateDetail")
+  }
 
   //.filter((session) => session.participants.includes(userStore.user._id))
   sessionStore.sessions.forEach((session) => {
@@ -64,6 +72,14 @@ function Dumbbell() {
           {timeSections.past}
         </ScrollView>
       </View>
+      {userStore.user.isTrainer ? (
+            <TouchableOpacity onPress={goToCreate} style={styles.addBtn}>
+                <FontAwesome name="plus" size={28} color="white" />
+            </TouchableOpacity>
+        ) : (
+          <></>
+        )}
+
     </View>
   );
 }
@@ -72,5 +88,15 @@ const styles = StyleSheet.create({
   header: { fontSize: 35, marginHorizontal: 30, backgroundColor: "white" },
   section: { backgroundColor: "white", height: 220 },
   sectionScroll: { marginLeft: 30 },
+  addBtn:{  
+    alignItems: 'center',
+  justifyContent: 'center',
+  width: 70,
+  position: 'absolute',
+  bottom: 10,
+  right: 10,
+  height: 70,
+  backgroundColor: '#FFA90D',
+  borderRadius: 100, },
 });
 export default observer(Dumbbell);

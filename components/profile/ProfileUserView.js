@@ -13,14 +13,10 @@ import React from "react";
 import { observer } from "mobx-react";
 import profileStore from "../../stores/profileStore";
 
-function ProfileUserView() {
-  //const user = route.params;
-  //const navigation = useNavigation();
+function ProfileUserView({route}) {
+  const trainer = route.params.trainer;
   if (profileStore.isLoading) return <Text>Loading</Text>;
-  //   let user = userStore.user;
-  const userID = "62c28f730d74ef71cdc30f82";
-  let profile = profileStore.getProfileById(userID);
-  // console.log(profile);
+  let profile = profileStore.getProfileById(trainer._id);
   return (
     <SafeAreaView style={styles.containerSaveView}>
       <View style={styles.container}>
