@@ -13,19 +13,15 @@ import SessionsListItem from "./SessionsListItem";
 import { useNavigation } from "@react-navigation/native";
 function SessionsList() {
   const navigation = useNavigation();
-
   const sessionsList = sessionStore.sessions.map((session) => {
     return (
-      <>
-        <TouchableOpacity
-          key={session._id}
-          onPress={() => {
-            navigation.navigate("SessionDetailes");
-          }}
-        >
-          <SessionsListItem session={session} />
-        </TouchableOpacity>
-      </>
+      <TouchableOpacity
+        onPress={() => {
+          navigation.navigate("SessionDetails", session);
+        }}
+      >
+        <SessionsListItem key={session._id} session={session} />
+      </TouchableOpacity>
     );
   });
   return (

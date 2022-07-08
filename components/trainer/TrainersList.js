@@ -10,9 +10,16 @@ import {
 import { observer } from "mobx-react";
 import userStore from "../../stores/userStore";
 import TrainersListItem from "./TrainersListItem";
+import { useNavigation } from '@react-navigation/native';
+
 function TrainersList() {
+  const navigation = useNavigation();
+
   const trainersList = userStore.trainers.map((trainer) => {
-    return <TrainersListItem key={trainer._id} trainer={trainer} />;
+    return(
+    <TouchableOpacity onPress={() => {navigation.navigate("profile")}}
+    ><TrainersListItem key={trainer._id} trainer={trainer} /></TouchableOpacity>
+    )
   });
   return (
     <SafeAreaView style={styles.container}>

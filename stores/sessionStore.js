@@ -16,9 +16,9 @@ class SessionStore {
       console.log(error);
     }
   };
-  getSessionById = (sessionId) => {
-    return this.sessions.find((session) => session._id === sessionId);
-  };
+  // getSessionById = (sessionId) => {
+  //   return this.sessions.find((session) => session._id === sessionId);
+  // };
 
   joinSession = async (sessionId, userId) => {
     // console.log(sessionId, userId);
@@ -26,8 +26,20 @@ class SessionStore {
       const res = await instance.post(
         `/api/sessions/${sessionId}/user/${userId}`
       );
-      console.log(res.data);
+      //console.log(res.data);
       this.fetchAllSessions();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  getSessionById = (id) => {
+    return this.sessions.find((session) => session._id === id);
+  };
+
+  CreateSession = async (session) => {
+    try {
+      const response = await instance.post("/api/sessions/create", session);
+      this.sessions.push(response.data);
     } catch (error) {
       console.log(error);
     }

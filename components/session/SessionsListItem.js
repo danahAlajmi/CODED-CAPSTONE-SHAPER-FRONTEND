@@ -8,7 +8,6 @@ import {
 } from "react-native";
 import { observer } from "mobx-react";
 // import SessionDetails from "./SessionDetails";
-// import { useNavigation } from "@react-navigation/native";
 
 function SessionsListItem({ session }) {
   return (
