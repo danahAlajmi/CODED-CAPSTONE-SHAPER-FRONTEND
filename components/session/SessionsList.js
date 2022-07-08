@@ -10,9 +10,23 @@ import {
 import { observer } from "mobx-react";
 import sessionStore from "../../stores/sessionStore";
 import SessionsListItem from "./SessionsListItem";
+import { useNavigation } from "@react-navigation/native";
 function SessionsList() {
+  const navigation = useNavigation();
+
   const sessionsList = sessionStore.sessions.map((session) => {
-    return <SessionsListItem key={session._id} session={session} />;
+    return (
+      <>
+        <TouchableOpacity
+          key={session._id}
+          onPress={() => {
+            navigation.navigate("SessionDetailes");
+          }}
+        >
+          <SessionsListItem session={session} />
+        </TouchableOpacity>
+      </>
+    );
   });
   return (
     <SafeAreaView style={styles.container}>
