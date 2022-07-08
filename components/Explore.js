@@ -16,7 +16,7 @@ function Explore() {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarContentContainerStyle: { borderTopColor: "white" },
+        tabBarContentContainerStyle: {},
         tabBarIndicatorStyle: { backgroundColor: "#FFA90D" },
       }}
     >
@@ -28,11 +28,3 @@ function Explore() {
 }
 const styles = StyleSheet.create({});
 export default observer(Explore);
-
-/*
-screenOptions={{
-        tabBarLabelStyle: { color: "black" },
-        tabBarStyle: {},
-        tabBarIndicatorStyle: { color: "green" },
-      }}
-      */

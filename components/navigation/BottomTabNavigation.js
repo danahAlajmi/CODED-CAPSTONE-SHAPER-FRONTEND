@@ -14,6 +14,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import Explore from "../Explore";
 import SessionDetails from "../session/SessionDetails";
+import Dumbbell from "../Dumbbell";
 import CreateNavigation from "./CreateNavigation";
 import Home from "./Home";
 const Tab = createBottomTabNavigator();
@@ -38,7 +39,7 @@ function BottomTabNavigation() {
             name="Home"
             component={Home}
             options={{
-              headerShown:false,
+              headerShown: false,
               tabBarShowLabel: false,
               tabBarIcon: (tabInfo) => {
                 return (
@@ -56,7 +57,6 @@ function BottomTabNavigation() {
             component={CreateNavigation}
             options={{
               tabBarShowLabel: false,
-              headerShown: false,
               tabBarIcon: (tabInfo) => {
                 return (
                   <FontAwesome5
