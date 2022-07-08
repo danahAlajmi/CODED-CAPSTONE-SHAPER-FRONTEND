@@ -64,11 +64,6 @@ class ProfileStore {
       return numOfMin / 60;
     }
   }
-  //   getNumOfHour(profileId) {
-  //     const profile = this.profiles.find((profile) => profile._id === profileId);
-  //     const numTrips = profile.user.trips.length;
-  //     return numTrips;
-  //   }
 }
 
 const profileStore = new ProfileStore();

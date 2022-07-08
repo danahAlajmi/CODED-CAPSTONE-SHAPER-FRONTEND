@@ -14,6 +14,7 @@ import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import Explore from "../Explore";
 import SessionDetails from "../session/SessionDetails";
+import Dumbbell from "../Dumbbell";
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -33,7 +34,7 @@ function BottomTabNavigation() {
           }}
         >
           <Tab.Screen
-            name="ph"
+            name="Explore"
             component={Explore}
             options={{
               tabBarShowLabel: false,
@@ -50,10 +51,9 @@ function BottomTabNavigation() {
           />
           <Tab.Screen
             name="ph2"
-            component={SessionDetails}
+            component={Dumbbell}
             options={{
               tabBarShowLabel: false,
-              headerShown: false,
               tabBarIcon: (tabInfo) => {
                 return (
                   <FontAwesome5

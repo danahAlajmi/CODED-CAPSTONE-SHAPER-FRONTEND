@@ -16,6 +16,10 @@ class SessionStore {
       console.log(error);
     }
   };
+
+  getSessionById = (sessionId) => {
+    return this.sessions.find((session) => session._id === sessionId);
+  };
 }
 
 const sessionStore = new SessionStore();
