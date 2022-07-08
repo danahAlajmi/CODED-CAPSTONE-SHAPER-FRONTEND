@@ -4,10 +4,13 @@ import {Text,View,TouchableOpacity,ScrollView,SafeAreaView,TextInput,StyleSheet}
 import sessionStore from '../../stores/sessionStore';
 import userStore from '../../stores/userStore';
 
-export function SessionCreateTime({ route, navigation }){
+export function SessionEditTime({ route, navigation }){
     const [date, setDate] = useState(new Date());
     const [duration, setDuration] = useState(new Date());
     let session =  route.params.session
+    let sessionId = route.params.id
+    console.log("asde",session)
+    console.log("id sent",sessionId)
 
     const onChangeDate = (event, selectedDate) => {
       const currentDate = selectedDate;
@@ -20,14 +23,14 @@ export function SessionCreateTime({ route, navigation }){
       // use .getTime to switch it to the UTC formate
     };
 
-    const createSession = () => {
+    const editSession = () => {
       let convDur = (+duration.getHours()*60) + (+duration.getMinutes())
       session.date = date.getTime();
       session.duration = convDur;
       session.trainer = userStore.user._id
       // console.log(session)
-      sessionStore.CreateSession(session)
-      navigation.navigate("SuccessCreate",{session})
+      sessionStore.UpdateSession(session,sessionId)
+      navigation.navigate("Explore")
     }
 
     return (
@@ -45,7 +48,6 @@ export function SessionCreateTime({ route, navigation }){
           </View>
           <RNDateTimePicker 
             // maximumDate={new Date(Date.now()+604800000)}
-            minimumDate={new Date(Date.now())}
             value={date}
             mode={"date"}
             display={"inline"}
@@ -63,7 +65,6 @@ export function SessionCreateTime({ route, navigation }){
             />
           </View>
         <RNDateTimePicker
-          minimumDate={new Date(Date.now())}
           value={date}
           mode={"time"}
           display={"spinner"}
@@ -84,8 +85,8 @@ export function SessionCreateTime({ route, navigation }){
           mode={"countdown"}
           onChange={onChangeDuration}
         />
-        <TouchableOpacity onPress={createSession} style={styles.CreateBtn}>
-          <Text style={styles.CreateText}>Create Session</Text>
+        <TouchableOpacity onPress={editSession} style={styles.CreateBtn}>
+          <Text style={styles.CreateText}>Edit Session</Text>
         </TouchableOpacity>
       </View>
       </ScrollView>

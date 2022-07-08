@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import { useState } from 'react';
 import {
   View,
   Text,
@@ -17,7 +18,19 @@ import profileStore from "../../stores/profileStore";
 import { Button } from "native-base";
 import userStore from "../../stores/userStore";
 import SessionsListItem from "../session/SessionsListItem";
+import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
+import { Entypo } from '@expo/vector-icons';
 function Profile() {
+  const [visible, setVisible] = useState(false);
+
+  const hideMenu = () => setVisible(false);
+
+  const showMenu = () => setVisible(true);
+
+  const handleSignout = () => {
+    hideMenu()
+    userStore.signout();
+  };
   const navigation = useNavigation();
   if (profileStore.isLoading) return <Text>Loading</Text>;
   let user = userStore.user;
@@ -32,6 +45,16 @@ function Profile() {
   return (
     <SafeAreaView style={styles.containerSaveView}>
       <View style={styles.container}>
+        <View style={{position: 'absolute', right: 0, marginRight:30}}>
+      <Menu
+        visible={visible}
+        anchor={<Entypo onPress={showMenu} name="dots-three-horizontal" size={24} color="black" />}
+        onRequestClose={hideMenu}
+      >
+        <MenuItem pressColor="red" textStyle={{color:"black",}} onPress={handleSignout}> Sign out </MenuItem>
+      </Menu>
+      </View>
+
         <View style={styles.profileItems}>
           <Image
             style={styles.image}
@@ -68,7 +91,7 @@ function Profile() {
         </View>
         <View style={styles.border} />
         <View>
-          <Text style={styles.sessionText}>Sissions</Text>
+          <Text style={styles.sessionText}>Sessions</Text>
           <ScrollView
             contentContainerStyle={{ paddingBottom: 200 }}
             showsVerticalScrollIndicator={false}
@@ -110,7 +133,7 @@ const styles = StyleSheet.create({
     // flex: 1,
     flexDirection: "row",
     alignItems: "center",
-    // marginTop: 20,
+    marginTop: 20,
     marginLeft: 20,
     // display: "flex",
   },

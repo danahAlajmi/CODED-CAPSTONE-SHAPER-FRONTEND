@@ -13,6 +13,7 @@ import SessionDumbbellCard from "./SessionDumbbellCard";
 import userStore from "../../stores/userStore";
 import { FontAwesome } from '@expo/vector-icons';
 import { useNavigation } from "@react-navigation/native";
+import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
 
 function Dumbbell() {
   const navigation = useNavigation()
