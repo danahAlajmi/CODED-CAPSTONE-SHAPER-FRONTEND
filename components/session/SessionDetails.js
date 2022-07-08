@@ -89,8 +89,11 @@ function SessionDetails({route}) {
         onRequestClose={hideMenu}
       >
         <MenuItem pressColor="#FFA90D" textStyle={{color:"black",}} onPress={handleEdit}>Edit Session</MenuItem>
-        <MenuItem pressColor="red" textStyle={{color:"black",}} onPress={handleDelete}>Delete Session</MenuItem>
-
+        {session.participants.length=== 0? 
+        <MenuItem pressColor="red" textStyle={{color:"red",}} onPress={handleDelete}>Delete Session</MenuItem> 
+        : 
+        <MenuItem disabled>Delete Session</MenuItem>
+}
       </Menu>
       </View>
       )
