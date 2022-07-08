@@ -57,9 +57,19 @@ class UserStore {
       console.log(error);
     }
   };
+
+  fetchUsers = async () => {
+    try {
+      const response = await instance.get("/api/users");
+      this.users = response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 const userStore = new UserStore();
 userStore.checkForToken();
 userStore.fetchTrainers();
+userStore.fetchUsers();
 export default userStore;

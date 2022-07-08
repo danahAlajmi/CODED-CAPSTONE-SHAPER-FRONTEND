@@ -7,24 +7,34 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { observer } from "mobx-react";
+import sessionStore from "../../stores/sessionStore";
 // import SessionDetails from "./SessionDetails";
+// import { useNavigation } from "@react-navigation/native";
 
-function SessionsListItem({ session }) {
+function SessionProfileItem({ session }) {
+  let sessionInfo = sessionStore.getSessionById(session);
+  console.log(sessionInfo);
   return (
     <View style={styles.container}>
-      <ImageBackground
-        style={styles.sessionImage}
-        source={{ uri: session.image }}
+      <TouchableOpacity
+      // onPress={() => {
+      //   navigation.navigate("SessionDetailes");
+      // }}
       >
-        <Text style={styles.sessionTitle}>{session.title}</Text>
-      </ImageBackground>
+        <ImageBackground
+          style={styles.sessionImage}
+          source={{ uri: sessionInfo.image }}
+        >
+          <Text style={styles.sessionTitle}>{sessionInfo.title}</Text>
+        </ImageBackground>
+      </TouchableOpacity>
     </View>
   );
 }
 const styles = StyleSheet.create({
   container: {
-    height: 140,
-    width: 330,
+    height: 130,
+    width: 310,
     borderRadius: 20,
     overflow: "hidden",
     marginVertical: 10,
@@ -48,4 +58,4 @@ const styles = StyleSheet.create({
     top: "50%",
   },
 });
-export default observer(SessionsListItem);
+export default observer(SessionProfileItem);

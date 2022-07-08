@@ -7,20 +7,52 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
+import { observer } from "mobx-react";
 import React from "react";
 import sessionStore from "../../stores/sessionStore";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import profileStore from "../../stores/profileStore";
-export default function SessionDetails() {
-  //   console.log(sessionStore.sessions);
+import ParticipantInfo from "./ParticipantInfo";
+import userStore from "../../stores/userStore";
+import { useNavigation } from "@react-navigation/native";
+import { useState } from "react";
+
+function SessionDetails() {
+  const navigation = useNavigation();
+  const [btnText, setBtnText] = useState("Join");
+  const [isPress, setIsPress] = useState(false);
+  const [btnStyle, setBtnStyle] = useState(styles.btn);
+
+  let user = userStore.user;
   const session = sessionStore.sessions[0];
+  const participantsList = session.participants.map((participant) => {
+    return <ParticipantInfo key={participant} participant={participant} />;
+  });
   let profile = profileStore.getProfileById(session.trainer);
 
-  console.log(profile);
+  // console.log(session);
+  const handleJoin = () => {
+    sessionStore.joinSession(session._id, user._id);
+    setIsPress(true);
+    setBtnStyle(styles.btnPressed);
+    setBtnText("Unjoin");
+  };
 
   return (
     <View style={styles.container}>
-      <ScrollView>
+      {/* <Image style={styles.imageContainer} source={{ uri: session.image }} />
+      <View style={styles.trainerInfo}>
+        <Image style={styles.imagePro} source={{ uri: profile.image }} />
+        <Text style={styles.trainerName}>
+          {profile.firstName} {profile.lastName}
+        </Text>
+      </View> */}
+      <ScrollView
+        contentContainerStyle={{ paddingBottom: 800 }}
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+        // style={{ backgroundColor: "transparent" }}
+      >
         <ImageBackground
           style={styles.imageContainer}
           source={{ uri: session.image }}
@@ -52,15 +84,16 @@ export default function SessionDetails() {
               ⏳ {session.duration} Min
             </Text>
             <Text style={styles.datePrice}>💰 10KD</Text>
-            <TouchableOpacity style={styles.btn}>
-              <Text style={styles.btnText}>Join</Text>
+            <TouchableOpacity onPress={handleJoin} style={btnStyle}>
+              <Text style={styles.btnText}>{btnText}</Text>
             </TouchableOpacity>
-            <Text style={styles.location}>Location</Text>
+            <Text style={styles.location}>📍 Location</Text>
             <View>
-              <Text style={styles.partiText}>participants</Text>
+              <Text style={styles.partiText}>👥 participants</Text>
               <Text style={styles.parti}>
                 {session.participants.length}/{session.limit}
               </Text>
+              <View>{participantsList}</View>
             </View>
           </View>
         </View>
@@ -68,6 +101,7 @@ export default function SessionDetails() {
     </View>
   );
 }
+export default observer(SessionDetails);
 const styles = StyleSheet.create({
   container: {
     height: "100%",
@@ -77,6 +111,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     height: 300,
     width: "100%",
+    // position: "absolute",
   },
   card: {
     justifyContent: "flex-start",
@@ -137,9 +172,38 @@ const styles = StyleSheet.create({
 
     elevation: 3,
   },
+  btnPressed: {
+    // alignItems: "center",
+    // alignContent: "center",
+    // justifyContent: "center",
+    // marginTop: 30,
+    marginHorizontal: 40,
+    // backgroundColor: "#FFA90D",
+    width: 300,
+    // height: 55,
+    // borderRadius: 10,
+    minWidth: "40%",
+    borderRadius: 10,
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 40,
+    backgroundColor: "#F8D390",
+
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 4.0,
+
+    elevation: 3,
+  },
   btnText: {
     fontSize: 25,
     textAlign: "center",
+    color: "white",
   },
   location: {
     marginTop: 20,
@@ -148,6 +212,7 @@ const styles = StyleSheet.create({
   parti: {
     textAlign: "right",
     fontSize: 17,
+    bottom: 20,
   },
   partiText: {
     textAlign: "left",
@@ -157,7 +222,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     backgroundColor: "rgba(0, 0, 0, 0.3)",
     width: "100%",
-    height: 90,
+    height: 100,
     flexDirection: "row",
     // marginTop: 20,
   },
@@ -165,13 +230,13 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     borderRadius: 25,
-    marginTop: 30,
+    marginTop: 40,
     marginHorizontal: 10,
   },
   trainerName: {
     fontSize: 25,
     color: "white",
-    marginTop: 40,
+    marginTop: 50,
     // marginHorizontal: 5,
   },
 });
