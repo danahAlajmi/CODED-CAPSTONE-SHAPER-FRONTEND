@@ -8,23 +8,17 @@ import {
 } from "react-native";
 import { observer } from "mobx-react";
 // import SessionDetails from "./SessionDetails";
-// import { useNavigation } from "@react-navigation/native";
 
 function SessionsListItem({ session }) {
   return (
     <View style={styles.container}>
-      <TouchableOpacity
-      // onPress={() => {
-      //   navigation.navigate("SessionDetailes");
-      // }}
-      >
+
         <ImageBackground
           style={styles.sessionImage}
           source={{ uri: session.image }}
         >
           <Text style={styles.sessionTitle}>{session.title}</Text>
         </ImageBackground>
-      </TouchableOpacity>
     </View>
   );
 }

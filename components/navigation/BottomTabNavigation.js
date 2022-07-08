@@ -15,6 +15,7 @@ import { FontAwesome5 } from "@expo/vector-icons";
 import Explore from "../Explore";
 import SessionDetails from "../session/SessionDetails";
 import CreateNavigation from "./CreateNavigation";
+import Home from "./Home";
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -23,7 +24,7 @@ function BottomTabNavigation() {
     <>
       {userStore.user ? (
         <Tab.Navigator
-          initialRouteName="ph"
+          initialRouteName="Home"
           screenOptions={{
             tabBarStyle: { borderTopWidth: 0, height: "7%", marginTop: 10 },
             headerTitleStyle: {
@@ -34,9 +35,10 @@ function BottomTabNavigation() {
           }}
         >
           <Tab.Screen
-            name="ph"
-            component={Explore}
+            name="Home"
+            component={Home}
             options={{
+              headerShown:false,
               tabBarShowLabel: false,
               tabBarIcon: (tabInfo) => {
                 return (
