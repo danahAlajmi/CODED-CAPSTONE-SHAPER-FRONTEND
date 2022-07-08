@@ -16,6 +16,9 @@ class SessionStore {
       console.log(error);
     }
   };
+  getSessionById = (id) => {
+    return this.sessions.find((session) => session._id === id);
+  };
   CreateSession = async (session) => {
     try {
       const response = await instance.post("/api/sessions/create",session);
