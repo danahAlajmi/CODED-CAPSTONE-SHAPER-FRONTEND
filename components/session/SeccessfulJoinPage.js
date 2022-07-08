@@ -1,25 +1,33 @@
-import RNDateTimePicker from '@react-native-community/datetimepicker';
-import { useState } from "react";
 import {Text,View,TouchableOpacity,Image,StyleSheet} from "react-native";
 
-export function SuccessfulPage({ route, navigation }){
+export function SuccessfulJoinPage({ route, navigation }){
+  let session =  route.params.session
 
 
-    const createSession = () => {
-
+    const goBack = () => {
+      navigation.navigate("Home",{
+        screen: 'Explore', params: {
+            screen: 'Sessions'
+        }}
+        )
     }
 
     return (
       <View style={styles.container}>
-      <Text style={styles.headerText}>Congragulations 🎉🎉🎉</Text>
-      <Text style={styles.headerText}>Session Created Successfully!</Text>
+      <Text style={styles.headerText}>Congragulations 🎉</Text>
+      <Text style={styles.headerText}>You have Successfully joined {session.title}</Text>
       <Text style={styles.headerText}>🏋️‍♂️</Text>
+      <Text style={styles.headerText}>Session Will be at:</Text>
+      <Text style={styles.headerText}>📅 {new Date(session.date).toLocaleDateString()}</Text>
+      <Text style={styles.headerText}>🕑 {new Date(session.date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}</Text>
+
+      
 
         <Image
           source={require("../../assets/lifting.gif")}
           style={styles.backgroundImage}
         />
-        <TouchableOpacity onPress={createSession} style={styles.goBackBtn}>
+        <TouchableOpacity onPress={goBack} style={styles.goBackBtn}>
           <Text style={styles.goBackText}>Go to Home</Text>
         </TouchableOpacity>
       </View>
@@ -35,12 +43,12 @@ export function SuccessfulPage({ route, navigation }){
 
     },
     headerText:{
-      fontSize:30,
+      fontSize:24,
       marginBottom: 10,
       textAlign:"center"
     },
     backgroundImage:{
-        marginTop:"20%",
+
         height:"45%",
         width:"100%"
 

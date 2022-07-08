@@ -9,8 +9,8 @@ import {
   View,
 } from "react-native";
 import { observer } from "mobx-react";
-import TrainersList from "./trainer/TrainersList";
-import SessionsList from "./session/SessionsList";
+import TrainersList from "../trainer/TrainersList";
+import SessionsList from "../session/SessionsList";
 const Tab = createMaterialTopTabNavigator();
 function Explore() {
   return (

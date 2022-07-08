@@ -26,7 +26,7 @@ function TrainersList() {
       return (
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("profile");
+            navigation.navigate("Profile",{trainer});
           }}
         >
           <TrainersListItem key={trainer._id} trainer={trainer} />

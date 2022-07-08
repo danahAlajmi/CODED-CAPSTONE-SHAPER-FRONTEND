@@ -17,14 +17,14 @@ import userStore from "../../stores/userStore";
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 
-function SessionDetails() {
+function SessionDetails({route}) {
   const navigation = useNavigation();
   const [btnText, setBtnText] = useState("Join");
   const [isPress, setIsPress] = useState(false);
   const [btnStyle, setBtnStyle] = useState(styles.btn);
 
   let user = userStore.user;
-  const session = sessionStore.sessions[0];
+  const session = route.params;
   const participantsList = session.participants.map((participant) => {
     return <ParticipantInfo key={participant} participant={participant} />;
   });
@@ -36,6 +36,7 @@ function SessionDetails() {
     setIsPress(true);
     setBtnStyle(styles.btnPressed);
     setBtnText("Unjoin");
+    navigation.navigate("SuccessJoin",{session})
   };
 
   return (
@@ -73,7 +74,7 @@ function SessionDetails() {
                 size={24}
                 color="black"
               /> */}
-              🗓️ 12:00PM - 7/7/2022
+              🗓️ {new Date(session.date).toLocaleDateString()} - {new Date(session.date).toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}
             </Text>
             <Text style={styles.duration}>
               {/* <MaterialCommunityIcons
