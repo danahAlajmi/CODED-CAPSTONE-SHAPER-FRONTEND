@@ -51,7 +51,7 @@ function Profile() {
         anchor={<Entypo onPress={showMenu} name="dots-three-horizontal" size={24} color="black" />}
         onRequestClose={hideMenu}
       >
-        <MenuItem pressColor="red" textStyle={{color:"black",}} onPress={handleSignout}> Sign out </MenuItem>
+        <MenuItem pressColor="red" textStyle={{color:"red",}} onPress={handleSignout}> Sign out </MenuItem>
       </Menu>
       </View>
 
