@@ -33,13 +33,33 @@ class SessionStore {
     }
   };
   getSessionById = (id) => {
+    console.log(this.sessions)
     return this.sessions.find((session) => session._id === id);
   };
+  
 
   CreateSession = async (session) => {
     try {
       const response = await instance.post("/api/sessions/create", session);
       this.sessions.push(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  UpdateSession = async (session,sessionId) => {
+    try {
+      const response = await instance.put(`/api/sessions/update/${sessionId}`, session);
+      this.fetchAllSessions();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  DeleteSession = async (session,sessionId) => {
+    try {
+      const response = await instance.delete(`/api/sessions/delete/${sessionId}`, session);
+      this.fetchAllSessions();
     } catch (error) {
       console.log(error);
     }

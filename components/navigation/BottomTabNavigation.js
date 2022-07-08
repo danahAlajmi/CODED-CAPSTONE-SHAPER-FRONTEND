@@ -7,14 +7,11 @@ import { SignOutWhenStuck } from "../user/SignOutWhenStuck";
 import { SignInPage } from "../user/SignInPage";
 import { SignUpPage } from "../user/SignUpPage";
 import { CreateProfile } from "../user/CreateProfile";
-import { Image } from "react-native";
 import ProfileNav from "./ProfileNav";
 import { Ionicons } from "@expo/vector-icons";
 import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
-import Explore from "../Explore";
-import SessionDetails from "../session/SessionDetails";
-import CreateNavigation from "./CreateNavigation";
+import DumbbellNavigation from "./DumbbellNavigation";
 import Home from "./Home";
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -38,7 +35,7 @@ function BottomTabNavigation() {
             name="Home"
             component={Home}
             options={{
-              headerShown:false,
+              headerShown: false,
               tabBarShowLabel: false,
               tabBarIcon: (tabInfo) => {
                 return (
@@ -52,11 +49,10 @@ function BottomTabNavigation() {
             }}
           />
           <Tab.Screen
-            name="ph2"
-            component={CreateNavigation}
+            name="My Sessions"
+            component={DumbbellNavigation}
             options={{
               tabBarShowLabel: false,
-              headerShown: false,
               tabBarIcon: (tabInfo) => {
                 return (
                   <FontAwesome5
@@ -69,7 +65,7 @@ function BottomTabNavigation() {
             }}
           />
           <Tab.Screen
-            name="Profile"
+            name="ProfileMenu"
             component={ProfileNav}
             options={{
               tabBarShowLabel: false,
