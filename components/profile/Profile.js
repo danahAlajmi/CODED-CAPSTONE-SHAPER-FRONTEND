@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { useState } from 'react';
+import { useState } from "react";
 import {
   View,
   Text,
@@ -18,8 +18,8 @@ import profileStore from "../../stores/profileStore";
 import { Button } from "native-base";
 import userStore from "../../stores/userStore";
 import SessionsListItem from "../session/SessionsListItem";
-import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
-import { Entypo } from '@expo/vector-icons';
+import { Menu, MenuItem, MenuDivider } from "react-native-material-menu";
+import { Entypo } from "@expo/vector-icons";
 function Profile() {
   const [visible, setVisible] = useState(false);
 
@@ -28,32 +28,43 @@ function Profile() {
   const showMenu = () => setVisible(true);
 
   const handleSignout = () => {
-    hideMenu()
+    hideMenu();
     userStore.signout();
   };
   const navigation = useNavigation();
   if (profileStore.isLoading) return <Text>Loading</Text>;
   let user = userStore.user;
-  //console.log(user._id);
   // Ali added this line to make sure upload works
   let profile = profileStore.getProfileById(user._id);
-  //console.log(profile);
   const sessionsList = profile.user?.enrolled?.map((session) => {
     return <SessionProfileItem key={session} session={session} />;
   });
-  // console.log(sessionsList);
   return (
     <SafeAreaView style={styles.containerSaveView}>
       <View style={styles.container}>
-        <View style={{position: 'absolute', right: 0, marginRight:30}}>
-      <Menu
-        visible={visible}
-        anchor={<Entypo onPress={showMenu} name="dots-three-horizontal" size={24} color="black" />}
-        onRequestClose={hideMenu}
-      >
-        <MenuItem pressColor="red" textStyle={{color:"red",}} onPress={handleSignout}> Sign out </MenuItem>
-      </Menu>
-      </View>
+        <View style={{ position: "absolute", right: 0, marginRight: 30 }}>
+          <Menu
+            visible={visible}
+            anchor={
+              <Entypo
+                onPress={showMenu}
+                name="dots-three-horizontal"
+                size={24}
+                color="black"
+              />
+            }
+            onRequestClose={hideMenu}
+          >
+            <MenuItem
+              pressColor="red"
+              textStyle={{ color: "red" }}
+              onPress={handleSignout}
+            >
+              {" "}
+              Sign out{" "}
+            </MenuItem>
+          </Menu>
+        </View>
 
         <View style={styles.profileItems}>
           <Image

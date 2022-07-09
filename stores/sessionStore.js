@@ -26,6 +26,10 @@ class SessionStore {
       const res = await instance.post(
         `/api/sessions/${sessionId}/user/${userId}`
       );
+      const updateSession = Object.assign(
+        this.sessions.find((session) => session._id === sessionId),
+        res.data
+      );
       //console.log(res.data);
       this.fetchAllSessions();
     } catch (error) {
@@ -33,10 +37,9 @@ class SessionStore {
     }
   };
   getSessionById = (id) => {
-    console.log(this.sessions)
+    console.log(this.sessions);
     return this.sessions.find((session) => session._id === id);
   };
-  
 
   CreateSession = async (session) => {
     try {
@@ -47,18 +50,24 @@ class SessionStore {
     }
   };
 
-  UpdateSession = async (session,sessionId) => {
+  UpdateSession = async (session, sessionId) => {
     try {
-      const response = await instance.put(`/api/sessions/update/${sessionId}`, session);
+      const response = await instance.put(
+        `/api/sessions/update/${sessionId}`,
+        session
+      );
       this.fetchAllSessions();
     } catch (error) {
       console.log(error);
     }
   };
 
-  DeleteSession = async (session,sessionId) => {
+  DeleteSession = async (session, sessionId) => {
     try {
-      const response = await instance.delete(`/api/sessions/delete/${sessionId}`, session);
+      const response = await instance.delete(
+        `/api/sessions/delete/${sessionId}`,
+        session
+      );
       this.fetchAllSessions();
     } catch (error) {
       console.log(error);

@@ -26,7 +26,7 @@ function TrainersList() {
       return (
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("Profile",{trainer});
+            navigation.navigate("Profile", { trainer });
           }}
         >
           <TrainersListItem key={trainer._id} trainer={trainer} />
@@ -45,7 +45,13 @@ function TrainersList() {
         />
       </View>
 
-      <ScrollView style={styles.scrollView}>{trainersList}</ScrollView>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        showsHorizontalScrollIndicator={false}
+        style={styles.scrollView}
+      >
+        {trainersList}
+      </ScrollView>
     </SafeAreaView>
   );
 }

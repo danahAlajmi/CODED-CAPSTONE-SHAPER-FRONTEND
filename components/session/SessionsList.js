@@ -35,10 +35,9 @@ function SessionsList() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.spaceSearch}>
-        <Text>🔍</Text>
         <TextInput
           style={styles.searchBar}
-          placeholder="All"
+          placeholder="🔍 All"
           placeholderTextColor="#003f5c"
           onChangeText={(search) => setSearch(search)}
         />

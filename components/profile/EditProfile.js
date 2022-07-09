@@ -22,9 +22,7 @@ let imageUri = null;
 function EditProfile() {
   if (profileStore.isLoading) return <Text>Loading</Text>;
   let user = userStore.user;
-  // console.log(user._id);
   let profile = profileStore.getProfileById(user._id);
-  //console.log(profile);
 
   const [bio, onChangeBio] = useState(profile.bio);
   const [image, onChangeImage] = useState(profile.image);
