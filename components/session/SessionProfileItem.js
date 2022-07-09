@@ -9,17 +9,19 @@ import {
 import { observer } from "mobx-react";
 import sessionStore from "../../stores/sessionStore";
 // import SessionDetails from "./SessionDetails";
-// import { useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 
 function SessionProfileItem({ session }) {
+  const navigation = useNavigation();
+
   let sessionInfo = sessionStore.getSessionById(session);
   console.log(sessionInfo);
   return (
     <View style={styles.container}>
       <TouchableOpacity
-      // onPress={() => {
-      //   navigation.navigate("SessionDetailes");
-      // }}
+        onPress={() => {
+          navigation.navigate("SessionDetails", sessionInfo);
+        }}
       >
         <ImageBackground
           style={styles.sessionImage}

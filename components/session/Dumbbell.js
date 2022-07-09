@@ -11,21 +11,21 @@ import { observer } from "mobx-react";
 import sessionStore from "../../stores/sessionStore";
 import SessionDumbbellCard from "./SessionDumbbellCard";
 import userStore from "../../stores/userStore";
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { Menu, MenuItem, MenuDivider } from 'react-native-material-menu';
+import { Menu, MenuItem, MenuDivider } from "react-native-material-menu";
 
 function Dumbbell() {
-  const navigation = useNavigation()
+  const navigation = useNavigation();
   const timeSections = {
     today: [],
     upcoming: [],
     past: [],
-  }
+  };
 
   const goToCreate = () => {
-    navigation.navigate("SessionCreateDetail")
-  }
+    navigation.navigate("SessionCreateDetail");
+  };
 
   //.filter((session) => session.participants.includes(userStore.user._id))
   sessionStore.sessions.forEach((session) => {
@@ -74,30 +74,30 @@ function Dumbbell() {
         </ScrollView>
       </View>
       {userStore.user.isTrainer ? (
-            <TouchableOpacity onPress={goToCreate} style={styles.addBtn}>
-                <FontAwesome name="plus" size={28} color="white" />
-            </TouchableOpacity>
-        ) : (
-          <></>
-        )}
-
+        <TouchableOpacity onPress={goToCreate} style={styles.addBtn}>
+          <FontAwesome name="plus" size={28} color="white" />
+        </TouchableOpacity>
+      ) : (
+        <></>
+      )}
     </View>
   );
 }
 const styles = StyleSheet.create({
-  container: {},
+  container: { backgroundColor: "white", height: "100%" },
   header: { fontSize: 35, marginHorizontal: 30, backgroundColor: "white" },
   section: { backgroundColor: "white", height: 220 },
   sectionScroll: { marginLeft: 30 },
-  addBtn:{  
-    alignItems: 'center',
-  justifyContent: 'center',
-  width: 70,
-  position: 'absolute',
-  bottom: 10,
-  right: 10,
-  height: 70,
-  backgroundColor: '#FFA90D',
-  borderRadius: 100, },
+  addBtn: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: 70,
+    position: "absolute",
+    bottom: 10,
+    right: 10,
+    height: 70,
+    backgroundColor: "#FFA90D",
+    borderRadius: 100,
+  },
 });
 export default observer(Dumbbell);

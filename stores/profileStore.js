@@ -61,7 +61,8 @@ class ProfileStore {
       for (let index = 0; index < allDurations.length; index++) {
         numOfMin += allDurations[index];
       }
-      return numOfMin / 60;
+      let numH = numOfMin / 60;
+      return numH.toFixed(0);
     }
   }
 }
