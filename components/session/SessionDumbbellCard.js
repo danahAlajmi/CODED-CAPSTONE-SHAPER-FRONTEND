@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
   sessionTitle: {
     backgroundColor: "rgba(0, 0, 0, 0.5)",
     color: "white",
-    fontSize: 12,
+    fontSize: 14,
     padding: 12.5,
     position: "relative",
     top: "70%",

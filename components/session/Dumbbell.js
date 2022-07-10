@@ -27,52 +27,73 @@ function Dumbbell() {
     navigation.navigate("SessionCreateDetail");
   };
 
-  //.filter((session) => session.participants.includes(userStore.user._id))
-  sessionStore.sessions.forEach((session) => {
-    if (session.date < Date.now()) {
-      timeSections.past.push(
-        <SessionDumbbellCard key={session._id} session={session} />
-      );
-    } else if (
-      new Date(session.date).toLocaleDateString() ===
-      new Date().toLocaleDateString()
-    ) {
-      timeSections.today.push(
-        <SessionDumbbellCard key={session._id} session={session} />
-      );
-    } else {
-      timeSections.upcoming.push(
-        <SessionDumbbellCard key={session._id} session={session} />
-      );
-    }
-  });
+  sessionStore.sessions
+    .filter((session) => session.participants.includes(userStore.user._id))
+    .forEach((session) => {
+      if (session.date < Date.now()) {
+        timeSections.past.push(
+          <SessionDumbbellCard key={session._id} session={session} />
+        );
+      } else if (
+        new Date(session.date).toLocaleDateString() ===
+        new Date().toLocaleDateString()
+      ) {
+        timeSections.today.push(
+          <SessionDumbbellCard key={session._id} session={session} />
+        );
+      } else {
+        timeSections.upcoming.push(
+          <SessionDumbbellCard key={session._id} session={session} />
+        );
+      }
+    });
+
+  const zeroSessions =
+    timeSections.today.length === 0 &&
+    timeSections.upcoming.length === 0 &&
+    timeSections.past.length === 0;
 
   return (
     <View style={styles.container}>
-      <View style={styles.section}>
-        <Text style={styles.header}>Today</Text>
-        {timeSections.today.length === 0 ? (
-          <Text>No stuff</Text>
-        ) : (
+      {timeSections.today.length === 0 ? (
+        <></>
+      ) : (
+        <View style={styles.section}>
+          <Text style={styles.header}>Today</Text>
           <ScrollView style={styles.sectionScroll} horizontal={true}>
             {timeSections.today}
           </ScrollView>
-        )}
-      </View>
+        </View>
+      )}
 
-      <View style={styles.section}>
-        <Text style={styles.header}>Upcoming</Text>
-        <ScrollView style={styles.sectionScroll} horizontal={true}>
-          {timeSections.upcoming}
-        </ScrollView>
-      </View>
+      {timeSections.upcoming.length === 0 ? (
+        <></>
+      ) : (
+        <View style={styles.section}>
+          <Text style={styles.header}>Upcoming</Text>
+          <ScrollView style={styles.sectionScroll} horizontal={true}>
+            {timeSections.upcoming}
+          </ScrollView>
+        </View>
+      )}
 
-      <View style={styles.section}>
-        <Text style={styles.header}>Past</Text>
-        <ScrollView style={styles.sectionScroll} horizontal={true}>
-          {timeSections.past}
-        </ScrollView>
-      </View>
+      {timeSections.past.length === 0 ? (
+        <></>
+      ) : (
+        <View style={styles.section}>
+          <Text style={styles.header}>Past</Text>
+          <ScrollView style={styles.sectionScroll} horizontal={true}>
+            {timeSections.past}
+          </ScrollView>
+        </View>
+      )}
+      {zeroSessions ? (
+        <View style={styles.section}>
+          <Text style={styles.header}>You don't have any sessions</Text>
+        </View>
+      ) : (
+        <></>
+      )}
       {userStore.user.isTrainer ? (
         <TouchableOpacity onPress={goToCreate} style={styles.addBtn}>
           <FontAwesome name="plus" size={28} color="white" />
