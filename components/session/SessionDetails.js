@@ -29,9 +29,9 @@ function SessionDetails({ route }) {
   let user = userStore.user;
   const session = route.params;
   // console.log(session);
-  const participantsList = session.participants.map((participant) => {
-    return <ParticipantInfo key={participant} participant={participant} />;
-  });
+  // const participantsList = session.participants.map((participant) => {
+  //   return <ParticipantInfo key={participant} participant={participant} />;
+  // });
   let profile = profileStore.getProfileById(session.trainer);
   let signedUserProfile = profileStore.getProfileById(user._id);
   const refr = () => {
@@ -43,21 +43,37 @@ function SessionDetails({ route }) {
   const handleJoin = () => {
     sessionStore.joinSession(session._id, user._id);
     setIsEnroll(true);
-    // refr;
+    refr;
+    // console.log(session.participants);
     navigation.navigate("SuccessJoin", { session });
   };
-  console.log(signedUserProfile.user.enrolled);
-  let isEnrolled = signedUserProfile.user.enrolled.some((sessionId) => {
-    // return session._id == sessionId;
-    if (session._id == sessionId) {
-      // setIsEnroll(true);
+  const handleCancele = () => {
+    sessionStore.canceleSession(session._id, user._id);
+    setIsEnroll(false);
+    refr;
+    // console.log(session.participants);
+    navigation.navigate("SuccessCancele", { session });
+  };
+  // console.log(signedUserProfile.user.enrolled);
+  let isEnrolled = session.participants.some((patricipent) => {
+    user;
+    if (user._id == patricipent) {
       return true;
     } else {
       return false;
     }
   });
+  // let isEnrolled = signedUserProfile.user.enrolled.some((sessionId) => {
+  //   // return session._id == sessionId;
+  //   if (session._id == sessionId) {
+  //     // setIsEnroll(true);
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // });
   // isEnrolled = isEnrolled[0];
-  console.log(isEnrolled, isEnroll);
+  // console.log(isEnrolled, isEnroll);
 
   const handleEdit = () => {
     hideMenu();
@@ -72,7 +88,9 @@ function SessionDetails({ route }) {
   const hideMenu = () => setVisible(false);
 
   const showMenu = () => setVisible(true);
-
+  const participantsList = session.participants.map((participant) => {
+    return <ParticipantInfo key={participant} participant={participant} />;
+  });
   return (
     <View style={styles.container}>
       {/* <Image style={styles.imageContainer} source={{ uri: session.image }} />
@@ -161,11 +179,12 @@ function SessionDetails({ route }) {
             <Text style={styles.datePrice}>💰 10KD</Text>
             {isEnrolled || isEnroll ? (
               <TouchableOpacity
-                activeOpacity={0.5}
-                disabled={true}
+                onPress={handleCancele}
+                // activeOpacity={0.5}
+                // disabled={true}
                 style={styles.btnPressed}
               >
-                <Text style={styles.btnText}>Joined</Text>
+                <Text style={styles.btnText}>Unjoined</Text>
               </TouchableOpacity>
             ) : (
               <TouchableOpacity onPress={handleJoin} style={styles.btn}>
