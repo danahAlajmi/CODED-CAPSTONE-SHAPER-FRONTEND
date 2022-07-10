@@ -36,8 +36,24 @@ class SessionStore {
       console.log(error);
     }
   };
+  canceleSession = async (sessionId, userId) => {
+    // console.log(sessionId, userId);
+    try {
+      const res = await instance.post(
+        `/api/sessions/cancele/${sessionId}/${userId}`
+      );
+      const cancleSession = Object.assign(
+        this.sessions.find((session) => session._id === sessionId),
+        res.data
+      );
+      //console.log(res.data);
+      this.fetchAllSessions();
+    } catch (error) {
+      console.log(error);
+    }
+  };
   getSessionById = (id) => {
-    console.log(this.sessions);
+    // console.log(this.sessions);
     return this.sessions.find((session) => session._id === id);
   };
 
