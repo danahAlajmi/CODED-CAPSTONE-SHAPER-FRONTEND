@@ -36,13 +36,13 @@ class SessionStore {
       console.log(error);
     }
   };
-  canceleSession = async (sessionId, userId) => {
+  cancelSession = async (sessionId, userId) => {
     // console.log(sessionId, userId);
     try {
       const res = await instance.post(
-        `/api/sessions/cancele/${sessionId}/${userId}`
+        `/api/sessions/cancel/${sessionId}/${userId}`
       );
-      const cancleSession = Object.assign(
+      const canclSession = Object.assign(
         this.sessions.find((session) => session._id === sessionId),
         res.data
       );

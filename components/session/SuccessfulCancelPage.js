@@ -1,6 +1,6 @@
 import { Text, View, TouchableOpacity, Image, StyleSheet } from "react-native";
 
-export function SuccessfulCancelePage({ route, navigation }) {
+export function SuccessfulCancelPage({ route, navigation }) {
   let session = route.params.session;
 
   const goBack = () => {
