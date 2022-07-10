@@ -47,12 +47,12 @@ function SessionDetails({ route }) {
     // console.log(session.participants);
     navigation.navigate("SuccessJoin", { session });
   };
-  const handleCancele = () => {
-    sessionStore.canceleSession(session._id, user._id);
+  const handleCancel = () => {
+    sessionStore.cancelSession(session._id, user._id);
     setIsEnroll(false);
     refr;
     // console.log(session.participants);
-    navigation.navigate("SuccessCancele", { session });
+    navigation.navigate("SuccessCancel", { session });
   };
   // console.log(signedUserProfile.user.enrolled);
   let isEnrolled = session.participants.some((patricipent) => {
@@ -179,7 +179,7 @@ function SessionDetails({ route }) {
             <Text style={styles.datePrice}>💰 10KD</Text>
             {isEnrolled || isEnroll ? (
               <TouchableOpacity
-                onPress={handleCancele}
+                onPress={handleCancel}
                 // activeOpacity={0.5}
                 // disabled={true}
                 style={styles.btnPressed}

@@ -7,7 +7,7 @@ import ProfileUserView from "../profile/ProfileUserView";
 import SessionDetails from "../session/SessionDetails";
 import sessionStore from "./../../stores/sessionStore";
 import { SuccessfulJoinPage } from "../session/SeccessfulJoinPage";
-import { SuccessfulCancelePage } from "../session/SuccessfulCancelePage";
+import { SuccessfulCancelPage } from "../session/SuccessfulCancelPage";
 import { SessionEditDetail } from "../session/SessionEditDetail";
 import { SessionEditTime } from "../session/SessionEditTime";
 const Stack = createNativeStackNavigator();
@@ -33,8 +33,8 @@ function Home() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="SuccessCancele"
-        component={SuccessfulCancelePage}
+        name="SuccessCancel"
+        component={SuccessfulCancelPage}
         options={{ headerShown: false }}
       />
 
