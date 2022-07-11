@@ -20,6 +20,7 @@ import { Menu, MenuItem, MenuDivider } from "react-native-material-menu";
 import { useState, useEffect } from "react";
 import { Entypo } from "@expo/vector-icons";
 
+import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
 function SessionDetails({ route }) {
   const [visible, setVisible] = useState(false);
   const [isEnroll, setIsEnroll] = useState(false);
@@ -28,6 +29,13 @@ function SessionDetails({ route }) {
   const navigation = useNavigation();
   let user = userStore.user;
   const session = route.params;
+  var loc = session.location.split(",");
+  const detailsLocation = {
+    latitude: loc[0],
+    longitude: loc[1],
+    latitudeDelta: 0.0035,
+    longitudeDelta: 0.0035,
+  };
   // console.log(session);
   // const participantsList = session.participants.map((participant) => {
   //   return <ParticipantInfo key={participant} participant={participant} />;
@@ -169,11 +177,12 @@ function SessionDetails({ route }) {
             <Text style={styles.description}>{session.description}</Text>
             <Text style={styles.datePrice}>
               🗓️ {new Date(session.date).toLocaleDateString()} -
-              {new Date(session.date).toLocaleString("en-US", {
-                hour: "numeric",
-                minute: "numeric",
-                hour12: true,
-              })}
+              {" " +
+                new Date(session.date).toLocaleString("en-US", {
+                  hour: "numeric",
+                  minute: "numeric",
+                  hour12: true,
+                })}
             </Text>
             <Text style={styles.duration}>⏳ {session.duration} Min</Text>
             <Text style={styles.datePrice}>💰 10KD</Text>
@@ -191,13 +200,30 @@ function SessionDetails({ route }) {
                 <Text style={styles.btnText}>Join</Text>
               </TouchableOpacity>
             )}
-            <Text style={styles.location}>📍 Location</Text>
+
             <View>
-              <Text style={styles.partiText}>👥 participants</Text>
+              <Text style={styles.partiText}>👥 Participants</Text>
               <Text style={styles.parti}>
                 {session.participants.length}/{session.limit}
               </Text>
-              <View>{participantsList}</View>
+              {session.participants.length === 0 ? (
+                <Text>None</Text>
+              ) : (
+                <View>{participantsList}</View>
+              )}
+            </View>
+            <View>
+              <Text style={styles.locationTitle}>📍 Location</Text>
+              <View style={styles.map}>
+                <MapView
+                  provider={PROVIDER_GOOGLE}
+                  region={detailsLocation}
+                  style={StyleSheet.absoluteFillObject}
+                  mapType={"satelite"}
+                >
+                  <Marker coordinate={detailsLocation}></Marker>
+                </MapView>
+              </View>
             </View>
           </View>
         </View>
@@ -309,9 +335,16 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "white",
   },
-  location: {
+  locationTitle: {
     marginTop: 20,
     fontSize: 20,
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject,
+    marginTop: 50,
+    height: 100,
+    borderWidth: 2,
+    borderColor: "#FFA90D",
   },
   parti: {
     textAlign: "right",
@@ -321,6 +354,7 @@ const styles = StyleSheet.create({
   partiText: {
     textAlign: "left",
     fontSize: 20,
+    marginTop: 50,
   },
   trainerInfo: {
     position: "absolute",

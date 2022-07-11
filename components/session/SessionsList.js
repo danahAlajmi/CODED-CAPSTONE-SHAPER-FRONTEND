@@ -27,8 +27,9 @@ function SessionsList() {
           onPress={() => {
             navigation.navigate("SessionDetails", session);
           }}
+          key={session._id}
         >
-          <SessionsListItem key={session._id} session={session} />
+          <SessionsListItem session={session} />
         </TouchableOpacity>
       );
     });
