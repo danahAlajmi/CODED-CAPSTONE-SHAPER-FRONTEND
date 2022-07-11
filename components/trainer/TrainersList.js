@@ -28,8 +28,9 @@ function TrainersList() {
           onPress={() => {
             navigation.navigate("Profile", { trainer });
           }}
+          key={trainer._id}
         >
-          <TrainersListItem key={trainer._id} trainer={trainer} />
+          <TrainersListItem trainer={trainer} />
         </TouchableOpacity>
       );
     });

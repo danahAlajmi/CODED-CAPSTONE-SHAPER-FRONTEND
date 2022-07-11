@@ -28,7 +28,11 @@ function Dumbbell() {
   };
 
   sessionStore.sessions
-    .filter((session) => session.participants.includes(userStore.user._id))
+    .filter(
+      (session) =>
+        session.participants.includes(userStore.user._id) ||
+        session.trainer === userStore.user._id
+    )
     .forEach((session) => {
       if (session.date < Date.now()) {
         timeSections.past.push(
