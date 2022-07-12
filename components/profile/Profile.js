@@ -58,7 +58,7 @@ function Profile() {
 
   let user = userStore.user;
   let profile = profileStore.getProfileById(user._id);
-
+  console.log(user);
   return (
     <SafeAreaView style={styles.containerSaveView}>
       <View style={styles.container}>
@@ -98,27 +98,27 @@ function Profile() {
               <Text style={styles.profileName}>
                 {profile.firstName} {profile.lastName}
               </Text>
-              <TouchableOpacity
-                style={styles.EditBtn}
-                onPress={() => {
-                  navigation.navigate("EditProfile");
-                }}
-              >
-                <MaterialCommunityIcons
-                  name="account-edit-outline"
-                  size={30}
-                  color="black"
-                />
-              </TouchableOpacity>
             </View>
             <Text style={styles.bio}>{profile.bio}</Text>
             <View style={styles.containerNumOfHOurs}>
               <Text style={styles.number}>
-                {profileStore.getNumOfHours(profile._id)}{" "}
+                {profileStore.getNumOfHours(profile._id)}
               </Text>
               <Text> Hours 🏋️</Text>
             </View>
           </View>
+          <TouchableOpacity
+            style={styles.EditBtn}
+            onPress={() => {
+              navigation.navigate("EditProfile");
+            }}
+          >
+            <MaterialCommunityIcons
+              name="account-edit-outline"
+              size={30}
+              color="black"
+            />
+          </TouchableOpacity>
         </View>
         <View style={styles.border} />
         <View style={{ height: "100%" }}>
@@ -226,8 +226,11 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   EditBtn: {
-    left: 100,
-    // top: -5,
+    // left: 80,
+    top: 7,
+    position: "absolute",
+    right: -6,
+    marginRight: 30,
     // width: 50,
     // borderRadius: 50,
     // height: 50,
