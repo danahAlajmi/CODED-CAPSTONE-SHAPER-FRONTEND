@@ -13,11 +13,21 @@ import {
 import { useState } from "react";
 import userStore from "../../stores/userStore";
 import { ALERT_TYPE, Dialog, Root, Toast } from 'react-native-alert-notification';
+import { useFonts } from 'expo-font';
 
 export function SignInPage({ navigation }) {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showErrorin, setShowErrorin] = useState(false);
+  const [loaded] = useFonts({
+    'UbuntuBold': require('../../assets/fonts/Ubuntu-Bold.ttf'),
+    'UbuntuLight': require('../../assets/fonts/Ubuntu-Light.ttf'),
+    'Ubuntu': require('../../assets/fonts/Ubuntu-Regular.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
 
   const handleSignin = () => {
     let user = {
@@ -65,7 +75,7 @@ export function SignInPage({ navigation }) {
 
         <Text style={styles.askText}>Don't have an account?</Text>
         <View stylle={styles.signUpContainer}>
-        <TouchableOpacity onPress={handleSignUp}><Text style={{marginTop:20, fontWeight:"bold"}}>Sign up<Text style={{color:"#FFA90D"}}> Here</Text></Text></TouchableOpacity>
+        <TouchableOpacity onPress={handleSignUp}><Text style={{marginTop:20, fontFamily:"UbuntuBold"}}>Sign up<Text style={{color:"#FFA90D",fontFamily:"UbuntuBold"}}> Here</Text></Text></TouchableOpacity>
         </View>
 
         {showErrorin ? (
@@ -121,6 +131,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     marginLeft: 20,
+    fontFamily:"UbuntuLight",
   },
   signinBtn: {
     minWidth: "40%",
@@ -142,7 +153,7 @@ const styles = StyleSheet.create({
   },
   signinText: {
     color: "white",
-    fontWeight: "bold",
+    fontFamily:"UbuntuBold",
     alignSelf: "center",
   },
   signUpContainer:{
@@ -152,7 +163,6 @@ const styles = StyleSheet.create({
     marginTop:40,
     color: "black",
     fontSize: 16,
-    fontWeight: "bold",
-
+    fontFamily:"UbuntuBold"
   },
 });

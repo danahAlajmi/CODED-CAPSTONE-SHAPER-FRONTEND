@@ -14,8 +14,18 @@ import userStore from "../../stores/userStore";
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { Menu, MenuItem, MenuDivider } from "react-native-material-menu";
+import { useFonts } from 'expo-font';
 
 function Dumbbell() {
+  const [loaded] = useFonts({
+    'UbuntuBold': require('../../assets/fonts/Ubuntu-Bold.ttf'),
+    'UbuntuLight': require('../../assets/fonts/Ubuntu-Light.ttf'),
+    'Ubuntu': require('../../assets/fonts/Ubuntu-Regular.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
   const navigation = useNavigation();
   const timeSections = {
     today: [],
@@ -110,7 +120,7 @@ function Dumbbell() {
 }
 const styles = StyleSheet.create({
   container: { backgroundColor: "white", height: "100%" },
-  header: { fontSize: 35, marginHorizontal: 30, backgroundColor: "white" },
+  header: { fontSize: 35, marginHorizontal: 30, backgroundColor: "white",fontFamily:"Ubuntu", },
   section: { backgroundColor: "white", height: 220 },
   sectionScroll: { marginLeft: 30 },
   addBtn: {

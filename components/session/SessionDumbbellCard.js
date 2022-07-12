@@ -11,7 +11,18 @@ import {
 } from "react-native";
 import { observer } from "mobx-react";
 import userStore from "../../stores/userStore";
+import { useFonts } from 'expo-font';
+
 function SessionDumbbellCard({ session }) {
+  const [loaded] = useFonts({
+    'UbuntuBold': require('../../assets/fonts/Ubuntu-Bold.ttf'),
+    'UbuntuLight': require('../../assets/fonts/Ubuntu-Light.ttf'),
+    'Ubuntu': require('../../assets/fonts/Ubuntu-Regular.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -56,6 +67,7 @@ const styles = StyleSheet.create({
     padding: 12.5,
     position: "relative",
     top: "70%",
+    fontFamily:"Ubuntu",
   },
   trainerInd: {
     height: 35,

@@ -39,6 +39,9 @@ function ProfileSessionLEnrolled() {
 const styles = StyleSheet.create({
   scrollView: {
     width: 390,
+    height:"100%",
+    backgroundColor:"white"
+
   },
 });
 export default observer(ProfileSessionLEnrolled);

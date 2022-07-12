@@ -10,8 +10,19 @@ import {
 } from "react-native";
 
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
+import { useFonts } from 'expo-font';
 
 export function SessionCreateLocation({ route, navigation }) {
+  const [loaded] = useFonts({
+    'UbuntuBold': require('../../assets/fonts/Ubuntu-Bold.ttf'),
+    'UbuntuLight': require('../../assets/fonts/Ubuntu-Light.ttf'),
+    'Ubuntu': require('../../assets/fonts/Ubuntu-Regular.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
+
   let session = route.params.session;
 
   const [location, setLocation] = useState({
@@ -70,7 +81,7 @@ const styles = StyleSheet.create({
   },
   nextText: {
     color: "white",
-    fontWeight: "bold",
+    fontFamily:"UbuntuBold",
     alignSelf: "center",
   },
 });

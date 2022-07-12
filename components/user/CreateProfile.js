@@ -14,6 +14,7 @@ import profileStore from "../../stores/profileStore";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 import { AntDesign } from "@expo/vector-icons";
+import { useFonts } from 'expo-font';
 
 let imageUri = null;
 
@@ -22,6 +23,17 @@ export function CreateProfile({ route }) {
   const [lastName, setLastName] = useState("");
   const [bio, setBio] = useState("");
   const [profileError, showProfileError] = useState(false);
+  const [loaded] = useFonts({
+    'UbuntuBold': require('../../assets/fonts/Ubuntu-Bold.ttf'),
+    'UbuntuLight': require('../../assets/fonts/Ubuntu-Light.ttf'),
+    'Ubuntu': require('../../assets/fonts/Ubuntu-Regular.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
+
+
   const handleCreateProfile = () => {
     let profile = null;
     // const user = route.params
@@ -167,6 +179,8 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     marginLeft: 20,
+    fontFamily:"UbuntuLight",
+
   },
   SignUpBtn: {
     minWidth: "40%",
@@ -188,7 +202,8 @@ const styles = StyleSheet.create({
   },
   SignUpText: {
     color: "#FFA90D",
-    fontWeight: "bold",
+    fontFamily:"UbuntuBold",
     alignSelf: "center",
+
   },
 });

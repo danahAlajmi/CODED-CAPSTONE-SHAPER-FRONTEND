@@ -13,8 +13,18 @@ import { observer } from "mobx-react";
 import sessionStore from "../../stores/sessionStore";
 import SessionsListItem from "./SessionsListItem";
 import { useNavigation } from "@react-navigation/native";
+import { useFonts } from 'expo-font';
 function SessionsList() {
   const [search, setSearch] = useState("");
+  const [loaded] = useFonts({
+    'UbuntuBold': require('../../assets/fonts/Ubuntu-Bold.ttf'),
+    'UbuntuLight': require('../../assets/fonts/Ubuntu-Light.ttf'),
+    'Ubuntu': require('../../assets/fonts/Ubuntu-Regular.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
 
   const navigation = useNavigation();
   const sessionsList = sessionStore.sessions
@@ -65,6 +75,7 @@ const styles = StyleSheet.create({
   searchBar: {
     padding: 10,
     fontSize: 16,
+    fontFamily:"Ubuntu",
     borderRadius: 10,
     width: 310,
     backgroundColor: "#EAEAEA",

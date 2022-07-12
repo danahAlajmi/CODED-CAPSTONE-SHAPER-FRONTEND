@@ -2,7 +2,20 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View, Image } from "react-native";
 import { observer } from "mobx-react";
 import profileStore from "../../stores/profileStore";
+import { useFonts } from 'expo-font';
+
 function TrainersListItem({ trainer }) {
+
+const [loaded] = useFonts({
+  'UbuntuBold': require('../../assets/fonts/Ubuntu-Bold.ttf'),
+  'UbuntuLight': require('../../assets/fonts/Ubuntu-Light.ttf'),
+  'Ubuntu': require('../../assets/fonts/Ubuntu-Regular.ttf'),
+});
+
+if (!loaded) {
+  return null;
+}
+
   //trainer.profile = profileStore.getProfileById(trainer._id);
   return (
     <View style={styles.container}>
@@ -46,9 +59,11 @@ const styles = StyleSheet.create({
   },
   nameText: {
     fontSize: 16,
+    fontFamily:"UbuntuBold",
   },
   bioText: {
     fontSize: 9,
+    fontFamily:"UbuntuLight",
     marginVertical: 10,
     color: "#A09C9A",
   },
