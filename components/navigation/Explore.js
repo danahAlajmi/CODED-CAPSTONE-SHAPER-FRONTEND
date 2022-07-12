@@ -22,7 +22,6 @@ function Explore() {
     >
       <Tab.Screen name="Trainers" component={TrainersList} />
       <Tab.Screen name="Sessions" component={SessionsList} />
-
     </Tab.Navigator>
   );
 }

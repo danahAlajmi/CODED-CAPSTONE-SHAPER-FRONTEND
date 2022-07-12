@@ -8,14 +8,13 @@ import {
 } from "react-native";
 import { observer } from "mobx-react";
 import sessionStore from "../../stores/sessionStore";
-// import SessionDetails from "./SessionDetails";
 import { useNavigation } from "@react-navigation/native";
 
-function SessionProfileItem({ session }) {
+function ProfileSessionItem({ session }) {
   const navigation = useNavigation();
 
-  let sessionInfo = sessionStore.getSessionById(session);
-  console.log(sessionInfo);
+  let sessionInfo = sessionStore.getSessionById(session._id);
+
   return (
     <View style={styles.container}>
       <TouchableOpacity
@@ -60,4 +59,4 @@ const styles = StyleSheet.create({
     top: "50%",
   },
 });
-export default observer(SessionProfileItem);
+export default observer(ProfileSessionItem);

@@ -9,10 +9,10 @@ import {
   SafeAreaView,
 } from "react-native";
 import React from "react";
-//import { useNavigation } from "@react-navigation/native";
+
 import { observer } from "mobx-react";
 import profileStore from "../../stores/profileStore";
-import SessionProfileItem from "../session/SessionProfileItem";
+import ProfileSessionItem from "../profile/ProfileSessionItem";
 
 function ProfileUserView({ route }) {
   const trainer = route.params.trainer;
@@ -20,7 +20,7 @@ function ProfileUserView({ route }) {
   let profile = profileStore.getProfileById(trainer._id);
 
   const sessionsList = profile.user?.enrolled?.map((session) => {
-    return <SessionProfileItem key={session} session={session} />;
+    return <ProfileSessionItem key={session} session={session} />;
   });
   return (
     <SafeAreaView style={styles.containerSaveView}>

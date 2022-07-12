@@ -24,6 +24,7 @@ import { ALERT_TYPE, Dialog, Root, Toast } from 'react-native-alert-notification
 
 
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
+
 function SessionDetails({ route }) {
   const [visible, setVisible] = useState(false);
   const [isEnroll, setIsEnroll] = useState(false);
