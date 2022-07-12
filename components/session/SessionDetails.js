@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Image,
   RefreshControl,
+  Alert
 } from "react-native";
 import { observer } from "mobx-react";
 import React from "react";
@@ -20,7 +21,7 @@ import { Menu, MenuItem, MenuDivider } from "react-native-material-menu";
 import { useState, useEffect } from "react";
 import { Entypo } from "@expo/vector-icons";
 import { ALERT_TYPE, Dialog, Root, Toast } from 'react-native-alert-notification';
-
+import { useFonts } from 'expo-font';
 
 
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
@@ -30,6 +31,16 @@ function SessionDetails({ route }) {
   const [isEnroll, setIsEnroll] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [isDeleted, showIsDeleted] = useState(false);
+  const [loaded] = useFonts({
+    'UbuntuBold': require('../../assets/fonts/Ubuntu-Bold.ttf'),
+    'UbuntuLight': require('../../assets/fonts/Ubuntu-Light.ttf'),
+    'Ubuntu': require('../../assets/fonts/Ubuntu-Regular.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
+
   
   const navigation = useNavigation();
   let user = userStore.user;
@@ -53,6 +64,23 @@ function SessionDetails({ route }) {
       setRefresh(false);
     }, 1000);
   };
+  const createDeleteAlert = () =>
+  Alert.alert("Warning", "Are you sure you want to Delete this session?", [
+    {
+      text: "Cancel",
+    },
+    { text: "Yes", onPress: handleDelete, style: "destructive" },
+  ]);
+
+  const createUnjoinAlert = () =>
+  Alert.alert("Warning", "Are you sure you want to unjoin this session?", [
+    {
+      text: "Cancel",
+    },
+    { text: "Yes", onPress: handleCancel, style: "destructive" },
+  ]);
+
+
   const handleJoin = () => {
     sessionStore.joinSession(session._id, user._id);
     setIsEnroll(true);
@@ -153,7 +181,7 @@ function SessionDetails({ route }) {
               >
                 <MenuItem
                   pressColor="#FFA90D"
-                  textStyle={{ color: "black" }}
+                  textStyle={{ color: "black",fontFamily:"Ubuntu" }}
                   onPress={handleEdit}
                 >
                   Edit Session
@@ -161,13 +189,13 @@ function SessionDetails({ route }) {
                 {session.participants.length === 0 ? (
                   <MenuItem
                     pressColor="red"
-                    textStyle={{ color: "red" }}
-                    onPress={handleDelete}
+                    textStyle={{ color: "red" ,fontFamily:"Ubuntu" }}
+                    onPress={createDeleteAlert}
                   >
                     Delete Session
                   </MenuItem>
                 ) : (
-                  <MenuItem disabled>Delete Session</MenuItem>
+                  <MenuItem disabled textStyle={{fontFamily:"Ubuntu"}}>Delete Session</MenuItem>
                 )}
               </Menu>
             </View>
@@ -192,12 +220,12 @@ function SessionDetails({ route }) {
             <Text style={styles.datePrice}>💰 10KD</Text>
             {isEnrolled || isEnroll ? (
               <TouchableOpacity
-                onPress={handleCancel}
+                onPress={createUnjoinAlert}
                 // activeOpacity={0.5}
                 // disabled={true}
                 style={styles.btnPressed}
               >
-                <Text style={styles.btnText}>Unjoined</Text>
+                <Text style={styles.btnText}>Unjoin</Text>
               </TouchableOpacity>
             ) : (
               <TouchableOpacity onPress={handleJoin} style={styles.btn}>
@@ -211,9 +239,9 @@ function SessionDetails({ route }) {
                 {session.participants.length}/{session.limit}
               </Text>
               {session.participants.length === 0 ? (
-                <Text>None</Text>
+                <Text style={styles.partiListText}>None</Text>
               ) : (
-                <View>{participantsList}</View>
+                <View style={styles.partiListText}>{participantsList}</View>
               )}
             </View>
             <View>
@@ -281,25 +309,32 @@ const styles = StyleSheet.create({
   textCard: {
     marginHorizontal: 15,
     // marginVertical: 30,
+    marginTop:10,
   },
   title: {
     marginTop: 10,
     fontSize: 40,
+    fontFamily:"Ubuntu",
   },
   description: {
     fontSize: 20,
     marginTop: 10,
+    fontFamily:"UbuntuLight",
   },
   datePrice: {
     fontSize: 20,
     marginTop: 20,
     color: "#FFA90D",
+    fontFamily:"UbuntuLight",
+
   },
   duration: {
     flexDirection: "row",
     fontSize: 20,
     marginTop: 20,
     color: "#FFA90D",
+    fontFamily:"UbuntuLight",
+
   },
   btn: {
     // alignItems: "center",
@@ -360,15 +395,18 @@ const styles = StyleSheet.create({
     fontSize: 25,
     textAlign: "center",
     color: "white",
+    fontFamily:"UbuntuBold",
+
   },
   locationTitle: {
     marginTop: 20,
     fontSize: 20,
+    fontFamily:"Ubuntu",
   },
   map: {
     ...StyleSheet.absoluteFillObject,
     marginTop: 50,
-    height: 100,
+    height: 300,
     borderWidth: 2,
     borderColor: "#FFA90D",
   },
@@ -376,11 +414,18 @@ const styles = StyleSheet.create({
     textAlign: "right",
     fontSize: 17,
     bottom: 20,
+    fontFamily:"Ubuntu",
+
   },
   partiText: {
     textAlign: "left",
     fontSize: 20,
     marginTop: 50,
+    fontFamily:"Ubuntu",
+  },
+  partiListText:{
+    fontFamily:"Ubuntu",
+    fontSize: 14,
   },
   trainerInfo: {
     position: "absolute",
@@ -401,6 +446,8 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: "white",
     marginTop: 20,
+    fontFamily:"Ubuntu",
+
     // marginHorizontal: 5,
   },
 });

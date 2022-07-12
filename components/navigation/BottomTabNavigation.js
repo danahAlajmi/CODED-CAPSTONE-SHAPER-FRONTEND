@@ -13,10 +13,22 @@ import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import DumbbellNavigation from "./DumbbellNavigation";
 import Home from "./Home";
+import { useFonts } from 'expo-font';
+
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 function BottomTabNavigation() {
+  const [loaded] = useFonts({
+    'UbuntuBold': require('../../assets/fonts/Ubuntu-Bold.ttf'),
+    'UbuntuLight': require('../../assets/fonts/Ubuntu-Light.ttf'),
+    'Ubuntu': require('../../assets/fonts/Ubuntu-Regular.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
+
   return (
     <>
       {userStore.user ? (
@@ -26,7 +38,7 @@ function BottomTabNavigation() {
             tabBarStyle: { borderTopWidth: 0, height: "7%", marginTop: 10 },
             headerTitleStyle: {
               color: "black",
-              fontWeight: "bold",
+              fontFamily:"UbuntuBold",
             },
             headerTitleAlign: "center",
           }}

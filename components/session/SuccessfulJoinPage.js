@@ -1,6 +1,17 @@
 import {Text,View,TouchableOpacity,Image,StyleSheet} from "react-native";
+import { useFonts } from 'expo-font';
 
 export function SuccessfulJoinPage({ route, navigation }){
+  const [loaded] = useFonts({
+    'UbuntuBold': require('../../assets/fonts/Ubuntu-Bold.ttf'),
+    'UbuntuLight': require('../../assets/fonts/Ubuntu-Light.ttf'),
+    'Ubuntu': require('../../assets/fonts/Ubuntu-Regular.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
+
   let session =  route.params.session
 
 
@@ -14,6 +25,8 @@ export function SuccessfulJoinPage({ route, navigation }){
 
     return (
       <View style={styles.container}>
+            <View style={{backgroundColor:"white",position:"absolute", height:10000 , width:10000}}>
+    </View>
       <Text style={styles.headerText}>Congragulations 🎉</Text>
       <Text style={styles.headerText}>You have Successfully joined {session.title}</Text>
       <Text style={styles.headerText}>🏋️‍♂️</Text>
@@ -45,7 +58,8 @@ export function SuccessfulJoinPage({ route, navigation }){
     headerText:{
       fontSize:24,
       marginBottom: 10,
-      textAlign:"center"
+      textAlign:"center",
+      fontFamily:"Ubuntu",
     },
     backgroundImage:{
 
@@ -65,7 +79,7 @@ export function SuccessfulJoinPage({ route, navigation }){
 },
     goBackText:{      
         color: "white",
-    fontWeight: "bold",
+        fontFamily:"UbuntuBold",
     alignSelf: "center",
   },
   });

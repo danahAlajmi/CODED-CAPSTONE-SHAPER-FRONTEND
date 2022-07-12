@@ -13,8 +13,18 @@ import React from "react";
 import { observer } from "mobx-react";
 import profileStore from "../../stores/profileStore";
 import ProfileSessionItem from "../profile/ProfileSessionItem";
+import { useFonts } from 'expo-font';
 
 function ProfileUserView({ route }) {
+  const [loaded] = useFonts({
+    'UbuntuBold': require('../../assets/fonts/Ubuntu-Bold.ttf'),
+    'UbuntuLight': require('../../assets/fonts/Ubuntu-Light.ttf'),
+    'Ubuntu': require('../../assets/fonts/Ubuntu-Regular.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
   const trainer = route.params.trainer;
   if (profileStore.isLoading) return <Text>Loading</Text>;
   let profile = profileStore.getProfileById(trainer._id);
@@ -49,7 +59,7 @@ function ProfileUserView({ route }) {
         </View>
         <View style={styles.border} />
         <View>
-          <Text style={styles.sessionText}>Sissions</Text>
+          <Text style={styles.sessionText}>Sessions</Text>
           <ScrollView
             contentContainerStyle={{ paddingBottom: 200 }}
             showsVerticalScrollIndicator={false}
@@ -109,7 +119,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "#000000",
     fontWeight: "600",
-
+    fontFamily:"UbuntuBold",
     maxWidth: 120,
     overflow: "hidden",
   },
@@ -117,11 +127,13 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "#A09C9A",
     fontWeight: "300",
+    fontFamily:"UbuntuLight",
   },
   number: {
     color: "#FFA90D",
     fontSize: 15,
     fontWeight: "300",
+    fontFamily:"Ubuntu",
   },
   containerNumOfHOurs: {
     flexDirection: "row",
@@ -153,6 +165,7 @@ const styles = StyleSheet.create({
     // flex: 1,
     fontSize: 18,
     marginLeft: 20,
+    fontFamily:"Ubuntu",
     // marginTop: -650,
     // right: 110,
   },

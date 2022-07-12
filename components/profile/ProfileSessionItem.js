@@ -9,8 +9,18 @@ import {
 import { observer } from "mobx-react";
 import sessionStore from "../../stores/sessionStore";
 import { useNavigation } from "@react-navigation/native";
+import { useFonts } from 'expo-font';
 
 function ProfileSessionItem({ session }) {
+  const [loaded] = useFonts({
+    'UbuntuBold': require('../../assets/fonts/Ubuntu-Bold.ttf'),
+    'UbuntuLight': require('../../assets/fonts/Ubuntu-Light.ttf'),
+    'Ubuntu': require('../../assets/fonts/Ubuntu-Regular.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
   const navigation = useNavigation();
 
   let sessionInfo = sessionStore.getSessionById(session._id);
@@ -55,6 +65,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 30,
     padding: 12.5,
+    fontFamily:"Ubuntu",
     position: "relative",
     top: "50%",
   },

@@ -9,11 +9,22 @@ import {
   ImageBackground,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+import { useFonts } from 'expo-font';
 
 export function SessionEditDetail({ navigation, route }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [nop, setNop] = useState(0);
+  const [loaded] = useFonts({
+    'UbuntuBold': require('../../assets/fonts/Ubuntu-Bold.ttf'),
+    'UbuntuLight': require('../../assets/fonts/Ubuntu-Light.ttf'),
+    'Ubuntu': require('../../assets/fonts/Ubuntu-Regular.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
+
   // console.log(route.params.session._id)
   let sessionid = route.params.session._id;
 
@@ -114,6 +125,7 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     marginLeft: 20,
+    fontFamily:"UbuntuLight",
   },
   SignUpBtn: {
     minWidth: "40%",
@@ -127,7 +139,7 @@ const styles = StyleSheet.create({
   },
   SignUpText: {
     color: "white",
-    fontWeight: "bold",
+    fontFamily:"UbuntuBold",
     alignSelf: "center",
   },
 });
