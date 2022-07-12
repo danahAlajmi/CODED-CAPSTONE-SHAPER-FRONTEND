@@ -17,13 +17,14 @@ import { ALERT_TYPE, Dialog, Root, Toast } from 'react-native-alert-notification
 export function SignInPage({ navigation }) {
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [showErrorin, setShowErrorin] = useState(false);
 
   const handleSignin = () => {
     let user = {
       username: userName,
       password: password,
     };
-    userStore.signin(user);
+    userStore.signin(user,setShowErrorin);
   };
   
   const handleSignUp = () => {
@@ -31,6 +32,7 @@ export function SignInPage({ navigation }) {
   }
 
   return (
+<Root>
 <View style={styles.container}>
 <ImageBackground
           source={require("../../assets/appBackground1.png")}
@@ -66,7 +68,19 @@ export function SignInPage({ navigation }) {
         <TouchableOpacity onPress={handleSignUp}><Text style={{marginTop:20, fontWeight:"bold"}}>Sign up<Text style={{color:"#FFA90D"}}> Here</Text></Text></TouchableOpacity>
         </View>
 
+        {showErrorin ? (
+          (Toast.show({
+            type: ALERT_TYPE.WARNING,
+            title: "Wrong Information",
+            textBody:
+              "Username and password combination is incorrect, please try again.",
+          }),
+          setShowErrorin(false))
+        ) : (
+          <></>
+        )}
       </View>
+      </Root>
   );
 }
 

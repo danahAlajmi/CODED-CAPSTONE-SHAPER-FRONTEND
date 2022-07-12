@@ -19,7 +19,7 @@ class ProfileStore {
     }
   };
 
-  updateProfile = async (updatedProfile, profileId) => {
+  updateProfile = async (updatedProfile, profileId,showError) => {
     try {
       const res = await instance.put(
         `/api/profile/${profileId}`,
@@ -27,14 +27,16 @@ class ProfileStore {
       );
       // console.log(updatedProfile);
       // console.log(profileId);
-
+      this.fetchProfile();
       const updateProfile = Object.assign(
         this.profiles.find((profile) => profile._id === profileId),
         updatedProfile
       );
+      showError(false)
       this.fetchProfile();
     } catch (error) {
       console.log("ProfileStore -> updateProfile -> error", error);
+      showError(false)
     }
   };
   getProfileById = (userId) => {

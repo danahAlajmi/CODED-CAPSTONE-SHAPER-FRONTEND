@@ -10,6 +10,7 @@ import {
 import { useState } from "react";
 import userStore from "../../stores/userStore";
 import RadioForm from 'react-native-simple-radio-button';
+import { ALERT_TYPE, Dialog, Root, Toast } from 'react-native-alert-notification';
 
 
 export function SignUpPage({ navigation }) {
@@ -17,6 +18,9 @@ export function SignUpPage({ navigation }) {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [isTrainer, setIsTrainer] = useState(false)
+  const [showErrorin, setShowErrorin] = useState(false);
+  const [isSigned, setIsSigned] = useState(false);
+
   const radio_props = [
     {label: 'Trainee', value: false },
     {label: 'Trainer', value: true }
@@ -30,10 +34,13 @@ export function SignUpPage({ navigation }) {
       isTrainer: isTrainer,
     };
 
-    navigation.navigate("CreateProfile",{user})
+    userStore.signup(user,setShowErrorin,setIsSigned)
   };
 
+  if(isSigned)
+  navigation.navigate("CreateProfile")
   return (
+<Root>
 <View style={styles.container}>
         <ImageBackground
           source={require("../../assets/appBackground1.png")}
@@ -88,7 +95,19 @@ export function SignUpPage({ navigation }) {
             onPress={(value) => {setIsTrainer(value)}}
         />
         </View>
+        {showErrorin ? (
+          (Toast.show({
+            type: ALERT_TYPE.WARNING,
+            title: "Wrong Information",
+            textBody:
+              "Username already exist please choose another",
+          }),
+          setShowErrorin(false))
+        ) : (
+          <></>
+        )}
       </View>
+      </Root>
   );
 }
 

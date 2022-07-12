@@ -17,6 +17,9 @@ import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 import { AntDesign } from "@expo/vector-icons";
+import { ALERT_TYPE, Dialog, Root, Toast } from 'react-native-alert-notification';
+import Profile from "./Profile";
+
 let imageUri = null;
 
 function EditProfile() {
@@ -28,6 +31,8 @@ function EditProfile() {
   const [image, onChangeImage] = useState(profile.image);
   const [firstName, onChangeFirstName] = useState(profile.firstName);
   const [lastName, onChangeLastName] = useState(profile.lastName);
+  const [edited, showEdited] = useState(true);
+
   const navigation = useNavigation();
 
   const handleUpload = async () => {
@@ -40,6 +45,7 @@ function EditProfile() {
     imageUri = file.body;
   };
 
+
   const handleSubmit = () => {
     const update = {
       bio: bio,
@@ -47,21 +53,21 @@ function EditProfile() {
       firstName: firstName,
       lastName: lastName,
     };
-    profileStore.updateProfile(update, profile._id);
-    navigation.navigate("Profile");
+    profileStore.updateProfile(update, profile._id,showEdited);
   };
-
-  const handleCancle = () => {
+  
+  const handleCancel = () => {
     navigation.navigate("Profile");
   };
 
   return (
+    <Root>
     <SafeAreaView style={styles.containerSaveView}>
       <View style={styles.container}>
         <Card containerStyle={styles.cardContainer}>
           <View style={styles.headerContainer}>
-            <TouchableOpacity onPress={handleCancle}>
-              <Text style={styles.cancleText}>Cancle</Text>
+            <TouchableOpacity onPress={handleCancel}>
+              <Text style={styles.cancleText}>Cancel</Text>
             </TouchableOpacity>
             <Card.Title style={{ fontSize: 17 }}>Edit Your Profile</Card.Title>
             <TouchableOpacity onPress={handleSubmit}>
@@ -149,6 +155,26 @@ function EditProfile() {
         </Card>
       </View>
     </SafeAreaView>
+        {!edited ? (
+          (Dialog.show({
+            type: ALERT_TYPE.SUCCESS,
+            title: "Profile Edited",
+            textBody:
+              "Profile Edited Successfuly",
+              button: "To Profile",
+            onPressButton: () => { 
+              navigation.navigate("Profile");
+              showEdited(false)
+            },
+            onHide : () => {
+              navigation.navigate("Profile");
+            }
+          })
+          )
+        ) : (
+          <></>
+        )}
+    </Root>
   );
 }
 export default observer(EditProfile);
