@@ -8,6 +8,7 @@ import {
   ScrollView,
   SafeAreaView,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import SessionProfileItem from "../session/SessionProfileItem";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
@@ -26,6 +27,19 @@ function Profile() {
   const hideMenu = () => setVisible(false);
 
   const showMenu = () => setVisible(true);
+
+  const createTwoButtonAlert = () =>
+  Alert.alert(
+    "Warning",
+    "Are you sure you want to sign out",
+    [
+      {
+        text: "Cancel",
+      },
+      { text: "Yes", onPress: handleSignout , style:"destructive"
+    }
+    ]
+  );
 
   const handleSignout = () => {
     hideMenu();
@@ -58,7 +72,7 @@ function Profile() {
             <MenuItem
               pressColor="red"
               textStyle={{ color: "red" }}
-              onPress={handleSignout}
+              onPress={createTwoButtonAlert}
             >
               {" "}
               Sign out{" "}
