@@ -31,7 +31,7 @@ class SessionStore {
         res.data
       );
       userStore.user.enrolled.push(sessionId);
-      console.log(res.data);
+      userStore.fetchUsers();
       this.fetchAllSessions();
     } catch (error) {
       console.log(error);
@@ -52,6 +52,7 @@ class SessionStore {
         1
       );
       //console.log(res.data);
+      userStore.fetchUsers();
       this.fetchAllSessions();
     } catch (error) {
       console.log(error);
@@ -82,7 +83,7 @@ class SessionStore {
     }
   };
 
-  DeleteSession = async (session, sessionId,showIsDeleted) => {
+  DeleteSession = async (session, sessionId, showIsDeleted) => {
     try {
       const response = await instance.delete(
         `/api/sessions/delete/${sessionId}`,
