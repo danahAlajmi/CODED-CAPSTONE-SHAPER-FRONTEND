@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import { useState } from "react";
 import {
   View,
@@ -9,7 +10,7 @@ import {
   SafeAreaView,
   TouchableOpacity,
 } from "react-native";
-import SessionProfileItem from "../session/SessionProfileItem";
+import SessionProfileItem from "./ProfileSessionItem";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
@@ -17,28 +18,27 @@ import { observer } from "mobx-react";
 import profileStore from "../../stores/profileStore";
 import { Button } from "native-base";
 import userStore from "../../stores/userStore";
-import SessionsListItem from "../session/SessionsListItem";
+import ProfileSessionLTraining from "./ProfileSessionLTraining";
+import ProfileSessionLEnrolled from "./ProfileSessionLEnrolled";
 import { Menu, MenuItem, MenuDivider } from "react-native-material-menu";
 import { Entypo } from "@expo/vector-icons";
+
+const Tab = createMaterialTopTabNavigator();
 function Profile() {
   const [visible, setVisible] = useState(false);
-
   const hideMenu = () => setVisible(false);
-
   const showMenu = () => setVisible(true);
-
   const handleSignout = () => {
     hideMenu();
     userStore.signout();
   };
+
   const navigation = useNavigation();
   if (profileStore.isLoading) return <Text>Loading</Text>;
+
   let user = userStore.user;
-  // Ali added this line to make sure upload works
   let profile = profileStore.getProfileById(user._id);
-  const sessionsList = profile.user?.enrolled?.map((session) => {
-    return <SessionProfileItem key={session} session={session} />;
-  });
+
   return (
     <SafeAreaView style={styles.containerSaveView}>
       <View style={styles.container}>
@@ -101,17 +101,20 @@ function Profile() {
           </View>
         </View>
         <View style={styles.border} />
-        <View>
-          <Text style={styles.sessionText}>Sessions</Text>
-          <ScrollView
-            contentContainerStyle={{ paddingBottom: 200 }}
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-            alignItems="center"
-            style={styles.scrollView}
-          >
-            {sessionsList}
-          </ScrollView>
+        <View style={{ height: 400 }}>
+          {userStore.user.isTrainer ? (
+            <Tab.Navigator
+              screenOptions={{
+                tabBarContentContainerStyle: {},
+                tabBarIndicatorStyle: { backgroundColor: "#FFA90D" },
+              }}
+            >
+              <Tab.Screen name="Training" component={ProfileSessionLTraining} />
+              <Tab.Screen name="Enrolled" component={ProfileSessionLEnrolled} />
+            </Tab.Navigator>
+          ) : (
+            <ProfileSessionLEnrolled />
+          )}
         </View>
       </View>
     </SafeAreaView>

@@ -1,6 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import instance from "./instance";
-import userStrore from "./userStore";
+import userStore from "./userStore";
 class SessionStore {
   constructor() {
     makeAutoObservable(this);
@@ -30,7 +30,8 @@ class SessionStore {
         this.sessions.find((session) => session._id === sessionId),
         res.data
       );
-      //console.log(res.data);
+      userStore.user.enrolled.push(sessionId);
+      console.log(res.data);
       this.fetchAllSessions();
     } catch (error) {
       console.log(error);
@@ -46,6 +47,10 @@ class SessionStore {
         this.sessions.find((session) => session._id === sessionId),
         res.data
       );
+      userStore.user.enrolled.splice(
+        userStore.user.enrolled.indexOf(sessionId),
+        1
+      );
       //console.log(res.data);
       this.fetchAllSessions();
     } catch (error) {
@@ -53,7 +58,6 @@ class SessionStore {
     }
   };
   getSessionById = (id) => {
-    // console.log(this.sessions);
     return this.sessions.find((session) => session._id === id);
   };
 

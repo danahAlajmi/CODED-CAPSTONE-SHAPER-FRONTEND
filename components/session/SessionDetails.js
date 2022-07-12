@@ -21,6 +21,7 @@ import { useState, useEffect } from "react";
 import { Entypo } from "@expo/vector-icons";
 
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
+
 function SessionDetails({ route }) {
   const [visible, setVisible] = useState(false);
   const [isEnroll, setIsEnroll] = useState(false);
