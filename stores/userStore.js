@@ -21,26 +21,25 @@ class UserStore {
       await SecureStore.setItemAsync("token", response.data.token);
     } catch (error) {
       setShowErrorin(true);
-
     }
   };
-  signup = async (newUser,setShowErrorin,setIsSigned) => {
+  signup = async (newUser, setShowErrorin, setIsSigned) => {
     try {
       const response = await instance.post("api/users/signup", newUser);
       instance.defaults.headers.common.Authorization = `Bearer${response.data.token}`;
       const decodedUser = jwt_decode(response.data.token);
-      this.profile = decodedUser.profile
+      this.profile = decodedUser.profile;
       await SecureStore.setItemAsync("token", response.data.token);
-      setIsSigned(true)
+      setIsSigned(true);
     } catch (error) {
-      console.log(error)
+      console.log(error);
       setShowErrorin(true);
     }
   };
   signout = async () => {
     try {
       this.user = null;
-      this.profile = null
+      this.profile = null;
       instance.defaults.headers.common.Authorization = null;
       SecureStore.deleteItemAsync("token");
     } catch (error) {}
@@ -70,6 +69,9 @@ class UserStore {
     } catch (error) {
       console.log(error);
     }
+  };
+  getUserById = (id) => {
+    return this.users.find((user) => user._id === id);
   };
 }
 
