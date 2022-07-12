@@ -6,10 +6,21 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from "react-native";
-import { observer } from "mobx-react";
+import { observer } from "mobx-react"; 
+import { useFonts } from 'expo-font';
 // import SessionDetails from "./SessionDetails";
 
 function SessionsListItem({ session }) {
+  const [loaded] = useFonts({
+    'UbuntuBold': require('../../assets/fonts/Ubuntu-Bold.ttf'),
+    'UbuntuLight': require('../../assets/fonts/Ubuntu-Light.ttf'),
+    'Ubuntu': require('../../assets/fonts/Ubuntu-Regular.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -43,6 +54,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0.5)",
     color: "white",
     fontSize: 30,
+    fontFamily:"Ubuntu",
     padding: 12.5,
     position: "relative",
     top: "50%",

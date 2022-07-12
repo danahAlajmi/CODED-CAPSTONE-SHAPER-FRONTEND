@@ -19,6 +19,7 @@ import * as FileSystem from "expo-file-system";
 import { AntDesign } from "@expo/vector-icons";
 import { ALERT_TYPE, Dialog, Root, Toast } from 'react-native-alert-notification';
 import Profile from "./Profile";
+import { useFonts } from 'expo-font';
 
 let imageUri = null;
 
@@ -32,10 +33,20 @@ function EditProfile() {
   const [firstName, onChangeFirstName] = useState(profile.firstName);
   const [lastName, onChangeLastName] = useState(profile.lastName);
   const [edited, showEdited] = useState(true);
+  const [loaded] = useFonts({
+    'UbuntuBold': require('../../assets/fonts/Ubuntu-Bold.ttf'),
+    'UbuntuLight': require('../../assets/fonts/Ubuntu-Light.ttf'),
+    'Ubuntu': require('../../assets/fonts/Ubuntu-Regular.ttf'),
+  });
 
+  if (!loaded) {
+    return null;
+  }
+  
   const navigation = useNavigation();
 
   const handleUpload = async () => {
+    
     let result = await ImagePicker.launchImageLibraryAsync();
 
     const file = await FileSystem.uploadAsync(
@@ -69,7 +80,7 @@ function EditProfile() {
             <TouchableOpacity onPress={handleCancel}>
               <Text style={styles.cancleText}>Cancel</Text>
             </TouchableOpacity>
-            <Card.Title style={{ fontSize: 17 }}>Edit Your Profile</Card.Title>
+            <Card.Title style={{ fontSize: 17 , fontFamily:"UbuntuBold" }}>Edit Your Profile</Card.Title>
             <TouchableOpacity onPress={handleSubmit}>
               <Text style={styles.doneText}>Done</Text>
             </TouchableOpacity>
@@ -215,6 +226,7 @@ const styles = StyleSheet.create({
   text: {
     textAlign: "justify",
     fontSize: 15,
+    fontFamily:"UbuntuLight",
   },
   imageContainer: {
     marginTop: 20,
@@ -229,6 +241,7 @@ const styles = StyleSheet.create({
   },
   imageText: {
     color: "#6FB6F6",
+    fontFamily:"UbuntuLight",
   },
   // doneBtn: {
   //   marginTop: 10,
@@ -271,9 +284,11 @@ const styles = StyleSheet.create({
   cancleText: {
     color: "#A09C9A",
     fontSize: 17,
+    fontFamily:"Ubuntu",
   },
   doneText: {
     color: "#0D99FF",
     fontSize: 17,
+    fontFamily:"Ubuntu",
   },
 });

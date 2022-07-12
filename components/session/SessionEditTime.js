@@ -3,10 +3,20 @@ import { useState } from "react";
 import {Text,View,TouchableOpacity,ScrollView,SafeAreaView,TextInput,StyleSheet} from "react-native";
 import sessionStore from '../../stores/sessionStore';
 import userStore from '../../stores/userStore';
+import { useFonts } from 'expo-font';
 
 export function SessionEditTime({ route, navigation }){
     const [date, setDate] = useState(new Date());
     const [duration, setDuration] = useState(new Date());
+    const [loaded] = useFonts({
+      'UbuntuBold': require('../../assets/fonts/Ubuntu-Bold.ttf'),
+      'UbuntuLight': require('../../assets/fonts/Ubuntu-Light.ttf'),
+      'Ubuntu': require('../../assets/fonts/Ubuntu-Regular.ttf'),
+    });
+  
+    if (!loaded) {
+      return null;
+    }
     let session =  route.params.session
     let sessionId = route.params.id
     console.log("asde",session)
@@ -102,6 +112,7 @@ export function SessionEditTime({ route, navigation }){
     headerText:{
       fontSize:18,
       marginBottom: 10,
+      fontFamily:"Ubuntu",
     },
     inputView: {
         backgroundColor: "#EAEAEA",
@@ -116,6 +127,7 @@ export function SessionEditTime({ route, navigation }){
       flex: 1,
       padding: 10,
       marginLeft: 20,
+      fontFamily:"UbuntuLight",
     },
     CreateBtn: {
       minWidth: "40%",
@@ -129,7 +141,7 @@ export function SessionEditTime({ route, navigation }){
     },
     CreateText: {
       color: "white",
-      fontWeight: "bold",
+      fontFamily:"UbuntuBold",
       alignSelf: "center",
     },
   });

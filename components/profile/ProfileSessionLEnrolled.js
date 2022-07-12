@@ -11,9 +11,10 @@ import { observer } from "mobx-react";
 import userStore from "../../stores/userStore";
 import sessionStore from "../../stores/sessionStore";
 import ProfileSessionItem from "./ProfileSessionItem";
-function ProfileSessionLEnrolled() {
-  const sessionsLists = userStore.user.enrolled
-    ?.map((session) => sessionStore.getSessionById(session))
+function ProfileSessionLEnrolled({ id }) {
+  const sessionsLists = userStore
+    .getUserById(id)
+    .enrolled.map((session) => sessionStore.getSessionById(session))
     .map((session) => {
       return <ProfileSessionItem key={session._id} session={session} />;
     });
@@ -39,6 +40,8 @@ function ProfileSessionLEnrolled() {
 const styles = StyleSheet.create({
   scrollView: {
     width: 390,
+    height: "100%",
+    backgroundColor: "white",
   },
 });
 export default observer(ProfileSessionLEnrolled);

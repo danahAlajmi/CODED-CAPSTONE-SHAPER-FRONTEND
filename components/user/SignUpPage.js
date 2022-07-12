@@ -11,6 +11,7 @@ import { useState } from "react";
 import userStore from "../../stores/userStore";
 import RadioForm from 'react-native-simple-radio-button';
 import { ALERT_TYPE, Dialog, Root, Toast } from 'react-native-alert-notification';
+import { useFonts } from 'expo-font';
 
 
 export function SignUpPage({ navigation }) {
@@ -20,6 +21,16 @@ export function SignUpPage({ navigation }) {
   const [isTrainer, setIsTrainer] = useState(false)
   const [showErrorin, setShowErrorin] = useState(false);
   const [isSigned, setIsSigned] = useState(false);
+  const [loaded] = useFonts({
+    'UbuntuBold': require('../../assets/fonts/Ubuntu-Bold.ttf'),
+    'UbuntuLight': require('../../assets/fonts/Ubuntu-Light.ttf'),
+    'Ubuntu': require('../../assets/fonts/Ubuntu-Regular.ttf'),
+  });
+
+  if (!loaded) {
+    return null;
+  }
+
 
   const radio_props = [
     {label: 'Trainee', value: false },
@@ -91,6 +102,7 @@ export function SignUpPage({ navigation }) {
             buttonColor={'#FFA90D'}
             selectedButtonColor={'#FFA90D'}
             style={{padding:30,}}
+            labelStyle={{fontFamily:"UbuntuBold"}}
             radioStyle={{paddingRight: 40,paddingLeft: 30}}
             onPress={(value) => {setIsTrainer(value)}}
         />
@@ -147,6 +159,8 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 10,
     marginLeft: 20,
+    fontFamily:"UbuntuLight",
+
   },
   NextBtn: {
     minWidth: "40%",
@@ -168,7 +182,7 @@ const styles = StyleSheet.create({
   },
   NextText: {
     color: "white",
-    fontWeight: "bold",
+    fontFamily:"UbuntuBold",
     alignSelf: "center",
   },
 

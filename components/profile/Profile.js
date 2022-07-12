@@ -23,12 +23,22 @@ import ProfileSessionLTraining from "./ProfileSessionLTraining";
 import ProfileSessionLEnrolled from "./ProfileSessionLEnrolled";
 import { Menu, MenuItem, MenuDivider } from "react-native-material-menu";
 import { Entypo } from "@expo/vector-icons";
+import { useFonts } from "expo-font";
 
 const Tab = createMaterialTopTabNavigator();
 function Profile() {
   const [visible, setVisible] = useState(false);
   const hideMenu = () => setVisible(false);
   const showMenu = () => setVisible(true);
+  const [loaded] = useFonts({
+    UbuntuBold: require("../../assets/fonts/Ubuntu-Bold.ttf"),
+    UbuntuLight: require("../../assets/fonts/Ubuntu-Light.ttf"),
+    Ubuntu: require("../../assets/fonts/Ubuntu-Regular.ttf"),
+  });
+
+  if (!loaded) {
+    return null;
+  }
 
   const createTwoButtonAlert = () =>
     Alert.alert("Warning", "Are you sure you want to sign out", [
@@ -67,7 +77,7 @@ function Profile() {
           >
             <MenuItem
               pressColor="red"
-              textStyle={{ color: "red" }}
+              textStyle={{ color: "red", fontFamily: "Ubuntu" }}
               onPress={createTwoButtonAlert}
             >
               {" "}
@@ -111,19 +121,26 @@ function Profile() {
           </TouchableOpacity>
         </View>
         <View style={styles.border} />
-        <View style={{ height: 400 }}>
+        <View style={{ height: "100%" }}>
           {userStore.user.isTrainer ? (
             <Tab.Navigator
               screenOptions={{
                 tabBarContentContainerStyle: {},
                 tabBarIndicatorStyle: { backgroundColor: "#FFA90D" },
+                tabBarLabelStyle: { fontFamily: "UbuntuBold" },
               }}
             >
-              <Tab.Screen name="Training" component={ProfileSessionLTraining} />
-              <Tab.Screen name="Enrolled" component={ProfileSessionLEnrolled} />
+              <Tab.Screen
+                name="Training"
+                children={() => <ProfileSessionLTraining id={user._id} />}
+              />
+              <Tab.Screen
+                name="Enrolled"
+                children={() => <ProfileSessionLEnrolled id={user._id} />}
+              />
             </Tab.Navigator>
           ) : (
-            <ProfileSessionLEnrolled />
+            <ProfileSessionLEnrolled id={user._id} />
           )}
         </View>
       </View>
@@ -175,7 +192,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "#000000",
     fontWeight: "600",
-
+    fontFamily: "Ubuntu",
     maxWidth: 120,
     overflow: "hidden",
   },
@@ -183,11 +200,13 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "#A09C9A",
     fontWeight: "300",
+    fontFamily: "UbuntuLight",
   },
   number: {
     color: "#FFA90D",
     fontSize: 15,
     fontWeight: "300",
+    fontFamily: "Ubuntu",
   },
   containerNumOfHOurs: {
     flexDirection: "row",
@@ -204,7 +223,7 @@ const styles = StyleSheet.create({
     width: 360,
     // top: 200,
     right: -20,
-    marginBottom: 25,
+    marginBottom: 10,
   },
   EditBtn: {
     // left: 80,
@@ -222,6 +241,7 @@ const styles = StyleSheet.create({
     // flex: 1,
     fontSize: 18,
     marginLeft: 20,
+    fontFamily: "Ubuntu",
     // marginTop: -650,
     // right: 110,
   },
