@@ -21,8 +21,7 @@ export function CreateProfile({ route }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [bio, setBio] = useState("");
-  const [image, setImage] = useState("");
-  const user = route.params.user;
+  const [profileError, showProfileError] = useState(false);
   const handleCreateProfile = () => {
     let profile = null;
     // const user = route.params
@@ -40,7 +39,8 @@ export function CreateProfile({ route }) {
         bio: bio,
       };
     }
-    userStore.signup(user, profile);
+    profileStore.updateProfile(profile,userStore.profile,showProfileError)
+    userStore.checkForToken()
   };
   const handleUpload = async () => {
     let result = await ImagePicker.launchImageLibraryAsync();

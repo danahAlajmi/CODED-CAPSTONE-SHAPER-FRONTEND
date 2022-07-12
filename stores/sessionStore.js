@@ -82,13 +82,14 @@ class SessionStore {
     }
   };
 
-  DeleteSession = async (session, sessionId) => {
+  DeleteSession = async (session, sessionId,showIsDeleted) => {
     try {
       const response = await instance.delete(
         `/api/sessions/delete/${sessionId}`,
         session
       );
       this.fetchAllSessions();
+      showIsDeleted(true);
     } catch (error) {
       console.log(error);
     }

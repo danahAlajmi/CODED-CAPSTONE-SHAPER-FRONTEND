@@ -19,6 +19,9 @@ import { useNavigation } from "@react-navigation/native";
 import { Menu, MenuItem, MenuDivider } from "react-native-material-menu";
 import { useState, useEffect } from "react";
 import { Entypo } from "@expo/vector-icons";
+import { ALERT_TYPE, Dialog, Root, Toast } from 'react-native-alert-notification';
+
+
 
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
 
@@ -26,7 +29,8 @@ function SessionDetails({ route }) {
   const [visible, setVisible] = useState(false);
   const [isEnroll, setIsEnroll] = useState(false);
   const [refresh, setRefresh] = useState(false);
-
+  const [isDeleted, showIsDeleted] = useState(false);
+  
   const navigation = useNavigation();
   let user = userStore.user;
   const session = route.params;
@@ -91,8 +95,7 @@ function SessionDetails({ route }) {
 
   const handleDelete = () => {
     hideMenu();
-    sessionStore.DeleteSession(session, session._id);
-    navigation.navigate("Explore");
+    sessionStore.DeleteSession(session, session._id,showIsDeleted);
   };
   const hideMenu = () => setVisible(false);
 
@@ -101,6 +104,7 @@ function SessionDetails({ route }) {
     return <ParticipantInfo key={participant} participant={participant} />;
   });
   return (
+    <Root>
     <View style={styles.container}>
       {/* <Image style={styles.imageContainer} source={{ uri: session.image }} />
       <View style={styles.trainerInfo}>
@@ -132,8 +136,7 @@ function SessionDetails({ route }) {
               style={{
                 position: "absolute",
                 right: 0,
-                marginTop: "15%",
-                marginRight: 30,
+                margin: 30
               }}
             >
               <Menu
@@ -229,7 +232,29 @@ function SessionDetails({ route }) {
           </View>
         </View>
       </ScrollView>
+      {isDeleted ? (
+          (Dialog.show({
+            type: ALERT_TYPE.SUCCESS,
+            title: "Session Deleted",
+            textBody:
+              "Session Deleted Successfuly",
+              button: "Ok",
+            onPressButton: () => { 
+              navigation.navigate("Explore")
+              showIsDeleted(false)
+            },
+            onHide : () => {
+              navigation.navigate("Explore")
+            }
+    
+
+          })
+          )
+        ) : (
+          <></>
+        )}
     </View>
+    </Root>
   );
 }
 export default observer(SessionDetails);
