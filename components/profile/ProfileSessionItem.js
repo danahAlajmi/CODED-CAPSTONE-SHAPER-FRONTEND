@@ -18,13 +18,13 @@ function ProfileSessionItem({ session }) {
     Ubuntu: require("../../assets/fonts/Ubuntu-Regular.ttf"),
   });
 
+  const navigation = useNavigation();
   if (!loaded) {
     return null;
   }
-  const navigation = useNavigation();
 
   let sessionInfo = sessionStore.getSessionById(session._id);
-  console.log(sessionInfo);
+
   return (
     <View style={styles.container}>
       <TouchableOpacity

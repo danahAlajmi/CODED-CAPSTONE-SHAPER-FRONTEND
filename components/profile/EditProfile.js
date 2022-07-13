@@ -17,9 +17,14 @@ import { useNavigation } from "@react-navigation/native";
 import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from "expo-file-system";
 import { AntDesign } from "@expo/vector-icons";
-import { ALERT_TYPE, Dialog, Root, Toast } from 'react-native-alert-notification';
+import {
+  ALERT_TYPE,
+  Dialog,
+  Root,
+  Toast,
+} from "react-native-alert-notification";
 import Profile from "./Profile";
-import { useFonts } from 'expo-font';
+import { useFonts } from "expo-font";
 
 let imageUri = null;
 
@@ -34,19 +39,17 @@ function EditProfile() {
   const [lastName, onChangeLastName] = useState(profile.lastName);
   const [edited, showEdited] = useState(true);
   const [loaded] = useFonts({
-    'UbuntuBold': require('../../assets/fonts/Ubuntu-Bold.ttf'),
-    'UbuntuLight': require('../../assets/fonts/Ubuntu-Light.ttf'),
-    'Ubuntu': require('../../assets/fonts/Ubuntu-Regular.ttf'),
+    UbuntuBold: require("../../assets/fonts/Ubuntu-Bold.ttf"),
+    UbuntuLight: require("../../assets/fonts/Ubuntu-Light.ttf"),
+    Ubuntu: require("../../assets/fonts/Ubuntu-Regular.ttf"),
   });
+  const navigation = useNavigation();
 
   if (!loaded) {
     return null;
   }
-  
-  const navigation = useNavigation();
 
   const handleUpload = async () => {
-    
     let result = await ImagePicker.launchImageLibraryAsync();
 
     const file = await FileSystem.uploadAsync(
@@ -56,7 +59,6 @@ function EditProfile() {
     imageUri = file.body;
   };
 
-
   const handleSubmit = () => {
     const update = {
       bio: bio,
@@ -64,127 +66,127 @@ function EditProfile() {
       firstName: firstName,
       lastName: lastName,
     };
-    profileStore.updateProfile(update, profile._id,showEdited);
+    profileStore.updateProfile(update, profile._id, showEdited);
   };
-  
+
   const handleCancel = () => {
     navigation.navigate("Profile");
   };
 
   return (
     <Root>
-    <SafeAreaView style={styles.containerSaveView}>
-      <View style={styles.container}>
-        <Card containerStyle={styles.cardContainer}>
-          <View style={styles.headerContainer}>
-            <TouchableOpacity onPress={handleCancel}>
-              <Text style={styles.cancleText}>Cancel</Text>
-            </TouchableOpacity>
-            <Card.Title style={{ fontSize: 17 , fontFamily:"UbuntuBold" }}>Edit Your Profile</Card.Title>
-            <TouchableOpacity onPress={handleSubmit}>
-              <Text style={styles.doneText}>Done</Text>
-            </TouchableOpacity>
-          </View>
-          <Card.Divider />
+      <SafeAreaView style={styles.containerSaveView}>
+        <View style={styles.container}>
+          <Card containerStyle={styles.cardContainer}>
+            <View style={styles.headerContainer}>
+              <TouchableOpacity onPress={handleCancel}>
+                <Text style={styles.cancleText}>Cancel</Text>
+              </TouchableOpacity>
+              <Card.Title style={{ fontSize: 17, fontFamily: "UbuntuBold" }}>
+                Edit Your Profile
+              </Card.Title>
+              <TouchableOpacity onPress={handleSubmit}>
+                <Text style={styles.doneText}>Done</Text>
+              </TouchableOpacity>
+            </View>
+            <Card.Divider />
 
-          <View style={styles.imageContainer}>
-            <TouchableOpacity onPress={handleUpload}>
-              <Image
-                style={styles.image}
-                source={{
-                  uri: image,
-                }}
-              />
+            <View style={styles.imageContainer}>
+              <TouchableOpacity onPress={handleUpload}>
+                <Image
+                  style={styles.image}
+                  source={{
+                    uri: image,
+                  }}
+                />
 
-              <View style={styles.imageOverlay} />
-              <AntDesign
-                name="camera"
-                size={24}
-                color="black"
-                style={{ marginTop: 40, marginLeft: 38 }}
-              />
-            </TouchableOpacity>
-          </View>
-          {/* <View style={styles.imageContainer}>
+                <View style={styles.imageOverlay} />
+                <AntDesign
+                  name="camera"
+                  size={24}
+                  color="black"
+                  style={{ marginTop: 40, marginLeft: 38 }}
+                />
+              </TouchableOpacity>
+            </View>
+            {/* <View style={styles.imageContainer}>
             <TouchableOpacity
               style={styles.imageViewContainer}
               onPress={handleUpload}
             ></TouchableOpacity>
             <Text style={styles.imageText}>Change profile photo</Text>
           </View> */}
-          <View style={{ flexDirection: "row", marginTop: 40 }}>
-            <Card.Title style={styles.text}>First Name</Card.Title>
-            <View style={styles.textContainer}>
-              <TextInput
-                style={styles.input}
-                onChangeText={onChangeFirstName}
-                value={firstName}
-                placeholder={profile.firstName}
-              />
-              <Card.Divider style={styles.divider} />
+            <View style={{ flexDirection: "row", marginTop: 40 }}>
+              <Card.Title style={styles.text}>First Name</Card.Title>
+              <View style={styles.textContainer}>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={onChangeFirstName}
+                  value={firstName}
+                  placeholder={profile.firstName}
+                />
+                <Card.Divider style={styles.divider} />
+              </View>
             </View>
-          </View>
-          <View style={{ flexDirection: "row", marginTop: 20 }}>
-            <Card.Title style={styles.text}>Last Name</Card.Title>
-            <View style={{ marginLeft: 22 }}>
-              <TextInput
-                style={styles.input}
-                onChangeText={onChangeLastName}
-                value={lastName}
-                placeholder={profile.lastName}
-              />
-              <Card.Divider style={styles.divider} />
+            <View style={{ flexDirection: "row", marginTop: 20 }}>
+              <Card.Title style={styles.text}>Last Name</Card.Title>
+              <View style={{ marginLeft: 22 }}>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={onChangeLastName}
+                  value={lastName}
+                  placeholder={profile.lastName}
+                />
+                <Card.Divider style={styles.divider} />
+              </View>
             </View>
-          </View>
 
-          <View style={{ flexDirection: "row", marginTop: 20 }}>
-            <Card.Title style={styles.text}>Bio</Card.Title>
-            <View style={{ marginLeft: 76 }}>
-              <TextInput
-                style={styles.input}
-                onChangeText={onChangeBio}
-                value={bio}
-                placeholder={profile.bio}
-              />
-              <Card.Divider style={styles.divider} />
+            <View style={{ flexDirection: "row", marginTop: 20 }}>
+              <Card.Title style={styles.text}>Bio</Card.Title>
+              <View style={{ marginLeft: 76 }}>
+                <TextInput
+                  style={styles.input}
+                  onChangeText={onChangeBio}
+                  value={bio}
+                  placeholder={profile.bio}
+                />
+                <Card.Divider style={styles.divider} />
+              </View>
             </View>
-          </View>
-          {/* <Card.Title>Image</Card.Title>
+            {/* <Card.Title>Image</Card.Title>
           <Button title="Upload" color="#199EF3" /> */}
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "space-evenly",
-              marginTop: 30,
-            }}
-          >
-            {/* <TouchableOpacity style={styles.cancleBtn} onPress={handleClear}>
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                justifyContent: "space-evenly",
+                marginTop: 30,
+              }}
+            >
+              {/* <TouchableOpacity style={styles.cancleBtn} onPress={handleClear}>
               <Text style={styles.btnText}>Cancle</Text>
             </TouchableOpacity> */}
-          </View>
-        </Card>
-      </View>
-    </SafeAreaView>
-        {!edited ? (
-          (Dialog.show({
-            type: ALERT_TYPE.SUCCESS,
-            title: "Profile Edited",
-            textBody:
-              "Profile Edited Successfuly",
-              button: "To Profile",
-            onPressButton: () => { 
-              navigation.navigate("Profile");
-              showEdited(false)
-            },
-            onHide : () => {
-              navigation.navigate("Profile");
-            }
-          })
-          )
-        ) : (
-          <></>
-        )}
+            </View>
+          </Card>
+        </View>
+      </SafeAreaView>
+      {!edited ? (
+        Dialog.show({
+          type: ALERT_TYPE.SUCCESS,
+          title: "Profile Edited",
+          textBody: "Profile Edited Successfuly",
+          button: "To Profile",
+          onPressButton: () => {
+            navigation.navigate("Profile");
+            showEdited(false);
+          },
+          onHide: () => {
+            navigation.navigate("Profile");
+          },
+        })
+      ) : (
+        <></>
+      )}
     </Root>
   );
 }
@@ -226,7 +228,7 @@ const styles = StyleSheet.create({
   text: {
     textAlign: "justify",
     fontSize: 15,
-    fontFamily:"UbuntuLight",
+    fontFamily: "UbuntuLight",
   },
   imageContainer: {
     marginTop: 20,
@@ -241,7 +243,7 @@ const styles = StyleSheet.create({
   },
   imageText: {
     color: "#6FB6F6",
-    fontFamily:"UbuntuLight",
+    fontFamily: "UbuntuLight",
   },
   // doneBtn: {
   //   marginTop: 10,
@@ -284,11 +286,11 @@ const styles = StyleSheet.create({
   cancleText: {
     color: "#A09C9A",
     fontSize: 17,
-    fontFamily:"Ubuntu",
+    fontFamily: "Ubuntu",
   },
   doneText: {
     color: "#0D99FF",
     fontSize: 17,
-    fontFamily:"Ubuntu",
+    fontFamily: "Ubuntu",
   },
 });

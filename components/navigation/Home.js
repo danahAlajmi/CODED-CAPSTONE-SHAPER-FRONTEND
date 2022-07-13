@@ -10,27 +10,31 @@ import { SuccessfulJoinPage } from "../session/SuccessfulJoinPage";
 import { SuccessfulCancelPage } from "../session/SuccessfulCancelPage";
 import { SessionEditDetail } from "../session/SessionEditDetail";
 import { SessionEditTime } from "../session/SessionEditTime";
-import { useFonts } from 'expo-font';
+import { useFonts } from "expo-font";
 
 const Stack = createNativeStackNavigator();
 
 function Home() {
   const [loaded] = useFonts({
-    'UbuntuBold': require('../../assets/fonts/Ubuntu-Bold.ttf'),
-    'UbuntuLight': require('../../assets/fonts/Ubuntu-Light.ttf'),
-    'Ubuntu': require('../../assets/fonts/Ubuntu-Regular.ttf'),
+    UbuntuBold: require("../../assets/fonts/Ubuntu-Bold.ttf"),
+    UbuntuLight: require("../../assets/fonts/Ubuntu-Light.ttf"),
+    Ubuntu: require("../../assets/fonts/Ubuntu-Regular.ttf"),
   });
 
+  const navigation = useNavigation();
   if (!loaded) {
     return null;
   }
-  const navigation = useNavigation();
   return (
-    <Stack.Navigator initialRouteName="Explore" screenOptions={{
-      headerTitleStyle: {
-      color: "black",
-      fontFamily:"UbuntuBold",
-    },}}>
+    <Stack.Navigator
+      initialRouteName="Explore"
+      screenOptions={{
+        headerTitleStyle: {
+          color: "black",
+          fontFamily: "UbuntuBold",
+        },
+      }}
+    >
       <Stack.Screen name="Explore" component={Explore} />
       <Stack.Screen name="Profile" component={ProfileUserView} />
       <Stack.Screen

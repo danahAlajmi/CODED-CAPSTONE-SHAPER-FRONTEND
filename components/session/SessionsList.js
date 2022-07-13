@@ -22,11 +22,11 @@ function SessionsList() {
     Ubuntu: require("../../assets/fonts/Ubuntu-Regular.ttf"),
   });
 
+  const navigation = useNavigation();
   if (!loaded) {
     return null;
   }
 
-  const navigation = useNavigation();
   const sessionsList = sessionStore.sessions
     .filter((session) =>
       session.title.toLowerCase().includes(search.toLowerCase())

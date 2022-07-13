@@ -13,7 +13,6 @@ class ProfileStore {
     try {
       const response = await instance.get("/api/profile");
       this.profiles = response.data;
-      // console.log(this.profiles);
       this.isLoading = false;
     } catch (error) {
       console.log("ProfileStore -> fetchProfile -> error", error);
@@ -26,8 +25,6 @@ class ProfileStore {
         `/api/profile/${profileId}`,
         updatedProfile
       );
-      // console.log(updatedProfile);
-      // console.log(profileId);
       this.fetchProfile();
       const updateProfile = Object.assign(
         this.profiles.find((profile) => profile._id === profileId),
@@ -49,7 +46,6 @@ class ProfileStore {
 
   getNumOfHours(userId) {
     const user = userStore.getUserById(userId);
-    console.log(user);
     const enrolledSessions = user.enrolled;
     const ownerSissions = user.owner;
     let allSessions = enrolledSessions.concat(ownerSissions);

@@ -13,21 +13,20 @@ import { observer } from "mobx-react";
 import userStore from "../../stores/userStore";
 import TrainersListItem from "./TrainersListItem";
 import { useNavigation } from "@react-navigation/native";
-import { useFonts } from 'expo-font';
+import { useFonts } from "expo-font";
 
 function TrainersList() {
   const [search, setSearch] = useState("");
   const [loaded] = useFonts({
-    'UbuntuBold': require('../../assets/fonts/Ubuntu-Bold.ttf'),
-    'UbuntuLight': require('../../assets/fonts/Ubuntu-Light.ttf'),
-    'Ubuntu': require('../../assets/fonts/Ubuntu-Regular.ttf'),
+    UbuntuBold: require("../../assets/fonts/Ubuntu-Bold.ttf"),
+    UbuntuLight: require("../../assets/fonts/Ubuntu-Light.ttf"),
+    Ubuntu: require("../../assets/fonts/Ubuntu-Regular.ttf"),
   });
 
+  const navigation = useNavigation();
   if (!loaded) {
     return null;
   }
-
-  const navigation = useNavigation();
 
   const trainersList = userStore.trainers
     .filter((trainer) =>
@@ -87,8 +86,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: 330,
     backgroundColor: "#EAEAEA",
-    fontFamily:"UbuntuLight",
-
+    fontFamily: "UbuntuLight",
   },
   scrollView: {
     width: 390,
