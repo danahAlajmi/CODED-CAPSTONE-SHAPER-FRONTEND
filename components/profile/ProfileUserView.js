@@ -13,13 +13,13 @@ import React from "react";
 import { observer } from "mobx-react";
 import profileStore from "../../stores/profileStore";
 import ProfileSessionItem from "../profile/ProfileSessionItem";
-import { useFonts } from 'expo-font';
+import { useFonts } from "expo-font";
 
 function ProfileUserView({ route }) {
   const [loaded] = useFonts({
-    'UbuntuBold': require('../../assets/fonts/Ubuntu-Bold.ttf'),
-    'UbuntuLight': require('../../assets/fonts/Ubuntu-Light.ttf'),
-    'Ubuntu': require('../../assets/fonts/Ubuntu-Regular.ttf'),
+    UbuntuBold: require("../../assets/fonts/Ubuntu-Bold.ttf"),
+    UbuntuLight: require("../../assets/fonts/Ubuntu-Light.ttf"),
+    Ubuntu: require("../../assets/fonts/Ubuntu-Regular.ttf"),
   });
 
   if (!loaded) {
@@ -51,7 +51,7 @@ function ProfileUserView({ route }) {
             <Text style={styles.bio}>{profile.bio}</Text>
             <View style={styles.containerNumOfHOurs}>
               <Text style={styles.number}>
-                {profileStore.getNumOfHours(profile._id)}{" "}
+                {profileStore.getNumOfHours(trainer._id)}{" "}
               </Text>
               <Text> Hours 🏋️</Text>
             </View>
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "#000000",
     fontWeight: "600",
-    fontFamily:"UbuntuBold",
+    fontFamily: "UbuntuBold",
     maxWidth: 120,
     overflow: "hidden",
   },
@@ -127,13 +127,13 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "#A09C9A",
     fontWeight: "300",
-    fontFamily:"UbuntuLight",
+    fontFamily: "UbuntuLight",
   },
   number: {
     color: "#FFA90D",
     fontSize: 15,
     fontWeight: "300",
-    fontFamily:"Ubuntu",
+    fontFamily: "Ubuntu",
   },
   containerNumOfHOurs: {
     flexDirection: "row",
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     // flex: 1,
     fontSize: 18,
     marginLeft: 20,
-    fontFamily:"Ubuntu",
+    fontFamily: "Ubuntu",
     // marginTop: -650,
     // right: 110,
   },

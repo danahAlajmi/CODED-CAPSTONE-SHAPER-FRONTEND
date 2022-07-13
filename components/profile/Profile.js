@@ -58,7 +58,7 @@ function Profile() {
 
   let user = userStore.user;
   let profile = profileStore.getProfileById(user._id);
-  console.log(user);
+  // console.log(user);
   return (
     <SafeAreaView style={styles.containerSaveView}>
       <View style={styles.container}>
@@ -102,7 +102,7 @@ function Profile() {
             <Text style={styles.bio}>{profile.bio}</Text>
             <View style={styles.containerNumOfHOurs}>
               <Text style={styles.number}>
-                {profileStore.getNumOfHours(profile._id)}
+                {profileStore.getNumOfHours(user._id)}
               </Text>
               <Text> Hours 🏋️</Text>
             </View>
@@ -121,7 +121,13 @@ function Profile() {
           </TouchableOpacity>
         </View>
         <View style={styles.border} />
-        <View style={{ height: "100%" }}>
+        <View
+          style={{
+            height: "100%",
+            width: "100%",
+            alignItems: "center",
+          }}
+        >
           {userStore.user.isTrainer ? (
             <Tab.Navigator
               screenOptions={{

@@ -26,11 +26,12 @@ class SessionStore {
       const res = await instance.post(
         `/api/sessions/${sessionId}/user/${userId}`
       );
-      const updateSession = Object.assign(
-        this.sessions.find((session) => session._id === sessionId),
-        res.data
-      );
+      // const updateSession = Object.assign(
+      //   this.sessions.find((session) => session._id === sessionId),
+      //   res.data
+      // );
       userStore.user.enrolled.push(sessionId);
+      console.log(userStore.user);
       userStore.fetchUsers();
       this.fetchAllSessions();
     } catch (error) {
@@ -43,14 +44,16 @@ class SessionStore {
       const res = await instance.post(
         `/api/sessions/cancel/${sessionId}/${userId}`
       );
-      const canclSession = Object.assign(
-        this.sessions.find((session) => session._id === sessionId),
-        res.data
-      );
+      // const canclSession = Object.assign(
+      //   this.sessions.find((session) => session._id === sessionId),
+      //   res.data
+      // );
       userStore.user.enrolled.splice(
         userStore.user.enrolled.indexOf(sessionId),
         1
       );
+      console.log(userStore.user);
+
       //console.log(res.data);
       userStore.fetchUsers();
       this.fetchAllSessions();

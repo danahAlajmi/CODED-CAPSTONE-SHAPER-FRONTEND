@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   Image,
   RefreshControl,
-  Alert
+  Alert,
 } from "react-native";
 import { observer } from "mobx-react";
 import React from "react";
@@ -20,9 +20,13 @@ import { useNavigation } from "@react-navigation/native";
 import { Menu, MenuItem, MenuDivider } from "react-native-material-menu";
 import { useState, useEffect } from "react";
 import { Entypo } from "@expo/vector-icons";
-import { ALERT_TYPE, Dialog, Root, Toast } from 'react-native-alert-notification';
-import { useFonts } from 'expo-font';
-
+import {
+  ALERT_TYPE,
+  Dialog,
+  Root,
+  Toast,
+} from "react-native-alert-notification";
+import { useFonts } from "expo-font";
 
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
 
@@ -32,16 +36,15 @@ function SessionDetails({ route }) {
   const [refresh, setRefresh] = useState(false);
   const [isDeleted, showIsDeleted] = useState(false);
   const [loaded] = useFonts({
-    'UbuntuBold': require('../../assets/fonts/Ubuntu-Bold.ttf'),
-    'UbuntuLight': require('../../assets/fonts/Ubuntu-Light.ttf'),
-    'Ubuntu': require('../../assets/fonts/Ubuntu-Regular.ttf'),
+    UbuntuBold: require("../../assets/fonts/Ubuntu-Bold.ttf"),
+    UbuntuLight: require("../../assets/fonts/Ubuntu-Light.ttf"),
+    Ubuntu: require("../../assets/fonts/Ubuntu-Regular.ttf"),
   });
 
   if (!loaded) {
     return null;
   }
 
-  
   const navigation = useNavigation();
   let user = userStore.user;
   const session = route.params;
@@ -65,21 +68,20 @@ function SessionDetails({ route }) {
     }, 1000);
   };
   const createDeleteAlert = () =>
-  Alert.alert("Warning", "Are you sure you want to Delete this session?", [
-    {
-      text: "Cancel",
-    },
-    { text: "Yes", onPress: handleDelete, style: "destructive" },
-  ]);
+    Alert.alert("Warning", "Are you sure you want to Delete this session?", [
+      {
+        text: "Cancel",
+      },
+      { text: "Yes", onPress: handleDelete, style: "destructive" },
+    ]);
 
   const createUnjoinAlert = () =>
-  Alert.alert("Warning", "Are you sure you want to unjoin this session?", [
-    {
-      text: "Cancel",
-    },
-    { text: "Yes", onPress: handleCancel, style: "destructive" },
-  ]);
-
+    Alert.alert("Warning", "Are you sure you want to unjoin this session?", [
+      {
+        text: "Cancel",
+      },
+      { text: "Yes", onPress: handleCancel, style: "destructive" },
+    ]);
 
   const handleJoin = () => {
     sessionStore.joinSession(session._id, user._id);
@@ -104,17 +106,6 @@ function SessionDetails({ route }) {
       return false;
     }
   });
-  // let isEnrolled = signedUserProfile.user.enrolled.some((sessionId) => {
-  //   // return session._id == sessionId;
-  //   if (session._id == sessionId) {
-  //     // setIsEnroll(true);
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // });
-  // isEnrolled = isEnrolled[0];
-  // console.log(isEnrolled, isEnroll);
 
   const handleEdit = () => {
     hideMenu();
@@ -123,165 +114,164 @@ function SessionDetails({ route }) {
 
   const handleDelete = () => {
     hideMenu();
-    sessionStore.DeleteSession(session, session._id,showIsDeleted);
+    sessionStore.DeleteSession(session, session._id, showIsDeleted);
   };
   const hideMenu = () => setVisible(false);
 
   const showMenu = () => setVisible(true);
   const participantsList = session.participants.map((participant) => {
+    // let profileView = profileStore.getProfileById(participant);
     return <ParticipantInfo key={participant} participant={participant} />;
   });
   return (
     <Root>
-    <View style={styles.container}>
-      {/* <Image style={styles.imageContainer} source={{ uri: session.image }} />
+      <View style={styles.container}>
+        {/* <Image style={styles.imageContainer} source={{ uri: session.image }} />
       <View style={styles.trainerInfo}>
         <Image style={styles.imagePro} source={{ uri: profile.image }} />
         <Text style={styles.trainerName}>
           {profile.firstName} {profile.lastName}
         </Text>
       </View> */}
-      <ScrollView
-        contentContainerStyle={{ paddingBottom: 800 }}
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        // style={{ backgroundColor: "transparent" }}
-        refreshControl={
-          <RefreshControl refreshing={refresh} onRefresh={() => refr()} />
-        }
-      >
-        <ImageBackground
-          style={styles.imageContainer}
-          source={{ uri: session.image }}
-        />
-        <View style={styles.trainerInfo}>
-          <Image style={styles.imagePro} source={{ uri: profile.image }} />
-          <Text style={styles.trainerName}>
-            {profile.firstName} {profile.lastName}
-          </Text>
-          {userStore.user._id === session.trainer ? (
-            <View
-              style={{
-                position: "absolute",
-                right: 0,
-                margin: 30
-              }}
-            >
-              <Menu
-                visible={visible}
-                anchor={
-                  <Entypo
-                    onPress={showMenu}
-                    name="dots-three-horizontal"
-                    size={24}
-                    color="white"
-                  />
-                }
-                onRequestClose={hideMenu}
-              >
-                <MenuItem
-                  pressColor="#FFA90D"
-                  textStyle={{ color: "black",fontFamily:"Ubuntu" }}
-                  onPress={handleEdit}
-                >
-                  Edit Session
-                </MenuItem>
-                {session.participants.length === 0 ? (
-                  <MenuItem
-                    pressColor="red"
-                    textStyle={{ color: "red" ,fontFamily:"Ubuntu" }}
-                    onPress={createDeleteAlert}
-                  >
-                    Delete Session
-                  </MenuItem>
-                ) : (
-                  <MenuItem disabled textStyle={{fontFamily:"Ubuntu"}}>Delete Session</MenuItem>
-                )}
-              </Menu>
-            </View>
-          ) : (
-            <></>
-          )}
-        </View>
-        <View style={styles.card}>
-          <View style={styles.textCard}>
-            <Text style={styles.title}>{session.title}</Text>
-            <Text style={styles.description}>{session.description}</Text>
-            <Text style={styles.datePrice}>
-              🗓️ {new Date(session.date).toLocaleDateString()} -
-              {" " +
-                new Date(session.date).toLocaleString("en-US", {
-                  hour: "numeric",
-                  minute: "numeric",
-                  hour12: true,
-                })}
+        <ScrollView
+          contentContainerStyle={{ paddingBottom: 900 }}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+          // style={{ backgroundColor: "transparent" }}
+          refreshControl={
+            <RefreshControl refreshing={refresh} onRefresh={() => refr()} />
+          }
+        >
+          <ImageBackground
+            style={styles.imageContainer}
+            source={{ uri: session.image }}
+          />
+          <View style={styles.trainerInfo}>
+            <Image style={styles.imagePro} source={{ uri: profile.image }} />
+            <Text style={styles.trainerName}>
+              {profile.firstName} {profile.lastName}
             </Text>
-            <Text style={styles.duration}>⏳ {session.duration} Min</Text>
-            <Text style={styles.datePrice}>💰 10KD</Text>
-            {isEnrolled || isEnroll ? (
-              <TouchableOpacity
-                onPress={createUnjoinAlert}
-                // activeOpacity={0.5}
-                // disabled={true}
-                style={styles.btnPressed}
+            {userStore.user._id === session.trainer ? (
+              <View
+                style={{
+                  position: "absolute",
+                  right: 0,
+                  margin: 30,
+                }}
               >
-                <Text style={styles.btnText}>Unjoin</Text>
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity onPress={handleJoin} style={styles.btn}>
-                <Text style={styles.btnText}>Join</Text>
-              </TouchableOpacity>
-            )}
-
-            <View>
-              <Text style={styles.partiText}>👥 Participants</Text>
-              <Text style={styles.parti}>
-                {session.participants.length}/{session.limit}
-              </Text>
-              {session.participants.length === 0 ? (
-                <Text style={styles.partiListText}>None</Text>
-              ) : (
-                <View style={styles.partiListText}>{participantsList}</View>
-              )}
-            </View>
-            <View>
-              <Text style={styles.locationTitle}>📍 Location</Text>
-              <View style={styles.map}>
-                <MapView
-                  provider={PROVIDER_GOOGLE}
-                  region={detailsLocation}
-                  style={StyleSheet.absoluteFillObject}
-                  mapType={"satelite"}
+                <Menu
+                  visible={visible}
+                  anchor={
+                    <Entypo
+                      onPress={showMenu}
+                      name="dots-three-horizontal"
+                      size={24}
+                      color="white"
+                    />
+                  }
+                  onRequestClose={hideMenu}
                 >
-                  <Marker coordinate={detailsLocation}></Marker>
-                </MapView>
+                  <MenuItem
+                    pressColor="#FFA90D"
+                    textStyle={{ color: "black", fontFamily: "Ubuntu" }}
+                    onPress={handleEdit}
+                  >
+                    Edit Session
+                  </MenuItem>
+                  {session.participants.length === 0 ? (
+                    <MenuItem
+                      pressColor="red"
+                      textStyle={{ color: "red", fontFamily: "Ubuntu" }}
+                      onPress={createDeleteAlert}
+                    >
+                      Delete Session
+                    </MenuItem>
+                  ) : (
+                    <MenuItem disabled textStyle={{ fontFamily: "Ubuntu" }}>
+                      Delete Session
+                    </MenuItem>
+                  )}
+                </Menu>
+              </View>
+            ) : (
+              <></>
+            )}
+          </View>
+          <View style={styles.card}>
+            <View style={styles.textCard}>
+              <Text style={styles.title}>{session.title}</Text>
+              <Text style={styles.description}>{session.description}</Text>
+              <Text style={styles.datePrice}>
+                🗓️ {new Date(session.date).toLocaleDateString()} -
+                {" " +
+                  new Date(session.date).toLocaleString("en-US", {
+                    hour: "numeric",
+                    minute: "numeric",
+                    hour12: true,
+                  })}
+              </Text>
+              <Text style={styles.duration}>⏳ {session.duration} Min</Text>
+              <Text style={styles.datePrice}>💰 10KD</Text>
+              {isEnrolled || isEnroll ? (
+                <TouchableOpacity
+                  onPress={createUnjoinAlert}
+                  // activeOpacity={0.5}
+                  // disabled={true}
+                  style={styles.btnPressed}
+                >
+                  <Text style={styles.btnText}>Unjoin</Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity onPress={handleJoin} style={styles.btn}>
+                  <Text style={styles.btnText}>Join</Text>
+                </TouchableOpacity>
+              )}
+
+              <View>
+                <Text style={styles.partiText}>👥 Participants</Text>
+                <Text style={styles.parti}>
+                  {session.participants.length}/{session.limit}
+                </Text>
+                {session.participants.length === 0 ? (
+                  <Text style={styles.partiListText}>None</Text>
+                ) : (
+                  <View style={styles.partiListText}>{participantsList}</View>
+                )}
+              </View>
+              <View>
+                <Text style={styles.locationTitle}>📍 Location</Text>
+                <View style={styles.map}>
+                  <MapView
+                    provider={PROVIDER_GOOGLE}
+                    region={detailsLocation}
+                    style={StyleSheet.absoluteFillObject}
+                    mapType={"satelite"}
+                  >
+                    <Marker coordinate={detailsLocation}></Marker>
+                  </MapView>
+                </View>
               </View>
             </View>
           </View>
-        </View>
-      </ScrollView>
-      {isDeleted ? (
-          (Dialog.show({
+        </ScrollView>
+        {isDeleted ? (
+          Dialog.show({
             type: ALERT_TYPE.SUCCESS,
             title: "Session Deleted",
-            textBody:
-              "Session Deleted Successfuly",
-              button: "Ok",
-            onPressButton: () => { 
-              navigation.navigate("Explore")
-              showIsDeleted(false)
+            textBody: "Session Deleted Successfuly",
+            button: "Ok",
+            onPressButton: () => {
+              navigation.navigate("Explore");
+              showIsDeleted(false);
             },
-            onHide : () => {
-              navigation.navigate("Explore")
-            }
-    
-
+            onHide: () => {
+              navigation.navigate("Explore");
+            },
           })
-          )
         ) : (
           <></>
         )}
-    </View>
+      </View>
     </Root>
   );
 }
@@ -309,32 +299,30 @@ const styles = StyleSheet.create({
   textCard: {
     marginHorizontal: 15,
     // marginVertical: 30,
-    marginTop:10,
+    marginTop: 10,
   },
   title: {
     marginTop: 10,
     fontSize: 40,
-    fontFamily:"Ubuntu",
+    fontFamily: "Ubuntu",
   },
   description: {
     fontSize: 20,
     marginTop: 10,
-    fontFamily:"UbuntuLight",
+    fontFamily: "UbuntuLight",
   },
   datePrice: {
     fontSize: 20,
     marginTop: 20,
     color: "#FFA90D",
-    fontFamily:"UbuntuLight",
-
+    fontFamily: "UbuntuLight",
   },
   duration: {
     flexDirection: "row",
     fontSize: 20,
     marginTop: 20,
     color: "#FFA90D",
-    fontFamily:"UbuntuLight",
-
+    fontFamily: "UbuntuLight",
   },
   btn: {
     // alignItems: "center",
@@ -395,13 +383,12 @@ const styles = StyleSheet.create({
     fontSize: 25,
     textAlign: "center",
     color: "white",
-    fontFamily:"UbuntuBold",
-
+    fontFamily: "UbuntuBold",
   },
   locationTitle: {
     marginTop: 20,
     fontSize: 20,
-    fontFamily:"Ubuntu",
+    fontFamily: "Ubuntu",
   },
   map: {
     ...StyleSheet.absoluteFillObject,
@@ -414,17 +401,16 @@ const styles = StyleSheet.create({
     textAlign: "right",
     fontSize: 17,
     bottom: 20,
-    fontFamily:"Ubuntu",
-
+    fontFamily: "Ubuntu",
   },
   partiText: {
     textAlign: "left",
     fontSize: 20,
     marginTop: 50,
-    fontFamily:"Ubuntu",
+    fontFamily: "Ubuntu",
   },
-  partiListText:{
-    fontFamily:"Ubuntu",
+  partiListText: {
+    fontFamily: "Ubuntu",
     fontSize: 14,
   },
   trainerInfo: {
@@ -446,7 +432,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     color: "white",
     marginTop: 20,
-    fontFamily:"Ubuntu",
+    fontFamily: "Ubuntu",
 
     // marginHorizontal: 5,
   },
