@@ -41,11 +41,11 @@ function SessionDetails({ route }) {
     Ubuntu: require("../../assets/fonts/Ubuntu-Regular.ttf"),
   });
 
+  const navigation = useNavigation();
   if (!loaded) {
     return null;
   }
 
-  const navigation = useNavigation();
   let user = userStore.user;
   const session = route.params;
   var loc = session.location.split(",");
@@ -55,10 +55,7 @@ function SessionDetails({ route }) {
     latitudeDelta: 0.0035,
     longitudeDelta: 0.0035,
   };
-  // console.log(session);
-  // const participantsList = session.participants.map((participant) => {
-  //   return <ParticipantInfo key={participant} participant={participant} />;
-  // });
+
   let profile = profileStore.getProfileById(session.trainer);
   let signedUserProfile = profileStore.getProfileById(user._id);
   const refr = () => {
@@ -87,17 +84,17 @@ function SessionDetails({ route }) {
     sessionStore.joinSession(session._id, user._id);
     setIsEnroll(true);
     refr;
-    // console.log(session.participants);
+
     navigation.navigate("SuccessJoin", { session });
   };
   const handleCancel = () => {
     sessionStore.cancelSession(session._id, user._id);
     setIsEnroll(false);
     refr;
-    // console.log(session.participants);
+
     navigation.navigate("SuccessCancel", { session });
   };
-  // console.log(signedUserProfile.user.enrolled);
+
   let isEnrolled = session.participants.some((patricipent) => {
     user;
     if (user._id == patricipent) {

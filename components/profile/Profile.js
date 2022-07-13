@@ -36,6 +36,7 @@ function Profile() {
     Ubuntu: require("../../assets/fonts/Ubuntu-Regular.ttf"),
   });
 
+  const navigation = useNavigation();
   if (!loaded) {
     return null;
   }
@@ -53,12 +54,11 @@ function Profile() {
     userStore.signout();
   };
 
-  const navigation = useNavigation();
   if (profileStore.isLoading) return <Text>Loading</Text>;
 
   let user = userStore.user;
   let profile = profileStore.getProfileById(user._id);
-  // console.log(user);
+
   return (
     <SafeAreaView style={styles.containerSaveView}>
       <View style={styles.container}>
@@ -129,22 +129,25 @@ function Profile() {
           }}
         >
           {userStore.user.isTrainer ? (
-            <Tab.Navigator
-              screenOptions={{
-                tabBarContentContainerStyle: {},
-                tabBarIndicatorStyle: { backgroundColor: "#FFA90D" },
-                tabBarLabelStyle: { fontFamily: "UbuntuBold" },
-              }}
-            >
-              <Tab.Screen
-                name="Training"
-                children={() => <ProfileSessionLTraining id={user._id} />}
-              />
-              <Tab.Screen
-                name="Enrolled"
-                children={() => <ProfileSessionLEnrolled id={user._id} />}
-              />
-            </Tab.Navigator>
+            <>
+              <Text>asd</Text>
+              <Tab.Navigator
+                screenOptions={{
+                  tabBarContentContainerStyle: {},
+                  tabBarIndicatorStyle: { backgroundColor: "#FFA90D" },
+                  tabBarLabelStyle: { fontFamily: "UbuntuBold" },
+                }}
+              >
+                <Tab.Screen
+                  name="Training"
+                  children={() => <ProfileSessionLTraining id={user._id} />}
+                />
+                <Tab.Screen
+                  name="Enrolled"
+                  children={() => <ProfileSessionLEnrolled id={user._id} />}
+                />
+              </Tab.Navigator>
+            </>
           ) : (
             <ProfileSessionLEnrolled id={user._id} />
           )}

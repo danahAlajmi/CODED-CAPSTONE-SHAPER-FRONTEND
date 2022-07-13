@@ -30,6 +30,8 @@ class UserStore {
       const decodedUser = jwt_decode(response.data.token);
       this.profile = decodedUser.profile;
       await SecureStore.setItemAsync("token", response.data.token);
+      userStore.fetchUsers();
+      userStore.fetchTrainers();
       setIsSigned(true);
     } catch (error) {
       console.log(error);

@@ -31,7 +31,6 @@ class SessionStore {
       //   res.data
       // );
       userStore.user.enrolled.push(sessionId);
-      console.log(userStore.user);
       userStore.fetchUsers();
       this.fetchAllSessions();
     } catch (error) {
@@ -39,7 +38,6 @@ class SessionStore {
     }
   };
   cancelSession = async (sessionId, userId) => {
-    // console.log(sessionId, userId);
     try {
       const res = await instance.post(
         `/api/sessions/cancel/${sessionId}/${userId}`
@@ -52,9 +50,7 @@ class SessionStore {
         userStore.user.enrolled.indexOf(sessionId),
         1
       );
-      console.log(userStore.user);
 
-      //console.log(res.data);
       userStore.fetchUsers();
       this.fetchAllSessions();
     } catch (error) {
