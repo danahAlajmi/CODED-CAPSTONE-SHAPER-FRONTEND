@@ -2,17 +2,14 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import userStore from "../../stores/userStore";
 import { observer } from "mobx-react";
-import Profile from "../profile/Profile";
-import { SignOutWhenStuck } from "../user/SignOutWhenStuck";
 import { SignInPage } from "../user/SignInPage";
 import { SignUpPage } from "../user/SignUpPage";
 import { CreateProfile } from "../user/CreateProfile";
-import ProfileNav from "./ProfileNav";
+import ProfileNavigation from "./ProfileNavigation";
 import { Ionicons } from "@expo/vector-icons";
-import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import DumbbellNavigation from "./DumbbellNavigation";
-import Home from "./Home";
+import HomeNavigation from "./HomeNavigation";
 import { useFonts } from 'expo-font';
 
 const Tab = createBottomTabNavigator();
@@ -45,7 +42,7 @@ function BottomTabNavigation() {
         >
           <Tab.Screen
             name="Home"
-            component={Home}
+            component={HomeNavigation}
             options={{
               headerShown: false,
               tabBarShowLabel: false,
@@ -78,7 +75,7 @@ function BottomTabNavigation() {
           />
           <Tab.Screen
             name="ProfileMenu"
-            component={ProfileNav}
+            component={ProfileNavigation}
             options={{
               tabBarShowLabel: false,
               headerShown: false,

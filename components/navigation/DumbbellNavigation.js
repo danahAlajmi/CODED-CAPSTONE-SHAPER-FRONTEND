@@ -2,9 +2,9 @@ import * as React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { observer } from "mobx-react";
-import { SessionCreateDetail } from "../session/SessionCreateDetail";
-import { SessionCreateLocation } from "../session/SessionCreateLocation";
-import { SessionCreateTime } from "../session/SessionCreateTime";
+import { SessionCreateDetail } from "../session/create/SessionCreateDetail";
+import { SessionCreateLocation } from "../session/create/SessionCreateLocation";
+import { SessionCreateTime } from "../session/create/SessionCreateTime";
 import { SuccessfulCreatePage } from "../session/SuccessfulCreatePage";
 import Dumbbell from "../session/Dumbbell";
 

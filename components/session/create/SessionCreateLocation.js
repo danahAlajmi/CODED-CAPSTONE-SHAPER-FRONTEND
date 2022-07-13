@@ -14,9 +14,9 @@ import { useFonts } from "expo-font";
 
 export function SessionCreateLocation({ route, navigation }) {
   const [loaded] = useFonts({
-    UbuntuBold: require("../../assets/fonts/Ubuntu-Bold.ttf"),
-    UbuntuLight: require("../../assets/fonts/Ubuntu-Light.ttf"),
-    Ubuntu: require("../../assets/fonts/Ubuntu-Regular.ttf"),
+    'UbuntuBold': require('../../../assets/fonts/Ubuntu-Bold.ttf'),
+    'UbuntuLight': require('../../../assets/fonts/Ubuntu-Light.ttf'),
+    'Ubuntu': require('../../../assets/fonts/Ubuntu-Regular.ttf'),
   });
   const [location, setLocation] = useState({
     latitude: 29.358,

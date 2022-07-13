@@ -4,7 +4,8 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { observer } from "mobx-react";
 import EditProfile from "../profile/EditProfile";
 import Profile from "../profile/Profile";
-import SessionDetails from "../session/SessionDetails";
+import SessionDetails from "../session/display/SessionDetails";
+import { SuccessfulCancelPage } from "../session/SuccessfulCancelPage";
 import { Button } from "react-native";
 import sessionStore from "../../stores/sessionStore";
 
@@ -16,19 +17,23 @@ function ProfileNav() {
     <Navigator
       initialRouteName="Profile"
       screenOptions={{
-        headerShown: false,
       }}
     >
-      <Screen name="Profile" component={Profile} />
-      <Screen name="EditProfile" component={EditProfile} />
+      <Screen name="Profile" component={Profile} options={{headerShown: false,}} />
+      <Screen name="EditProfile" component={EditProfile} options={{headerShown: false,}} />
       <Screen
-        name="SessionDetail"
+        name="SessionDetails"
         component={SessionDetails}
         options={({ route }) => {
           return {
             title: sessionStore.getSessionById(route.params._id).title,
           };
         }}
+      />
+       <Screen
+        name="SuccessCancel"
+        component={SuccessfulCancelPage}
+        options={{ headerShown: false }}
       />
     </Navigator>
   );

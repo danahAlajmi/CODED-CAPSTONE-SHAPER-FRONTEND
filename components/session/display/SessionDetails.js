@@ -11,11 +11,11 @@ import {
 } from "react-native";
 import { observer } from "mobx-react";
 import React from "react";
-import sessionStore from "../../stores/sessionStore";
+import sessionStore from "../../../stores/sessionStore";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import profileStore from "../../stores/profileStore";
+import profileStore from "../../../stores/profileStore";
 import ParticipantInfo from "./ParticipantInfo";
-import userStore from "../../stores/userStore";
+import userStore from "../../../stores/userStore";
 import { useNavigation } from "@react-navigation/native";
 import { Menu, MenuItem, MenuDivider } from "react-native-material-menu";
 import { useState, useEffect } from "react";
@@ -36,9 +36,9 @@ function SessionDetails({ route }) {
   const [refresh, setRefresh] = useState(false);
   const [isDeleted, showIsDeleted] = useState(false);
   const [loaded] = useFonts({
-    UbuntuBold: require("../../assets/fonts/Ubuntu-Bold.ttf"),
-    UbuntuLight: require("../../assets/fonts/Ubuntu-Light.ttf"),
-    Ubuntu: require("../../assets/fonts/Ubuntu-Regular.ttf"),
+    UbuntuBold: require("../../../assets/fonts/Ubuntu-Bold.ttf"),
+    UbuntuLight: require("../../../assets/fonts/Ubuntu-Light.ttf"),
+    Ubuntu: require("../../../assets/fonts/Ubuntu-Regular.ttf"),
   });
 
   const navigation = useNavigation();

@@ -9,17 +9,17 @@ import {
   TextInput,
   StyleSheet,
 } from "react-native";
-import sessionStore from "../../stores/sessionStore";
-import userStore from "../../stores/userStore";
+import sessionStore from "../../../stores/sessionStore";
+import userStore from "../../../stores/userStore";
 import { useFonts } from "expo-font";
 
 export function SessionEditTime({ route, navigation }) {
   const [date, setDate] = useState(new Date());
   const [duration, setDuration] = useState(new Date());
   const [loaded] = useFonts({
-    UbuntuBold: require("../../assets/fonts/Ubuntu-Bold.ttf"),
-    UbuntuLight: require("../../assets/fonts/Ubuntu-Light.ttf"),
-    Ubuntu: require("../../assets/fonts/Ubuntu-Regular.ttf"),
+    UbuntuBold: require("../../../assets/fonts/Ubuntu-Bold.ttf"),
+    UbuntuLight: require("../../../assets/fonts/Ubuntu-Light.ttf"),
+    Ubuntu: require("../../../assets/fonts/Ubuntu-Regular.ttf"),
   });
 
   if (!loaded) {
