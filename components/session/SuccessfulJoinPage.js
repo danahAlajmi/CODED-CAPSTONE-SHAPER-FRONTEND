@@ -16,11 +16,8 @@ export function SuccessfulJoinPage({ route, navigation }){
 
 
     const goBack = () => {
-      navigation.navigate("Home",{
-        screen: 'Explore', params: {
-            screen: 'Sessions'
-        }}
-        )
+      navigation.pop(2)
+
     }
 
     return (

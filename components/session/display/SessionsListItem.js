@@ -12,9 +12,9 @@ import { useFonts } from 'expo-font';
 
 function SessionsListItem({ session }) {
   const [loaded] = useFonts({
-    'UbuntuBold': require('../../assets/fonts/Ubuntu-Bold.ttf'),
-    'UbuntuLight': require('../../assets/fonts/Ubuntu-Light.ttf'),
-    'Ubuntu': require('../../assets/fonts/Ubuntu-Regular.ttf'),
+    'UbuntuBold': require('../../../assets/fonts/Ubuntu-Bold.ttf'),
+    'UbuntuLight': require('../../../assets/fonts/Ubuntu-Light.ttf'),
+    'Ubuntu': require('../../../assets/fonts/Ubuntu-Regular.ttf'),
   });
 
   if (!loaded) {

@@ -1,31 +1,14 @@
 import { Text, View, TouchableOpacity, Image, StyleSheet } from "react-native";
-import { useFonts } from 'expo-font';
 
 export function SuccessfulCancelPage({ route, navigation }) {
-  const [loaded] = useFonts({
-    'UbuntuBold': require('../../assets/fonts/Ubuntu-Bold.ttf'),
-    'UbuntuLight': require('../../assets/fonts/Ubuntu-Light.ttf'),
-    'Ubuntu': require('../../assets/fonts/Ubuntu-Regular.ttf'),
-  });
-
-  if (!loaded) {
-    return null;
-  }
   let session = route.params.session;
 
   const goBack = () => {
-    navigation.navigate("Home", {
-      screen: "Explore",
-      params: {
-        screen: "Sessions",
-      },
-    });
+    navigation.pop(2);
   };
 
   return (
     <View style={styles.container}>
-          <View style={{backgroundColor:"white",position:"absolute", height:10000 , width:10000}}>
-    </View>
       {/* <Text style={styles.headerText}>Sorry 🙏🏻</Text> */}
       <Text style={styles.headerText}>
         You have Canceled {session.title} session
@@ -52,7 +35,6 @@ const styles = StyleSheet.create({
     fontSize: 24,
     marginBottom: 10,
     textAlign: "center",
-    fontFamily:"Ubuntu",
   },
   backgroundImage: {
     height: "45%",
@@ -70,7 +52,7 @@ const styles = StyleSheet.create({
   },
   goBackText: {
     color: "white",
-    fontFamily:"UbuntuBold",
+    fontWeight: "bold",
     alignSelf: "center",
   },
 });

@@ -40,7 +40,6 @@ function Profile() {
   if (!loaded) {
     return null;
   }
-
   const createTwoButtonAlert = () =>
     Alert.alert("Warning", "Are you sure you want to sign out", [
       {

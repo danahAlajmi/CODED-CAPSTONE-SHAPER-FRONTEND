@@ -1,14 +1,14 @@
 import { View, Text, StyleSheet, Image } from "react-native";
 import React from "react";
 import { observer } from "mobx-react";
-import profileStore from "../../stores/profileStore";
+import profileStore from "../../../stores/profileStore";
 import { useFonts } from 'expo-font';
 
 function ParticipantInfo({ participant }) {
   const [loaded] = useFonts({
-    'UbuntuBold': require('../../assets/fonts/Ubuntu-Bold.ttf'),
-    'UbuntuLight': require('../../assets/fonts/Ubuntu-Light.ttf'),
-    'Ubuntu': require('../../assets/fonts/Ubuntu-Regular.ttf'),
+    UbuntuBold: require("../../../assets/fonts/Ubuntu-Bold.ttf"),
+    UbuntuLight: require("../../../assets/fonts/Ubuntu-Light.ttf"),
+    Ubuntu: require("../../../assets/fonts/Ubuntu-Regular.ttf"),
   });
 
   if (!loaded) {

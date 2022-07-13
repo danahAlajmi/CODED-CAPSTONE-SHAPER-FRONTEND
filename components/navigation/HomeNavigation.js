@@ -4,12 +4,12 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { observer } from "mobx-react";
 import Explore from "./Explore";
 import ProfileUserView from "../profile/ProfileUserView";
-import SessionDetails from "../session/SessionDetails";
-import sessionStore from "./../../stores/sessionStore";
+import SessionDetails from "../session/display/SessionDetails";
+import sessionStore from "../../stores/sessionStore";
 import { SuccessfulJoinPage } from "../session/SuccessfulJoinPage";
 import { SuccessfulCancelPage } from "../session/SuccessfulCancelPage";
-import { SessionEditDetail } from "../session/SessionEditDetail";
-import { SessionEditTime } from "../session/SessionEditTime";
+import { SessionEditDetail } from "../session/edit/SessionEditDetail";
+import { SessionEditTime } from "../session/edit/SessionEditTime";
 import { useFonts } from "expo-font";
 
 const Stack = createNativeStackNavigator();

@@ -10,16 +10,16 @@ import {
   View,
 } from "react-native";
 import { observer } from "mobx-react";
-import sessionStore from "../../stores/sessionStore";
+import sessionStore from "../../../stores/sessionStore";
 import SessionsListItem from "./SessionsListItem";
 import { useNavigation } from "@react-navigation/native";
 import { useFonts } from "expo-font";
 function SessionsList() {
   const [search, setSearch] = useState("");
   const [loaded] = useFonts({
-    UbuntuBold: require("../../assets/fonts/Ubuntu-Bold.ttf"),
-    UbuntuLight: require("../../assets/fonts/Ubuntu-Light.ttf"),
-    Ubuntu: require("../../assets/fonts/Ubuntu-Regular.ttf"),
+    UbuntuBold: require("../../../assets/fonts/Ubuntu-Bold.ttf"),
+    UbuntuLight: require("../../../assets/fonts/Ubuntu-Light.ttf"),
+    Ubuntu: require("../../../assets/fonts/Ubuntu-Regular.ttf"),
   });
 
   const navigation = useNavigation();

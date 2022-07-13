@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { observer } from "mobx-react";
 import TrainersList from "../trainer/TrainersList";
-import SessionsList from "../session/SessionsList";
+import SessionsList from "../session/display/SessionsList";
 import { useFonts } from 'expo-font';
 
 const Tab = createMaterialTopTabNavigator();
