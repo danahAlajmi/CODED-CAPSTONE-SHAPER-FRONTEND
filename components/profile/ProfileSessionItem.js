@@ -9,13 +9,13 @@ import {
 import { observer } from "mobx-react";
 import sessionStore from "../../stores/sessionStore";
 import { useNavigation } from "@react-navigation/native";
-import { useFonts } from 'expo-font';
+import { useFonts } from "expo-font";
 
 function ProfileSessionItem({ session }) {
   const [loaded] = useFonts({
-    'UbuntuBold': require('../../assets/fonts/Ubuntu-Bold.ttf'),
-    'UbuntuLight': require('../../assets/fonts/Ubuntu-Light.ttf'),
-    'Ubuntu': require('../../assets/fonts/Ubuntu-Regular.ttf'),
+    UbuntuBold: require("../../assets/fonts/Ubuntu-Bold.ttf"),
+    UbuntuLight: require("../../assets/fonts/Ubuntu-Light.ttf"),
+    Ubuntu: require("../../assets/fonts/Ubuntu-Regular.ttf"),
   });
 
   if (!loaded) {
@@ -24,12 +24,12 @@ function ProfileSessionItem({ session }) {
   const navigation = useNavigation();
 
   let sessionInfo = sessionStore.getSessionById(session._id);
-
+  console.log(sessionInfo);
   return (
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("SessionDetails", sessionInfo);
+          navigation.navigate("SessionDetail", sessionInfo);
         }}
       >
         <ImageBackground
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 30,
     padding: 12.5,
-    fontFamily:"Ubuntu",
+    fontFamily: "Ubuntu",
     position: "relative",
     top: "50%",
   },

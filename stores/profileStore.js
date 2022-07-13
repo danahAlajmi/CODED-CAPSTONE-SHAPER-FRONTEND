@@ -1,6 +1,7 @@
 import { makeAutoObservable } from "mobx";
 import instance from "./instance";
 import sessionStore from "./sessionStore";
+import userStore from "./userStore";
 
 class ProfileStore {
   constructor() {
@@ -12,14 +13,14 @@ class ProfileStore {
     try {
       const response = await instance.get("/api/profile");
       this.profiles = response.data;
-      //console.log(this.profiles);
+      // console.log(this.profiles);
       this.isLoading = false;
     } catch (error) {
       console.log("ProfileStore -> fetchProfile -> error", error);
     }
   };
 
-  updateProfile = async (updatedProfile, profileId,showError) => {
+  updateProfile = async (updatedProfile, profileId, showError) => {
     try {
       const res = await instance.put(
         `/api/profile/${profileId}`,
@@ -32,21 +33,25 @@ class ProfileStore {
         this.profiles.find((profile) => profile._id === profileId),
         updatedProfile
       );
-      showError(false)
+      showError(false);
       this.fetchProfile();
     } catch (error) {
       console.log("ProfileStore -> updateProfile -> error", error);
-      showError(false)
+      showError(false);
     }
   };
   getProfileById = (userId) => {
     return this.profiles.find((profile) => profile.user._id === userId);
   };
+  getProfileByProId = (proId) => {
+    return this.profiles.find((profile) => profile._id === proId);
+  };
 
-  getNumOfHours(profileId) {
-    const profile = this.profiles.find((profile) => profile._id === profileId);
-    const enrolledSessions = profile.user.enrolled;
-    const ownerSissions = profile.user.owner;
+  getNumOfHours(userId) {
+    const user = userStore.getUserById(userId);
+    console.log(user);
+    const enrolledSessions = user.enrolled;
+    const ownerSissions = user.owner;
     let allSessions = enrolledSessions.concat(ownerSissions);
     let allDurations = [];
     let numOfMin = 0;
