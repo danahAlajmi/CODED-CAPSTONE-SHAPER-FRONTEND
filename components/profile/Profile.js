@@ -125,29 +125,25 @@ function Profile() {
           style={{
             height: "100%",
             width: "100%",
-            alignItems: "center",
           }}
         >
           {userStore.user.isTrainer ? (
-            <>
-              <Text>asd</Text>
-              <Tab.Navigator
-                screenOptions={{
-                  tabBarContentContainerStyle: {},
-                  tabBarIndicatorStyle: { backgroundColor: "#FFA90D" },
-                  tabBarLabelStyle: { fontFamily: "UbuntuBold" },
-                }}
-              >
-                <Tab.Screen
-                  name="Training"
-                  children={() => <ProfileSessionLTraining id={user._id} />}
-                />
-                <Tab.Screen
-                  name="Enrolled"
-                  children={() => <ProfileSessionLEnrolled id={user._id} />}
-                />
-              </Tab.Navigator>
-            </>
+            <Tab.Navigator
+              screenOptions={{
+                tabBarContentContainerStyle: {},
+                tabBarIndicatorStyle: { backgroundColor: "#FFA90D" },
+                tabBarLabelStyle: { fontFamily: "UbuntuBold" },
+              }}
+            >
+              <Tab.Screen
+                name="Training"
+                children={() => <ProfileSessionLTraining id={user._id} />}
+              />
+              <Tab.Screen
+                name="Enrolled"
+                children={() => <ProfileSessionLEnrolled id={user._id} />}
+              />
+            </Tab.Navigator>
           ) : (
             <ProfileSessionLEnrolled id={user._id} />
           )}
