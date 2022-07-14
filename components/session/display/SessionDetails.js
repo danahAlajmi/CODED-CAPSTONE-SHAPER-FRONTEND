@@ -57,6 +57,7 @@ function SessionDetails({ route }) {
   };
 
   let profile = profileStore.getProfileById(session.trainer);
+  let trainer = userStore.getUserById(session.trainer);
   let signedUserProfile = profileStore.getProfileById(user._id);
   const refr = () => {
     setRefresh(true);
@@ -144,10 +145,22 @@ function SessionDetails({ route }) {
             source={{ uri: session.image }}
           />
           <View style={styles.trainerInfo}>
-            <Image style={styles.imagePro} source={{ uri: profile.image }} />
-            <Text style={styles.trainerName}>
-              {profile.firstName} {profile.lastName}
-            </Text>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Profile", { trainer });
+              }}
+              key={trainer._id}
+            >
+              <View style={{ flexDirection: "row" }}>
+                <Image
+                  style={styles.imagePro}
+                  source={{ uri: profile.image }}
+                />
+                <Text style={styles.trainerName}>
+                  {profile.firstName} {profile.lastName}
+                </Text>
+              </View>
+            </TouchableOpacity>
             {userStore.user._id === session.trainer ? (
               <View
                 style={{
