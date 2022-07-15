@@ -221,12 +221,20 @@ function SessionDetails({ route }) {
               </Text>
               <Text style={styles.duration}>⏳ {session.duration} Min</Text>
               <Text style={styles.datePrice}>💰 10KD</Text>
-              {isEnrolled || isEnroll ? (
+              {session.date < Date.now() ? (
+                <TouchableOpacity disabled style={styles.btnPast}>
+                  <Text style={styles.btnText}>Finished</Text>
+                </TouchableOpacity>
+              ) : isEnrolled || isEnroll ? (
                 <TouchableOpacity
                   onPress={createUnjoinAlert}
                   style={styles.btnPressed}
                 >
                   <Text style={styles.btnText}>Unjoin</Text>
+                </TouchableOpacity>
+              ) : session.participants.length === session.limit ? (
+                <TouchableOpacity disabled style={styles.btn}>
+                  <Text style={styles.btnText}>Full</Text>
                 </TouchableOpacity>
               ) : (
                 <TouchableOpacity onPress={handleJoin} style={styles.btn}>
@@ -240,7 +248,9 @@ function SessionDetails({ route }) {
                   {session.participants.length}/{session.limit}
                 </Text>
                 {session.participants.length === 0 ? (
-                  <Text style={styles.partiListText}>None</Text>
+                  <View style={styles.partiNoneV}>
+                    <Text style={styles.partiNoneT}>None</Text>
+                  </View>
                 ) : (
                   <View style={styles.partiListText}>{participantsList}</View>
                 )}
@@ -358,23 +368,38 @@ const styles = StyleSheet.create({
 
     elevation: 3,
   },
-  btnPressed: {
-    // alignItems: "center",
-    // alignContent: "center",
-    // justifyContent: "center",
-    // marginTop: 30,
-    marginHorizontal: 40,
-    // backgroundColor: "#FFA90D",
+  btnPast: {
+    height: 50,
     width: 300,
-    // height: 55,
-    // borderRadius: 10,
+    minWidth: "40%",
+
+    alignItems: "center",
+    justifyContent: "center",
+
+    marginHorizontal: 40,
+    marginTop: 40,
+    elevation: 3,
+
+    backgroundColor: "#F8D390",
+    borderRadius: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 5,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 4.0,
+  },
+  btnPressed: {
+    marginHorizontal: 40,
+    width: 300,
     minWidth: "40%",
     borderRadius: 10,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
     marginTop: 40,
-    backgroundColor: "#F8D390",
+    backgroundColor: "#FFA90D",
 
     shadowColor: "#000",
     shadowOffset: {
@@ -415,6 +440,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginTop: 50,
     fontFamily: "Ubuntu",
+  },
+  partiNoneV: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginVertical: 10,
+  },
+  partiNoneT: {
+    fontFamily: "Ubuntu",
+    fontSize: 20,
   },
   partiListText: {
     fontFamily: "Ubuntu",
