@@ -12,9 +12,10 @@ import { AntDesign } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
 
 export function SessionEditDetail({ navigation, route }) {
-  const [name, setName] = useState("");
-  const [description, setDescription] = useState("");
-  const [nop, setNop] = useState(0);
+  let session = route.params.session;
+  const [name, setName] = useState(session.title);
+  const [description, setDescription] = useState(session.description);
+  const [nop, setNop] = useState(session.limit);
   const [loaded] = useFonts({
     UbuntuBold: require("../../../assets/fonts/Ubuntu-Bold.ttf"),
     UbuntuLight: require("../../../assets/fonts/Ubuntu-Light.ttf"),
@@ -42,6 +43,7 @@ export function SessionEditDetail({ navigation, route }) {
         <View style={styles.inputView}>
           <TextInput
             style={styles.TextInput}
+            value={name}
             placeholder="Enter Session Name"
             placeholderTextColor="#003f5c"
             onChangeText={(name) => setName(name)}
@@ -51,6 +53,7 @@ export function SessionEditDetail({ navigation, route }) {
         <View style={styles.inputView}>
           <TextInput
             style={styles.TextInput}
+            value={description}
             placeholder="Enter Session Description"
             placeholderTextColor="#003f5c"
             onChangeText={(description) => setDescription(description)}
@@ -60,6 +63,7 @@ export function SessionEditDetail({ navigation, route }) {
           <View style={styles.inputNumberView}>
             <TextInput
               style={styles.TextInput}
+              value={nop}
               placeholder="No. Participants"
               placeholderTextColor="#003f5c"
               keyboardType="numeric"
