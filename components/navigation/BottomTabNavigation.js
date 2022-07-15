@@ -61,6 +61,7 @@ function BottomTabNavigation() {
             name="My Sessions"
             component={DumbbellNavigation}
             options={{
+              headerShown: false,
               tabBarShowLabel: false,
               tabBarIcon: (tabInfo) => {
                 return (

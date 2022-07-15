@@ -6,7 +6,9 @@ import EditProfile from "../profile/EditProfile";
 import Profile from "../profile/Profile";
 import SessionDetails from "../session/display/SessionDetails";
 import { SuccessfulCancelPage } from "../session/SuccessfulCancelPage";
+import { SuccessfulJoinPage } from "../session/SuccessfulJoinPage";
 import { Button } from "react-native";
+import ProfileUserView from "../profile/ProfileUserView";
 import sessionStore from "../../stores/sessionStore";
 
 const { Navigator, Screen } = createNativeStackNavigator();
@@ -14,9 +16,9 @@ const { Navigator, Screen } = createNativeStackNavigator();
 function ProfileNav() {
   const navigation = useNavigation();
   return (
-    <Navigator initialRouteName="Profile" screenOptions={{}}>
+    <Navigator initialRouteName="MyProfile" screenOptions={{}}>
       <Screen
-        name="Profile"
+        name="MyProfile"
         component={Profile}
         options={{ headerShown: false }}
       />
@@ -25,8 +27,9 @@ function ProfileNav() {
         component={EditProfile}
         options={{ headerShown: false }}
       />
+      <Screen name="Profile" component={ProfileUserView} />
       <Screen
-        name="SessionDetailsP"
+        name="SessionDetails"
         component={SessionDetails}
         options={({ route }) => {
           return {
@@ -37,6 +40,11 @@ function ProfileNav() {
       <Screen
         name="SuccessCancel"
         component={SuccessfulCancelPage}
+        options={{ headerShown: false }}
+      />
+      <Screen
+        name="SuccessJoin"
+        component={SuccessfulJoinPage}
         options={{ headerShown: false }}
       />
     </Navigator>

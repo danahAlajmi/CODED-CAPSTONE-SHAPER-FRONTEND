@@ -36,7 +36,7 @@ function SessionsList() {
       return (
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("SessionDetailsH", session);
+            navigation.navigate("SessionDetails", session);
           }}
           key={session._id}
         >
