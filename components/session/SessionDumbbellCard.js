@@ -29,7 +29,7 @@ function SessionDumbbellCard({ session }) {
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("SessionDetailsH", session);
+          navigation.navigate("SessionDetails", session);
         }}
       >
         <ImageBackground

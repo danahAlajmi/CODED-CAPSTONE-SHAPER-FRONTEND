@@ -38,7 +38,7 @@ function Home() {
       <Stack.Screen name="Explore" component={Explore} />
       <Stack.Screen name="Profile" component={ProfileUserView} />
       <Stack.Screen
-        name="SessionDetailsH"
+        name="SessionDetails"
         component={SessionDetails}
         options={({ route }) => {
           return {
