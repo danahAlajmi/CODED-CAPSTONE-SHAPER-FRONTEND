@@ -26,9 +26,10 @@ function ProfileSessionLEnrolled({ id }) {
         <ScrollView
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ paddingBottom: "100%" }}
           style={styles.scrollView}
         >
-          {sessionsLists}
+          <View style={styles.container}>{sessionsLists}</View>
         </ScrollView>
       )}
     </SafeAreaView>
@@ -36,9 +37,12 @@ function ProfileSessionLEnrolled({ id }) {
 }
 const styles = StyleSheet.create({
   scrollView: {
-    width: 390,
-    height: 445,
+    width: "100%",
+    height: "100%",
     backgroundColor: "white",
+  },
+  container: {
+    alignItems: "center",
   },
 });
 export default observer(ProfileSessionLEnrolled);
