@@ -84,8 +84,9 @@ export function SignInPage({ navigation }) {
             title: "Wrong Information",
             textBody:
               "Username and password combination is incorrect, please try again.",
-          }),
-          setShowErrorin(false))
+            onShow: () => setShowErrorin(false),
+            onHide: () => setShowErrorin(false)
+          }))
         ) : (
           <></>
         )}

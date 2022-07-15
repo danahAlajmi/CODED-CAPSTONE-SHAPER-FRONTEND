@@ -7,14 +7,21 @@ import {
   TouchableOpacity,
   TextInput,
   ImageBackground,
+  TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  Keyboard,
+  Platform,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useFonts } from 'expo-font';
+import { ALERT_TYPE, Dialog, Root, Toast } from 'react-native-alert-notification';
+
 
 export function SessionCreateDetail({ navigation }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [nop, setNop] = useState(0);
+  const [showError, setShowError] = useState(false);
 const [loaded] = useFonts({
   'UbuntuBold': require('../../../assets/fonts/Ubuntu-Bold.ttf'),
   'UbuntuLight': require('../../../assets/fonts/Ubuntu-Light.ttf'),
@@ -27,16 +34,29 @@ if (!loaded) {
 
 
   const handleNext = () => {
+    if(name=== "" || description=== "" || nop===0){
+      setShowError(true)
+    }
+    else{
     let session = {
       title: name,
       description: description,
       limit: nop,
     };
     navigation.navigate("SessionCreateLocation", { session });
+  }
   };
 
+
+
   return (
-    <View style={styles.container}>
+<Root>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={styles.container}>
       <View style={styles.inputContainer}>
         <View style={styles.inputView}>
           <TextInput
@@ -75,17 +95,33 @@ if (!loaded) {
       <TouchableOpacity onPress={handleNext} style={styles.SignUpBtn}>
         <Text style={styles.SignUpText}>Next</Text>
       </TouchableOpacity>
-    </View>
+      </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
+    {showError ? (
+          (Dialog.show({
+            type: ALERT_TYPE.WARNING,
+            title: "Invalid",
+            textBody:
+              "Please fill out all the information",
+            onShow: () => setShowError(false),
+            onHide: () => setShowError(false)
+          }))
+        ) : (
+          <></>
+        )}
+    </Root>
   );
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#ffff",
+    justifyContent:"center",
     alignItems: "center",
+    paddingBottom:"15%"
   },
   inputContainer: {
-    marginTop: "10%",
     alignItems: "center",
   },
   NumImageView: {
@@ -97,6 +133,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: "90%",
     minWidth: "70%",
+    maxWidth: "70%",
     height: 45,
     marginBottom: 20,
     marginTop: "8%",
@@ -106,6 +143,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     width: "40%",
     minWidth: "40%",
+    maxWidth: "40%",
     height: 45,
     marginBottom: 20,
     marginRight: 40,

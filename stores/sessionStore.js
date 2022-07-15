@@ -16,20 +16,12 @@ class SessionStore {
       console.log(error);
     }
   };
-  // getSessionById = (sessionId) => {
-  //   return this.sessions.find((session) => session._id === sessionId);
-  // };
 
   joinSession = async (sessionId, userId) => {
-    // console.log(sessionId, userId);
     try {
       const res = await instance.post(
         `/api/sessions/${sessionId}/user/${userId}`
       );
-      // const updateSession = Object.assign(
-      //   this.sessions.find((session) => session._id === sessionId),
-      //   res.data
-      // );
       userStore.user.enrolled.push(sessionId);
       userStore.fetchUsers();
       this.fetchAllSessions();
@@ -42,10 +34,6 @@ class SessionStore {
       const res = await instance.post(
         `/api/sessions/cancel/${sessionId}/${userId}`
       );
-      // const canclSession = Object.assign(
-      //   this.sessions.find((session) => session._id === sessionId),
-      //   res.data
-      // );
       userStore.user.enrolled.splice(
         userStore.user.enrolled.indexOf(sessionId),
         1

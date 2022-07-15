@@ -22,7 +22,7 @@ export function SuccessfulJoinPage({ route, navigation }){
 
     return (
       <View style={styles.container}>
-            <View style={{backgroundColor:"white",position:"absolute", height:10000 , width:10000}}>
+      <View style={{backgroundColor:"white",position:"absolute", height:10000 , width:10000}}>
     </View>
       <Text style={styles.headerText}>Congragulations 🎉</Text>
       <Text style={styles.headerText}>You have Successfully joined {session.title}</Text>
