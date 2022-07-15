@@ -36,7 +36,7 @@ function TrainersList() {
       return (
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("Profile", { trainer });
+            navigation.navigate("Profile", trainer._id);
           }}
           key={trainer._id}
         >
@@ -47,9 +47,9 @@ function TrainersList() {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.spaceSearch}>
-        <Text></Text>
         <TextInput
           style={styles.searchBar}
+          clearButtonMode="always"
           placeholder="🔍 All"
           placeholderTextColor="#003f5c"
           onChangeText={(search) => setSearch(search)}

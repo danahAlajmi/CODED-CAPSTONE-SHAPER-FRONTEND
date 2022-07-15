@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 import {
   View,
   Text,
@@ -10,11 +11,14 @@ import {
 } from "react-native";
 import React from "react";
 
+import { useNavigation } from "@react-navigation/native";
 import { observer } from "mobx-react";
 import profileStore from "../../stores/profileStore";
-import ProfileSessionItem from "../profile/ProfileSessionItem";
 import { useFonts } from "expo-font";
-
+import ProfileSessionLTraining from "./ProfileSessionLTraining";
+import ProfileSessionLEnrolled from "./ProfileSessionLEnrolled";
+import userStore from "../../stores/userStore";
+const Tab = createMaterialTopTabNavigator();
 function ProfileUserView({ route }) {
   const [loaded] = useFonts({
     UbuntuBold: require("../../assets/fonts/Ubuntu-Bold.ttf"),
@@ -22,16 +26,15 @@ function ProfileUserView({ route }) {
     Ubuntu: require("../../assets/fonts/Ubuntu-Regular.ttf"),
   });
 
+  const navigation = useNavigation();
   if (!loaded) {
     return null;
   }
-  const trainer = route.params.trainer;
   if (profileStore.isLoading) return <Text>Loading</Text>;
-  let profile = profileStore.getProfileById(trainer._id);
 
-  const sessionsList = profile.user?.enrolled?.map((session) => {
-    return <ProfileSessionItem key={session} session={session} />;
-  });
+  const user = userStore.getUserById(route.params);
+  let profile = profileStore.getProfileById(user._id);
+
   return (
     <SafeAreaView style={styles.containerSaveView}>
       <View style={styles.container}>
@@ -51,24 +54,39 @@ function ProfileUserView({ route }) {
             <Text style={styles.bio}>{profile.bio}</Text>
             <View style={styles.containerNumOfHOurs}>
               <Text style={styles.number}>
-                {profileStore.getNumOfHours(trainer._id)}{" "}
+                {profileStore.getNumOfHours(user._id)}{" "}
               </Text>
               <Text> Hours 🏋️</Text>
             </View>
           </View>
         </View>
         <View style={styles.border} />
-        <View>
-          <Text style={styles.sessionText}>Sessions</Text>
-          <ScrollView
-            contentContainerStyle={{ paddingBottom: 200 }}
-            showsVerticalScrollIndicator={false}
-            showsHorizontalScrollIndicator={false}
-            alignItems="center"
-            style={styles.scrollView}
-          >
-            {sessionsList}
-          </ScrollView>
+        <View
+          style={{
+            height: "100%",
+            width: "100%",
+          }}
+        >
+          {user.isTrainer ? (
+            <Tab.Navigator
+              screenOptions={{
+                tabBarContentContainerStyle: {},
+                tabBarIndicatorStyle: { backgroundColor: "#FFA90D" },
+                tabBarLabelStyle: { fontFamily: "UbuntuBold" },
+              }}
+            >
+              <Tab.Screen
+                name="Training"
+                children={() => <ProfileSessionLTraining id={user._id} />}
+              />
+              <Tab.Screen
+                name="Enrolled"
+                children={() => <ProfileSessionLEnrolled id={user._id} />}
+              />
+            </Tab.Navigator>
+          ) : (
+            <ProfileSessionLEnrolled id={user._id} />
+          )}
         </View>
       </View>
     </SafeAreaView>

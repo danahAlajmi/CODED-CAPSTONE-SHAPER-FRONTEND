@@ -58,7 +58,6 @@ function SessionDetails({ route }) {
 
   let profile = profileStore.getProfileById(session.trainer);
   let trainer = userStore.getUserById(session.trainer);
-  let signedUserProfile = profileStore.getProfileById(user._id);
   const refr = () => {
     setRefresh(true);
     setTimeout(() => {
@@ -118,24 +117,24 @@ function SessionDetails({ route }) {
 
   const showMenu = () => setVisible(true);
   const participantsList = session.participants.map((participant) => {
-    // let profileView = profileStore.getProfileById(participant);
-    return <ParticipantInfo key={participant} participant={participant} />;
+    return (
+      <TouchableOpacity
+        key={participant}
+        onPress={() => {
+          navigation.navigate("Profile", participant);
+        }}
+      >
+        <ParticipantInfo participant={participant} />
+      </TouchableOpacity>
+    );
   });
   return (
     <Root>
       <View style={styles.container}>
-        {/* <Image style={styles.imageContainer} source={{ uri: session.image }} />
-      <View style={styles.trainerInfo}>
-        <Image style={styles.imagePro} source={{ uri: profile.image }} />
-        <Text style={styles.trainerName}>
-          {profile.firstName} {profile.lastName}
-        </Text>
-      </View> */}
         <ScrollView
           contentContainerStyle={{ paddingBottom: 900 }}
           showsVerticalScrollIndicator={false}
           showsHorizontalScrollIndicator={false}
-          // style={{ backgroundColor: "transparent" }}
           refreshControl={
             <RefreshControl refreshing={refresh} onRefresh={() => refr()} />
           }
@@ -147,7 +146,7 @@ function SessionDetails({ route }) {
           <View style={styles.trainerInfo}>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("Profile", { trainer });
+                navigation.navigate("Profile", trainer._id);
               }}
               key={trainer._id}
             >
@@ -225,8 +224,6 @@ function SessionDetails({ route }) {
               {isEnrolled || isEnroll ? (
                 <TouchableOpacity
                   onPress={createUnjoinAlert}
-                  // activeOpacity={0.5}
-                  // disabled={true}
                   style={styles.btnPressed}
                 >
                   <Text style={styles.btnText}>Unjoin</Text>
@@ -271,11 +268,11 @@ function SessionDetails({ route }) {
             textBody: "Session Deleted Successfuly",
             button: "Ok",
             onPressButton: () => {
-              navigation.navigate("Explore");
+              navigation.goBack();
               showIsDeleted(false);
             },
             onHide: () => {
-              navigation.navigate("Explore");
+              navigation.goBack();
             },
           })
         ) : (

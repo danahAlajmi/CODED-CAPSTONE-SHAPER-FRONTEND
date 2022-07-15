@@ -8,13 +8,13 @@ import {
   View,
 } from "react-native";
 import { observer } from "mobx-react";
-import userStore from "../../stores/userStore";
+
 import sessionStore from "../../stores/sessionStore";
 import ProfileSessionItem from "./ProfileSessionItem";
+import ProfileSessionLNone from "./ProfileSessionLNone";
 function ProfileSessionLTraining({ id }) {
-  const sessionsLists = userStore
-    .getUserById(id)
-    .owner.map((session) => sessionStore.getSessionById(session))
+  const sessionsLists = sessionStore.sessions
+    .filter((session) => session.trainer === id)
     .map((session) => {
       return <ProfileSessionItem key={session._id} session={session} />;
     });
@@ -22,9 +22,7 @@ function ProfileSessionLTraining({ id }) {
   return (
     <SafeAreaView>
       {sessionsLists.length === 0 ? (
-        <View>
-          <Text>None</Text>
-        </View>
+        <ProfileSessionLNone />
       ) : (
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -40,8 +38,8 @@ function ProfileSessionLTraining({ id }) {
 const styles = StyleSheet.create({
   scrollView: {
     width: 390,
+    height: 445,
     backgroundColor: "white",
-    height: "100%",
   },
 });
 export default observer(ProfileSessionLTraining);
