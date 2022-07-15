@@ -28,6 +28,7 @@ function SessionsList() {
   }
 
   const sessionsList = sessionStore.sessions
+    .filter((session) => session.date > Date.now())
     .filter((session) =>
       session.title.toLowerCase().includes(search.toLowerCase())
     )
@@ -35,7 +36,7 @@ function SessionsList() {
       return (
         <TouchableOpacity
           onPress={() => {
-            navigation.navigate("SessionDetails", session);
+            navigation.navigate("SessionDetailsH", session);
           }}
           key={session._id}
         >
@@ -48,6 +49,7 @@ function SessionsList() {
       <View style={styles.spaceSearch}>
         <TextInput
           style={styles.searchBar}
+          clearButtonMode="always"
           placeholder="🔍 All"
           placeholderTextColor="#003f5c"
           onChangeText={(search) => setSearch(search)}

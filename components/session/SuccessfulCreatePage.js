@@ -1,18 +1,17 @@
 import { Text, View, TouchableOpacity, Image, StyleSheet } from "react-native";
-import { useFonts } from 'expo-font';
+import { useFonts } from "expo-font";
+import { RefreshControl } from "react-native-web";
 
 export function SuccessfulCreatePage({ route, navigation }) {
-  
-const [loaded] = useFonts({
-    'UbuntuBold': require('../../assets/fonts/Ubuntu-Bold.ttf'),
-    'UbuntuLight': require('../../assets/fonts/Ubuntu-Light.ttf'),
-    'Ubuntu': require('../../assets/fonts/Ubuntu-Regular.ttf'),
+  const [loaded] = useFonts({
+    UbuntuBold: require("../../assets/fonts/Ubuntu-Bold.ttf"),
+    UbuntuLight: require("../../assets/fonts/Ubuntu-Light.ttf"),
+    Ubuntu: require("../../assets/fonts/Ubuntu-Regular.ttf"),
   });
 
   if (!loaded) {
     return null;
   }
-
 
   let session = route.params.session;
 
@@ -23,10 +22,15 @@ const [loaded] = useFonts({
   };
 
   return (
-    
     <View style={styles.container}>
-    <View style={{backgroundColor:"white",position:"absolute", height:10000 , width:10000}}>
-    </View>
+      <View
+        style={{
+          backgroundColor: "white",
+          position: "absolute",
+          height: 10000,
+          width: 10000,
+        }}
+      ></View>
       <Text style={styles.headerText}>Congragulations 🎉</Text>
       <Text style={styles.headerText}>
         {session.title} Session Created Successfully! 🏋️‍♂️
@@ -61,14 +65,13 @@ const styles = StyleSheet.create({
     marginRight: 30,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor:"white"
+    backgroundColor: "white",
   },
   headerText: {
     fontSize: 24,
     marginBottom: 10,
     textAlign: "center",
-    fontFamily:"Ubuntu",
-
+    fontFamily: "Ubuntu",
   },
   backgroundImage: {
     height: "45%",
@@ -86,7 +89,7 @@ const styles = StyleSheet.create({
   },
   goBackText: {
     color: "white",
-    fontFamily:"UbuntuBold",
+    fontFamily: "UbuntuBold",
     alignSelf: "center",
   },
 });

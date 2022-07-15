@@ -14,15 +14,19 @@ const { Navigator, Screen } = createNativeStackNavigator();
 function ProfileNav() {
   const navigation = useNavigation();
   return (
-    <Navigator
-      initialRouteName="Profile"
-      screenOptions={{
-      }}
-    >
-      <Screen name="Profile" component={Profile} options={{headerShown: false,}} />
-      <Screen name="EditProfile" component={EditProfile} options={{headerShown: false,}} />
+    <Navigator initialRouteName="Profile" screenOptions={{}}>
       <Screen
-        name="SessionDetails"
+        name="Profile"
+        component={Profile}
+        options={{ headerShown: false }}
+      />
+      <Screen
+        name="EditProfile"
+        component={EditProfile}
+        options={{ headerShown: false }}
+      />
+      <Screen
+        name="SessionDetailsP"
         component={SessionDetails}
         options={({ route }) => {
           return {
@@ -30,7 +34,7 @@ function ProfileNav() {
           };
         }}
       />
-       <Screen
+      <Screen
         name="SuccessCancel"
         component={SuccessfulCancelPage}
         options={{ headerShown: false }}

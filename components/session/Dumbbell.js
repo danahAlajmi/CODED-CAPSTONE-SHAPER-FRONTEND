@@ -123,6 +123,7 @@ const styles = StyleSheet.create({
   header: {
     fontSize: 35,
     marginHorizontal: 30,
+    marginVertical: 10,
     backgroundColor: "white",
     fontFamily: "Ubuntu",
   },

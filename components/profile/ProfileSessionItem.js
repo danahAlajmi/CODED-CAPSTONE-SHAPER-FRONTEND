@@ -29,7 +29,7 @@ function ProfileSessionItem({ session }) {
     <View style={styles.container}>
       <TouchableOpacity
         onPress={() => {
-          navigation.navigate("SessionDetails", sessionInfo);
+          navigation.navigate("SessionDetailsH", sessionInfo);
         }}
       >
         <ImageBackground

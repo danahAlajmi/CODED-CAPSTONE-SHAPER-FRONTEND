@@ -2,6 +2,9 @@ import * as React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { observer } from "mobx-react";
+
+import SessionDetails from "../session/display/SessionDetails";
+import sessionStore from "../../stores/sessionStore";
 import { SessionCreateDetail } from "../session/create/SessionCreateDetail";
 import { SessionCreateLocation } from "../session/create/SessionCreateLocation";
 import { SessionCreateTime } from "../session/create/SessionCreateTime";
@@ -20,6 +23,7 @@ function DumbbellNavigation() {
       }}
     >
       <Stack.Screen name="Dumbbell" component={Dumbbell} />
+
       <Stack.Screen
         name="SessionCreateDetail"
         component={SessionCreateDetail}
