@@ -113,8 +113,9 @@ export function SignUpPage({ navigation }) {
             title: "Wrong Information",
             textBody:
               "Username already exist please choose another",
-          }),
-          setShowErrorin(false))
+              onShow: () => setShowErrorin(false),
+              onHide: () => setShowErrorin(false)
+            }))
         ) : (
           <></>
         )}

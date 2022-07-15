@@ -21,7 +21,12 @@ function DumbbellNavigation() {
   return (
     <Stack.Navigator
       initialRouteName="Dumbbell"
-
+      screenOptions={{
+        headerTitleStyle: {
+          color: "black",
+          fontFamily:"UbuntuBold",
+        },
+      }}
     >
       <Stack.Screen name="Dumbbell" component={Dumbbell} options={{
         title:"My Sessions"
@@ -30,15 +35,21 @@ function DumbbellNavigation() {
       <Stack.Screen
         name="SessionCreateDetail"
         component={SessionCreateDetail}
-        options={{ headerShown: false }}
+        options={{
+          title:"Session Details"
+        }}
       />
 
       <Stack.Screen
         name="SessionCreateLocation"
         component={SessionCreateLocation}
-        options={{ headerShown: false }}
+        options={{
+          title:"Session Location"
+         }}
       />
-      <Stack.Screen name="SessionCreateTime" component={SessionCreateTime} />
+      <Stack.Screen name="SessionCreateTime" component={SessionCreateTime} options={{
+          title:"Session Date" 
+        }}/>
       <Stack.Screen
         name="SuccessCreate"
         component={SuccessfulCreatePage}
