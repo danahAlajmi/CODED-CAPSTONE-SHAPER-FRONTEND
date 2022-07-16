@@ -16,7 +16,7 @@ import { SessionEditDetail } from "../session/edit/SessionEditDetail";
 import { SessionEditTime } from "../session/edit/SessionEditTime";
 import { SessionEditLocation } from "../session/edit/SessionEditLocaion";
 import Dumbbell from "../session/Dumbbell";
-
+import Profile from "../profile/Profile";
 const Stack = createNativeStackNavigator();
 
 function DumbbellNavigation() {
@@ -27,19 +27,23 @@ function DumbbellNavigation() {
       screenOptions={{
         headerTitleStyle: {
           color: "black",
-          fontFamily:"UbuntuBold",
+          fontFamily: "UbuntuBold",
         },
       }}
     >
-      <Stack.Screen name="Dumbbell" component={Dumbbell} options={{
-        title:"My Sessions"
-      }}/>
+      <Stack.Screen
+        name="Dumbbell"
+        component={Dumbbell}
+        options={{
+          title: "My Sessions",
+        }}
+      />
 
       <Stack.Screen
         name="SessionCreateDetail"
         component={SessionCreateDetail}
         options={{
-          title:"Session Details"
+          title: "Session Details",
         }}
       />
 
@@ -47,12 +51,16 @@ function DumbbellNavigation() {
         name="SessionCreateLocation"
         component={SessionCreateLocation}
         options={{
-          title:"Session Location"
-         }}
+          title: "Session Location",
+        }}
       />
-      <Stack.Screen name="SessionCreateTime" component={SessionCreateTime} options={{
-          title:"Session Date" 
-        }}/>
+      <Stack.Screen
+        name="SessionCreateTime"
+        component={SessionCreateTime}
+        options={{
+          title: "Session Date",
+        }}
+      />
       <Stack.Screen
         name="SuccessCreate"
         component={SuccessfulCreatePage}
@@ -76,6 +84,11 @@ function DumbbellNavigation() {
       <Stack.Screen
         name="SuccessCancel"
         component={SuccessfulCancelPage}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="MyProfile"
+        component={Profile}
         options={{ headerShown: false }}
       />
       <Stack.Screen
