@@ -1,50 +1,65 @@
 import { useState } from "react";
 import {
   Text,
-  Image,
   View,
   StyleSheet,
   TouchableOpacity,
   TextInput,
-  ImageBackground,
+  TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  Keyboard,
+  Platform,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { useFonts } from "expo-font";
+import { ALERT_TYPE, Dialog, Root, Toast } from 'react-native-alert-notification';
 
 export function SessionEditDetail({ navigation, route }) {
   let session = route.params.session;
   const [name, setName] = useState(session.title);
   const [description, setDescription] = useState(session.description);
   const [nop, setNop] = useState(session.limit);
+  const [showError, setShowError] = useState(false);
   const [loaded] = useFonts({
     UbuntuBold: require("../../../assets/fonts/Ubuntu-Bold.ttf"),
     UbuntuLight: require("../../../assets/fonts/Ubuntu-Light.ttf"),
     Ubuntu: require("../../../assets/fonts/Ubuntu-Regular.ttf"),
   });
-
+  
   if (!loaded) {
     return null;
   }
-
+  
   let sessionid = route.params.session._id;
 
   const handleNext = () => {
+    if(name=== "" || description=== "" || nop===0 || nop < session.participants.length){
+      setShowError(true)
+    }
+    else{
     let session = {
       title: name,
       description: description,
       limit: nop,
     };
-    navigation.navigate("SessionEditTime", { session, id: sessionid });
+    navigation.navigate("SessionEditLocation", { session, id: sessionid });
+  }
   };
 
   return (
+    <Root>
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.container}>
       <View style={styles.inputContainer}>
         <View style={styles.inputView}>
           <TextInput
             style={styles.TextInput}
             value={name}
-            placeholder="Enter Session Name"
+            placeholder={"Enter Session Name"}
             placeholderTextColor="#003f5c"
             onChangeText={(name) => setName(name)}
           />
@@ -81,16 +96,32 @@ export function SessionEditDetail({ navigation, route }) {
         <Text style={styles.SignUpText}>Next</Text>
       </TouchableOpacity>
     </View>
+    </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
+    {showError ? (
+          (Dialog.show({
+            type: ALERT_TYPE.WARNING,
+            title: "Invalid",
+            textBody:
+              "Please fill out all the information",
+            onShow: () => setShowError(false),
+            onHide: () => setShowError(false)
+          }))
+        ) : (
+          <></>
+        )}
+    </Root>
   );
 }
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#ffff",
+    justifyContent:"center",
     alignItems: "center",
+    paddingBottom:"15%"
   },
   inputContainer: {
-    marginTop: "10%",
     alignItems: "center",
   },
   NumImageView: {

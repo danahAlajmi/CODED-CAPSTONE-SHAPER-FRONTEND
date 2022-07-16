@@ -8,8 +8,10 @@ import SessionDetails from "../session/display/SessionDetails";
 import sessionStore from "../../stores/sessionStore";
 import { SuccessfulJoinPage } from "../session/SuccessfulJoinPage";
 import { SuccessfulCancelPage } from "../session/SuccessfulCancelPage";
+import { SuccessfulCreatePage } from "../session/SuccessfulCreatePage";
 import { SessionEditDetail } from "../session/edit/SessionEditDetail";
 import { SessionEditTime } from "../session/edit/SessionEditTime";
+import { SessionEditLocation } from "../session/edit/SessionEditLocaion";
 import { useFonts } from "expo-font";
 
 const Stack = createNativeStackNavigator();
@@ -56,17 +58,27 @@ function Home() {
         component={SuccessfulCancelPage}
         options={{ headerShown: false }}
       />
-
+      <Stack.Screen
+        name="SuccessCreate"
+        component={SuccessfulCreatePage}
+        options={{ headerShown: false }}
+      />
       <Stack.Screen
         name="SessionEditDetail"
         component={SessionEditDetail}
-        options={{ title: "Edit" }}
+        options={{ title: "Edit Details" }}
       />
       <Stack.Screen
         name="SessionEditTime"
         component={SessionEditTime}
-        options={{ title: "Edit" }}
+        options={{ title: "Edit Date" }}
       />
+      <Stack.Screen
+        name="SessionEditLocation"
+        component={SessionEditLocation}
+        options={{ title: "Edit Location" }}
+      />
+      
     </Stack.Navigator>
   );
 }

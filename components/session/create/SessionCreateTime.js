@@ -51,11 +51,6 @@ export function SessionCreateTime({ route, navigation }) {
     let pass = true
     let newEnd = session.date + convDur*60*1000
     filteredSessions.forEach((session) => {
-      console.log("New End = ",newEnd)
-      console.log("Old Start = ",session.date)
-      console.log("New Start = ",date.getTime())
-      console.log("Old End = ",(session.date + session.duration*60*1000))
-
       if((newEnd < session.date) || (date.getTime() > (session.date + session.duration*60*1000)))
         console.log(pass)
       else {
