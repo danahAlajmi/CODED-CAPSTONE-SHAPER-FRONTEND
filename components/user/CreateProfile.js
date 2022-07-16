@@ -7,6 +7,10 @@ import {
   TouchableOpacity,
   TextInput,
   ImageBackground,
+  TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  Keyboard,
+  Platform,
 } from "react-native";
 import { useState } from "react";
 import userStore from "../../stores/userStore";
@@ -64,6 +68,11 @@ export function CreateProfile({ route }) {
     imageUri = file.body;
   };
   return (
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={styles.container}
+      >
+<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={styles.container}>
       <ImageBackground
         source={require("../../assets/appBackground2.png")}
@@ -121,6 +130,8 @@ export function CreateProfile({ route }) {
         <Text style={styles.SignUpText}>Sign Up</Text>
       </TouchableOpacity>
     </View>
+        </TouchableWithoutFeedback>
+        </KeyboardAvoidingView>
   );
 }
 

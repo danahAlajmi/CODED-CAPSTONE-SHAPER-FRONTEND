@@ -12,10 +12,14 @@ import {
 import sessionStore from "../../../stores/sessionStore";
 import userStore from "../../../stores/userStore";
 import { useFonts } from "expo-font";
+import { ALERT_TYPE, Dialog, Root, Toast } from 'react-native-alert-notification';
+
 
 export function SessionEditTime({ route, navigation }) {
   const [date, setDate] = useState(new Date());
   const [duration, setDuration] = useState(new Date());
+  const [showError, setShowError] = useState(false);
+  const [conflictSession,setConflictSession]=useState(null)
   const [loaded] = useFonts({
     UbuntuBold: require("../../../assets/fonts/Ubuntu-Bold.ttf"),
     UbuntuLight: require("../../../assets/fonts/Ubuntu-Light.ttf"),
@@ -44,14 +48,46 @@ export function SessionEditTime({ route, navigation }) {
     session.date = date.getTime();
     session.duration = convDur;
     session.trainer = userStore.user._id;
-
-    sessionStore.UpdateSession(session, sessionId);
-    navigation.navigate("Explore");
+    const filteredSessions = sessionStore.sessions.filter((session) => session.trainer === userStore.user._id)
+    let pass = true
+    let newEnd = session.date + convDur*60*1000
+    filteredSessions.forEach((session) => {
+      if((newEnd < session.date) || (date.getTime() > (session.date + session.duration*60*1000)))
+        console.log(pass)
+      else if(sessionId!==session._id) {
+        setConflictSession({
+        title:session.title,
+        startTime: new Date(session.date).toLocaleString("en-US", {
+          hour: "numeric",
+          minute: "numeric",
+          hour12: true,
+        }) ,
+        endTime: new Date(session.date + (session.duration*60*1000)).toLocaleString("en-US", {
+          hour: "numeric",
+          minute: "numeric",
+          hour12: true,
+        })
+        })
+        console.log(conflictSession)
+        pass = false
+      }
+    })
+    
+    if(pass)
+    {
+      sessionStore.UpdateSession(session, sessionId);
+      navigation.navigate("SuccessCreate", { session });
+    }
+    else {
+      setShowError(true)
+    }
   };
 
   return (
+    <Root>
     <SafeAreaView>
       <ScrollView>
+      <View style={{backgroundColor:"white",position:"absolute", height:10000 , width:10000}}></View>
         <View style={styles.container}>
           <Text style={styles.headerText}>Please select the session date</Text>
           <View style={styles.inputView}>
@@ -63,6 +99,7 @@ export function SessionEditTime({ route, navigation }) {
             />
           </View>
           <RNDateTimePicker
+            minimumDate={new Date(Date.now())}
             // maximumDate={new Date(Date.now()+604800000)}
             value={date}
             mode={"date"}
@@ -120,6 +157,18 @@ export function SessionEditTime({ route, navigation }) {
         </View>
       </ScrollView>
     </SafeAreaView>
+    {showError ? (
+          (Dialog.show({
+            type: ALERT_TYPE.WARNING,
+            title: "Invalid",
+            textBody: `Your session is in conflict with another session called ${conflictSession.title} that starts at ${conflictSession.startTime} and ends at ${conflictSession.endTime}` ,
+            onShow: () => setShowError(false),
+            onHide: () => setShowError(false)
+          }))
+        ) : (
+          <></>
+        )}
+    </Root>
   );
 }
 const styles = StyleSheet.create({

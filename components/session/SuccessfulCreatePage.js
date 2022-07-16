@@ -16,9 +16,7 @@ export function SuccessfulCreatePage({ route, navigation }) {
   let session = route.params.session;
 
   const goBack = () => {
-    navigation.navigate("Dumbbell", {
-      screen: "Dumbbell",
-    });
+    navigation.pop(5)
   };
 
   return (

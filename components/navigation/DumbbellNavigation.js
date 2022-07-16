@@ -12,6 +12,9 @@ import { SessionCreateTime } from "../session/create/SessionCreateTime";
 import { SuccessfulCreatePage } from "../session/SuccessfulCreatePage";
 import { SuccessfulJoinPage } from "../session/SuccessfulJoinPage";
 import { SuccessfulCancelPage } from "../session/SuccessfulCancelPage";
+import { SessionEditDetail } from "../session/edit/SessionEditDetail";
+import { SessionEditTime } from "../session/edit/SessionEditTime";
+import { SessionEditLocation } from "../session/edit/SessionEditLocaion";
 import Dumbbell from "../session/Dumbbell";
 import Profile from "../profile/Profile";
 const Stack = createNativeStackNavigator();
@@ -87,6 +90,21 @@ function DumbbellNavigation() {
         name="MyProfile"
         component={Profile}
         options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="SessionEditDetail"
+        component={SessionEditDetail}
+        options={{ title: "Edit Details" }}
+      />
+      <Stack.Screen
+        name="SessionEditTime"
+        component={SessionEditTime}
+        options={{ title: "Edit Date" }}
+      />
+      <Stack.Screen
+        name="SessionEditLocation"
+        component={SessionEditLocation}
+        options={{ title: "Edit Location" }}
       />
     </Stack.Navigator>
   );

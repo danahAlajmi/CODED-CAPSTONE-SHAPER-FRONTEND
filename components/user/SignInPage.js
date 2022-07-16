@@ -1,14 +1,15 @@
 import React from "react";
 import {
   Text,
-  Image,
   View,
-  StyleSheet,
   TouchableOpacity,
   TextInput,
   ImageBackground,
-  Alert,
-  Button,
+  TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  Keyboard,
+  Platform,
+  StyleSheet,
 } from "react-native";
 import { useState } from "react";
 import userStore from "../../stores/userStore";
@@ -43,6 +44,11 @@ export function SignInPage({ navigation }) {
 
   return (
 <Root>
+<KeyboardAvoidingView
+behavior={Platform.OS === "ios" ? "padding" : "height"}
+style={styles.container}
+>
+<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 <View style={styles.container}>
 <ImageBackground
           source={require("../../assets/appBackground1.png")}
@@ -73,11 +79,13 @@ export function SignInPage({ navigation }) {
           <Text style={styles.signinText}>Sign in</Text>
         </TouchableOpacity>
 
-        <Text style={styles.askText}>Don't have an account?</Text>
         <View stylle={styles.signUpContainer}>
-        <TouchableOpacity onPress={handleSignUp}><Text style={{marginTop:20, fontFamily:"UbuntuBold"}}>Sign up<Text style={{color:"#FFA90D",fontFamily:"UbuntuBold"}}> Here</Text></Text></TouchableOpacity>
+        <Text style={styles.askText}>Don't have an account?</Text>
+        <TouchableOpacity onPress={handleSignUp}><Text style={{marginTop:20, marginLeft:"25%",fontFamily:"UbuntuBold"}}>Sign up<Text style={{color:"#FFA90D",fontFamily:"UbuntuBold"}}> Here</Text></Text></TouchableOpacity>
         </View>
-
+    </View>
+    </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
         {showErrorin ? (
           (Toast.show({
             type: ALERT_TYPE.WARNING,
@@ -90,7 +98,6 @@ export function SignInPage({ navigation }) {
         ) : (
           <></>
         )}
-      </View>
       </Root>
   );
 }
@@ -158,9 +165,12 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   signUpContainer:{
-
+    alignItems:"center",
+    justifyContent:"center"
   },
   askText: {
+    alignItems:"center",
+    justifyContent:"center",
     marginTop:40,
     color: "black",
     fontSize: 16,

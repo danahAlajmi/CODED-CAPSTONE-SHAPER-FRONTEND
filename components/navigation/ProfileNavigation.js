@@ -7,7 +7,10 @@ import Profile from "../profile/Profile";
 import SessionDetails from "../session/display/SessionDetails";
 import { SuccessfulCancelPage } from "../session/SuccessfulCancelPage";
 import { SuccessfulJoinPage } from "../session/SuccessfulJoinPage";
-import { Button } from "react-native";
+import { SessionEditDetail } from "../session/edit/SessionEditDetail";
+import { SessionEditTime } from "../session/edit/SessionEditTime";
+import { SessionEditLocation } from "../session/edit/SessionEditLocaion";
+import { SuccessfulCreatePage } from "../session/SuccessfulCreatePage";
 import ProfileUserView from "../profile/ProfileUserView";
 import sessionStore from "../../stores/sessionStore";
 
@@ -46,6 +49,26 @@ function ProfileNav() {
         name="SuccessJoin"
         component={SuccessfulJoinPage}
         options={{ headerShown: false }}
+      />
+      <Screen
+        name="SuccessCreate"
+        component={SuccessfulCreatePage}
+        options={{ headerShown: false }}
+      />
+      <Screen
+        name="SessionEditDetail"
+        component={SessionEditDetail}
+        options={{ title: "Edit Details" }}
+      />
+      <Screen
+        name="SessionEditTime"
+        component={SessionEditTime}
+        options={{ title: "Edit Date" }}
+      />
+      <Screen
+        name="SessionEditLocation"
+        component={SessionEditLocation}
+        options={{ title: "Edit Location" }}
       />
     </Navigator>
   );
