@@ -6,6 +6,10 @@ import {
   TouchableOpacity,
   TextInput,
   ImageBackground,
+  TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  Keyboard,
+  Platform,
 } from "react-native";
 import { useState } from "react";
 import userStore from "../../stores/userStore";
@@ -52,6 +56,11 @@ export function SignUpPage({ navigation }) {
   navigation.navigate("CreateProfile")
   return (
 <Root>
+<KeyboardAvoidingView
+behavior={Platform.OS === "ios" ? "padding" : "height"}
+style={styles.container}
+>
+<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
 <View style={styles.container}>
         <ImageBackground
           source={require("../../assets/appBackground1.png")}
@@ -107,6 +116,9 @@ export function SignUpPage({ navigation }) {
             onPress={(value) => {setIsTrainer(value)}}
         />
         </View>
+        </View>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
         {showErrorin ? (
           (Toast.show({
             type: ALERT_TYPE.WARNING,
@@ -119,7 +131,6 @@ export function SignUpPage({ navigation }) {
         ) : (
           <></>
         )}
-      </View>
       </Root>
   );
 }
