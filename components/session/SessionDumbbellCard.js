@@ -78,12 +78,13 @@ const styles = StyleSheet.create({
     fontFamily: "Ubuntu",
   },
   trainerInd: {
-    height: 35,
-    width: 35,
-
+    height: 25,
+    width: 25,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    borderRadius: 30,
     position: "absolute",
-    bottom: 10,
-    right: 8,
+    top: 8,
+    left: 4,
   },
 });
 export default observer(SessionDumbbellCard);
