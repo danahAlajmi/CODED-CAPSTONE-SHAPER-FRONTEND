@@ -33,29 +33,16 @@ function TrainersList() {
       trainer.username.toLowerCase().includes(search.toLowerCase())
     )
     .map((trainer) => {
-      if (trainer._id == userStore.user._id) {
-        return (
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("MyProfile");
-            }}
-            key={trainer._id}
-          >
-            <TrainersListItem trainer={trainer} />
-          </TouchableOpacity>
-        );
-      } else {
-        return (
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("Profile", trainer._id);
-            }}
-            key={trainer._id}
-          >
-            <TrainersListItem trainer={trainer} />
-          </TouchableOpacity>
-        );
-      }
+      return (
+        <TouchableOpacity
+          onPress={() => {
+            navigation.navigate("Profile", trainer._id);
+          }}
+          key={trainer._id}
+        >
+          <TrainersListItem trainer={trainer} />
+        </TouchableOpacity>
+      );
     });
   return (
     <SafeAreaView style={styles.container}>

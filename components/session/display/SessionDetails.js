@@ -117,29 +117,16 @@ function SessionDetails({ route }) {
 
   const showMenu = () => setVisible(true);
   const participantsList = session.participants.map((participant) => {
-    if (participant == userStore.user._id) {
-      return (
-        <TouchableOpacity
-          key={participant}
-          onPress={() => {
-            navigation.navigate("MyProfile");
-          }}
-        >
-          <ParticipantInfo participant={participant} />
-        </TouchableOpacity>
-      );
-    } else {
-      return (
-        <TouchableOpacity
-          key={participant}
-          onPress={() => {
-            navigation.navigate("Profile", participant);
-          }}
-        >
-          <ParticipantInfo participant={participant} />
-        </TouchableOpacity>
-      );
-    }
+    return (
+      <TouchableOpacity
+        key={participant}
+        onPress={() => {
+          navigation.navigate("Profile", participant);
+        }}
+      >
+        <ParticipantInfo participant={participant} />
+      </TouchableOpacity>
+    );
   });
   return (
     <Root>
@@ -157,41 +144,23 @@ function SessionDetails({ route }) {
             source={{ uri: session.image }}
           />
           <View style={styles.trainerInfo}>
-            {trainer._id == userStore.user._id ? (
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate("MyProfile");
-                }}
-                key={trainer._id}
-              >
-                <View style={{ flexDirection: "row" }}>
-                  <Image
-                    style={styles.imagePro}
-                    source={{ uri: profile.image }}
-                  />
-                  <Text style={styles.trainerName}>
-                    {profile.firstName} {profile.lastName}
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity
-                onPress={() => {
-                  navigation.navigate("Profile", trainer._id);
-                }}
-                key={trainer._id}
-              >
-                <View style={{ flexDirection: "row" }}>
-                  <Image
-                    style={styles.imagePro}
-                    source={{ uri: profile.image }}
-                  />
-                  <Text style={styles.trainerName}>
-                    {profile.firstName} {profile.lastName}
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            )}
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Profile", trainer._id);
+              }}
+              key={trainer._id}
+            >
+              <View style={{ flexDirection: "row" }}>
+                <Image
+                  style={styles.imagePro}
+                  source={{ uri: profile.image }}
+                />
+                <Text style={styles.trainerName}>
+                  {profile.firstName} {profile.lastName}
+                </Text>
+              </View>
+            </TouchableOpacity>
+
             {userStore.user._id === session.trainer ? (
               <View
                 style={{
