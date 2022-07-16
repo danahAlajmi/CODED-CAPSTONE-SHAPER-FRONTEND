@@ -11,7 +11,7 @@ import { SuccessfulCancelPage } from "../session/SuccessfulCancelPage";
 import { SessionEditDetail } from "../session/edit/SessionEditDetail";
 import { SessionEditTime } from "../session/edit/SessionEditTime";
 import { useFonts } from "expo-font";
-
+import Profile from "../profile/Profile";
 const Stack = createNativeStackNavigator();
 
 function Home() {
@@ -66,6 +66,11 @@ function Home() {
         name="SessionEditTime"
         component={SessionEditTime}
         options={{ title: "Edit" }}
+      />
+      <Stack.Screen
+        name="MyProfile"
+        component={Profile}
+        options={{ headerShown: false }}
       />
     </Stack.Navigator>
   );
