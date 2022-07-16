@@ -67,10 +67,12 @@ function EditProfile() {
       lastName: lastName,
     };
     profileStore.updateProfile(update, profile._id, showEdited);
+    // navigation.goBack();
   };
 
   const handleCancel = () => {
-    navigation.navigate("Profile");
+    // navigation.navigate("MyProfile");
+    navigation.goBack();
   };
 
   return (
@@ -177,11 +179,11 @@ function EditProfile() {
           textBody: "Profile Edited Successfuly",
           button: "To Profile",
           onPressButton: () => {
-            navigation.navigate("Profile");
+            navigation.goBack();
             showEdited(false);
           },
           onHide: () => {
-            navigation.navigate("Profile");
+            navigation.goBack();
           },
         })
       ) : (

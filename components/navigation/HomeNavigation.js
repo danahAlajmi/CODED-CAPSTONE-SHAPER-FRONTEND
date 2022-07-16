@@ -13,7 +13,7 @@ import { SessionEditDetail } from "../session/edit/SessionEditDetail";
 import { SessionEditTime } from "../session/edit/SessionEditTime";
 import { SessionEditLocation } from "../session/edit/SessionEditLocaion";
 import { useFonts } from "expo-font";
-import Profile from "../profile/Profile";
+import EditProfile from "../profile/EditProfile";
 const Stack = createNativeStackNavigator();
 
 function Home() {
@@ -74,8 +74,8 @@ function Home() {
         options={{ title: "Edit Date" }}
       />
       <Stack.Screen
-        name="MyProfile"
-        component={Profile}
+        name="EditProfile"
+        component={EditProfile}
         options={{ headerShown: false }}
       />
       <Stack.Screen

@@ -10,7 +10,7 @@ import {
   SafeAreaView,
 } from "react-native";
 import React from "react";
-
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 import { observer } from "mobx-react";
 import profileStore from "../../stores/profileStore";
@@ -59,6 +59,22 @@ function ProfileUserView({ route }) {
               <Text> Hours 🏋️</Text>
             </View>
           </View>
+          {route.params == userStore.user._id ? (
+            <TouchableOpacity
+              style={styles.EditBtn}
+              onPress={() => {
+                navigation.navigate("EditProfile");
+              }}
+            >
+              <MaterialCommunityIcons
+                name="account-edit-outline"
+                size={30}
+                color="black"
+              />
+            </TouchableOpacity>
+          ) : (
+            <></>
+          )}
         </View>
         <View style={styles.border} />
         <View
@@ -171,8 +187,11 @@ const styles = StyleSheet.create({
     marginBottom: 25,
   },
   EditBtn: {
-    left: 100,
-    // top: -5,
+    // left: 80,
+    top: 7,
+    position: "absolute",
+    right: -6,
+    marginRight: 30,
     // width: 50,
     // borderRadius: 50,
     // height: 50,
