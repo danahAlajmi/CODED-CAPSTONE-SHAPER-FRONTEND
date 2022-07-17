@@ -32,7 +32,15 @@ function BottomTabNavigation() {
         <Tab.Navigator
           initialRouteName="Home"
           screenOptions={{
-            tabBarStyle: { borderTopWidth: 0, height: "7%", marginTop: 10 },
+            tabBarStyle: { borderTopWidth: 0,height:80, 
+            shadowColor: "#FFA90D",
+            shadowOffset: {
+              width: 0,
+              height: 10,
+            },
+            shadowOpacity: 0.51,
+            shadowRadius: 13.16,
+            elevation: 20, },
             headerTitleStyle: {
               color: "black",
               fontFamily:"UbuntuBold",

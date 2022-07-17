@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import {
   Text,
   View,
@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   TextInput,
   TouchableWithoutFeedback,
+  Image,
   KeyboardAvoidingView,
   Keyboard,
   Platform,
@@ -13,12 +14,13 @@ import {
 import { AntDesign } from "@expo/vector-icons";
 import { useFonts } from 'expo-font';
 import { ALERT_TYPE, Dialog, Root, Toast } from 'react-native-alert-notification';
+import { FloatingLabelInput } from 'react-native-floating-label-input';
 
 
 export function SessionCreateDetail({ navigation }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [nop, setNop] = useState(0);
+  const [nop, setNop] = useState("");
   const [showError, setShowError] = useState(false);
 const [loaded] = useFonts({
   'UbuntuBold': require('../../../assets/fonts/Ubuntu-Bold.ttf'),
@@ -30,7 +32,6 @@ if (!loaded) {
   return null;
 }
 
-
   const handleNext = () => {
     if(name=== "" || description=== "" || nop===0){
       setShowError(true)
@@ -39,7 +40,7 @@ if (!loaded) {
     let session = {
       title: name,
       description: description,
-      limit: nop,
+      limit: +nop,
     };
     navigation.navigate("SessionCreateLocation", { session });
   }
@@ -49,53 +50,79 @@ if (!loaded) {
 
   return (
 <Root>
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-      style={styles.container}
-    >
+
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
-      <View style={styles.inputContainer}>
-        <View style={styles.inputView}>
-          <TextInput
-            style={styles.TextInput}
-            placeholder="Enter Session Name"
-            placeholderTextColor="#003f5c"
-            onChangeText={(name) => setName(name)}
+        
+      <View style={styles.imageContainer}>
+        <TouchableOpacity>
+          <Image
+            style={styles.image}
+            source={{
+              uri: "https://img.freepik.com/free-photo/man-holding-dumbbell-orange-background_438099-4325.jpg",
+            }}
           />
-        </View>
 
-        <View style={styles.inputView}>
-          <TextInput
-            style={styles.TextInput}
-            placeholder="Enter Session Description"
-            placeholderTextColor="#003f5c"
-            onChangeText={(description) => setDescription(description)}
+          <View style={styles.imageOverlay} />
+          <AntDesign
+            name="camera"
+            size={24}
+            color="white"
+            style={{ marginTop: 60, marginLeft: 90}}
           />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.inputContainer}>
+        <View style={styles.TextInput}>
+          <FloatingLabelInput
+           containerStyles={{borderColor:"#EAEAEA", height:50, borderWidth: 0,borderBottomWidth: 1,}}
+          labelStyles={{fontFamily:"UbuntuLight"}}
+          inputStyles={{fontFamily:"Ubuntu",color:"black"}}
+          label={'Session Name'}
+          value={name}
+          onChangeText={(value) => setName(value)}
+        />
+        </View>
+        <View style={styles.TextInput}>
+          <FloatingLabelInput
+          containerStyles={{borderColor:"#EAEAEA", height:50, borderWidth: 0,borderBottomWidth: 1,}}
+          labelStyles={{fontFamily:"UbuntuLight",}}
+          inputStyles={{fontFamily:"Ubuntu",color:"black"}}
+          label={'Session Description'}
+          multiline
+          value={description}
+          onChangeText={(value) => setDescription(value)}
+        />
         </View>
         <View style={styles.NumImageView}>
-          <View style={styles.inputNumberView}>
-            <TextInput
-              style={styles.TextInput}
-              placeholder="No. Participants"
-              placeholderTextColor="#003f5c"
-              keyboardType="numeric"
-              onChangeText={(nop) => setNop(+nop)}
-            />
-          </View>
-          <View>
-            <TouchableOpacity style={styles.uploadImageBtn}>
-              <AntDesign name="camera" size={24} color="white" />
-            </TouchableOpacity>
-          </View>
+        <View style={styles.inputNumberView}>
+          <FloatingLabelInput
+           containerStyles={{borderColor:"#EAEAEA", height:50, borderWidth: 0,borderBottomWidth: 0,}}
+          labelStyles={{fontFamily:"UbuntuLight"}}
+          inputStyles={{fontFamily:"Ubuntu",color:"black",marginLeft:50,fontSize:16}}
+          label={'No. Participants'}
+          value={nop}
+          keyboardType="numeric"
+          rightComponent={<TouchableOpacity style={{backgroundColor:"#FFA90D",borderTopLeftRadius:30,borderBottomLeftRadius:30,width:40,height:40,}} onPress={() => {
+            let num = +nop;
+            num++;
+            num = num+""
+            setNop(num)}}><Text style={{fontSize:30,alignSelf:"center",fontFamily:"UbuntuBold",color:"white"}}>+</Text></TouchableOpacity>}
+          leftComponent={<TouchableOpacity style={{backgroundColor:"#FFA90D",borderTopRightRadius:30,borderBottomRightRadius:30,width:40,height:40,}} onPress={() => {
+            let num = +nop;
+            num--;
+            num = num+""
+            setNop(num)}}><Text style={{fontSize:30,alignSelf:"center",fontFamily:"UbuntuBold",color:"white"}}>-</Text></TouchableOpacity>}
+          onChangeText={(nop) => setNop(nop)}
+        />
         </View>
       </View>
       <TouchableOpacity onPress={handleNext} style={styles.SignUpBtn}>
         <Text style={styles.SignUpText}>Next</Text>
       </TouchableOpacity>
       </View>
+        </View>
       </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
     {showError ? (
           (Dialog.show({
             type: ALERT_TYPE.WARNING,
@@ -117,14 +144,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#ffff",
     justifyContent:"center",
     alignItems: "center",
-    paddingBottom:"15%"
   },
   inputContainer: {
     alignItems: "center",
   },
   NumImageView: {
     flexDirection: "row",
-    marginTop: "8%",
+    marginTop: "5%",
   },
   inputView: {
     backgroundColor: "#EAEAEA",
@@ -133,18 +159,14 @@ const styles = StyleSheet.create({
     minWidth: "70%",
     maxWidth: "70%",
     height: 45,
-    marginBottom: 20,
-    marginTop: "8%",
   },
   inputNumberView: {
-    backgroundColor: "#EAEAEA",
     borderRadius: 10,
     width: "40%",
-    minWidth: "40%",
-    maxWidth: "40%",
+    minWidth: "50%",
+    maxWidth: "50%",
     height: 45,
-    marginBottom: 20,
-    marginRight: 40,
+    marginBottom:100
   },
   uploadImageBtn: {
     backgroundColor: "#FFA90D",
@@ -155,7 +177,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   TextInput: {
-    height: 50,
+    maxHeight: "18%",
+    minHeight: "18%",
+    minWidth:"90%",
+    maxWidth:"90%",
+    marginRight:20,
     flex: 1,
     padding: 10,
     marginLeft: 20,
@@ -167,13 +193,33 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 40,
     backgroundColor: "#FFA90D",
     shadowColor: "#000",
+    marginTop:30
   },
   SignUpText: {
     color: "white",
     fontFamily:"UbuntuBold",
     alignSelf: "center",
+  },
+  imageContainer: {
+    height: 140,
+    width: 200,
+    borderRadius: 10,
+    marginBottom:20
+  },
+  image: {
+    height: 140,
+    width: 200,
+    borderRadius: 10,
+    position: "absolute",
+    overflow: "hidden",
+  },
+  imageOverlay: {
+    height: 140,
+    width: 200,
+    borderRadius: 10,
+    backgroundColor: "rgba(0,0,0,0.4)",
+    ...StyleSheet.absoluteFill,
   },
 });

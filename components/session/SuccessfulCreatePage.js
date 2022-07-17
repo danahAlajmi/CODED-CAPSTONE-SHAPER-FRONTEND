@@ -58,7 +58,7 @@ export function SuccessfulCreatePage({ route, navigation }) {
 }
 const styles = StyleSheet.create({
   container: {
-    marginTop: 30,
+    marginTop: 60,
     marginLeft: 30,
     marginRight: 30,
     justifyContent: "center",
