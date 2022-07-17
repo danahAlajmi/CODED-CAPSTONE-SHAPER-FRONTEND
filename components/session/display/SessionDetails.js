@@ -167,6 +167,7 @@ function SessionDetails({ route }) {
                   position: "absolute",
                   right: 0,
                   margin: 30,
+                  marginTop: 50,
                 }}
               >
                 <Menu
@@ -231,7 +232,7 @@ function SessionDetails({ route }) {
                   onPress={createUnjoinAlert}
                   style={styles.btnPressed}
                 >
-                  <Text style={styles.btnText}>Unjoin</Text>
+                  <Text style={styles.btnText}>Leave Session</Text>
                 </TouchableOpacity>
               ) : session.participants.length === session.limit ? (
                 <TouchableOpacity disabled style={styles.btn}>
@@ -244,7 +245,10 @@ function SessionDetails({ route }) {
               )}
 
               <View>
-                <Text style={styles.partiText}>👥 Participants</Text>
+                <View style={{ flexDirection: "row" }}>
+                  <Text style={styles.logo}>👥</Text>
+                  <Text style={styles.partiText}> Participants</Text>
+                </View>
                 <Text style={styles.parti}>
                   {session.participants.length}/{session.limit}
                 </Text>
@@ -253,7 +257,16 @@ function SessionDetails({ route }) {
                     <Text style={styles.partiNoneT}>None</Text>
                   </View>
                 ) : (
-                  <View style={styles.partiListText}>{participantsList}</View>
+                  <View style={styles.partiListText}>
+                    <ScrollView
+                      contentContainerStyle={{ paddingBottom: 0 }}
+                      showsVerticalScrollIndicator={true}
+                      showsHorizontalScrollIndicator={false}
+                      style={styles.participantView}
+                    >
+                      {participantsList}
+                    </ScrollView>
+                  </View>
                 )}
               </View>
               <View>
@@ -295,6 +308,9 @@ function SessionDetails({ route }) {
 }
 export default observer(SessionDetails);
 const styles = StyleSheet.create({
+  participantView: {
+    height: 113,
+  },
   container: {
     height: "100%",
     backgroundColor: "white",
@@ -324,6 +340,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontFamily: "Ubuntu",
   },
+  logo: { marginTop: 51, fontSize: 15 },
   description: {
     fontSize: 20,
     marginTop: 10,
@@ -332,14 +349,14 @@ const styles = StyleSheet.create({
   datePrice: {
     fontSize: 20,
     marginTop: 20,
-    color: "#FFA90D",
+    color: "black",
     fontFamily: "UbuntuLight",
   },
   duration: {
     flexDirection: "row",
     fontSize: 20,
     marginTop: 20,
-    color: "#FFA90D",
+    color: "black",
     fontFamily: "UbuntuLight",
   },
   btn: {
@@ -459,7 +476,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     backgroundColor: "rgba(0, 0, 0, 0.3)",
     width: "100%",
-    height: 70,
+    height: 100,
     flexDirection: "row",
     // marginTop: 20,
   },
@@ -467,13 +484,13 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     borderRadius: 25,
-    marginTop: 10,
+    marginTop: 40,
     marginHorizontal: 10,
   },
   trainerName: {
     fontSize: 25,
     color: "white",
-    marginTop: 20,
+    marginTop: 50,
     fontFamily: "Ubuntu",
 
     // marginHorizontal: 5,

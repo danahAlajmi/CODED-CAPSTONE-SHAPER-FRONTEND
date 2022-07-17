@@ -52,6 +52,10 @@ function Profile() {
     hideMenu();
     userStore.signout();
   };
+  const handleEdit = () => {
+    hideMenu();
+    navigation.navigate("EditProfile");
+  };
 
   if (profileStore.isLoading) return <Text>Loading</Text>;
 
@@ -74,6 +78,13 @@ function Profile() {
             }
             onRequestClose={hideMenu}
           >
+            <MenuItem
+              textStyle={{ color: "black", fontFamily: "Ubuntu" }}
+              onPress={handleEdit}
+            >
+              {" "}
+              Edit profile{" "}
+            </MenuItem>
             <MenuItem
               pressColor="red"
               textStyle={{ color: "red", fontFamily: "Ubuntu" }}
@@ -103,21 +114,9 @@ function Profile() {
               <Text style={styles.number}>
                 {profileStore.getNumOfHours(user._id)}
               </Text>
-              <Text> Hours 🏋️</Text>
+              <Text style={{ fontFamily: "Ubuntu" }}> Hours 🏋️</Text>
             </View>
           </View>
-          <TouchableOpacity
-            style={styles.EditBtn}
-            onPress={() => {
-              navigation.navigate("EditProfile");
-            }}
-          >
-            <MaterialCommunityIcons
-              name="account-edit-outline"
-              size={30}
-              color="black"
-            />
-          </TouchableOpacity>
         </View>
         <View style={styles.border} />
         <View
@@ -144,7 +143,10 @@ function Profile() {
               />
             </Tab.Navigator>
           ) : (
-            <ProfileSessionLEnrolled id={user._id} />
+            <View>
+              <Text style={styles.sessionTitle}>Sessions</Text>
+              <ProfileSessionLEnrolled id={user._id} />
+            </View>
           )}
         </View>
       </View>
@@ -186,6 +188,14 @@ const styles = StyleSheet.create({
     height: 140,
     width: 120,
     borderRadius: 10,
+  },
+  sessionTitle: {
+    marginLeft: 38,
+    marginBottom: 5,
+
+    fontSize: 20,
+    color: "#000000",
+    fontFamily: "UbuntuBold",
   },
   textContainer: {
     paddingHorizontal: 10,

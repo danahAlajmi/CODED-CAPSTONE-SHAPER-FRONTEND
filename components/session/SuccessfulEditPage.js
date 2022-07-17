@@ -2,7 +2,7 @@ import { Text, View, TouchableOpacity, Image, StyleSheet } from "react-native";
 import { useFonts } from "expo-font";
 import { RefreshControl } from "react-native-web";
 
-export function SuccessfulCreatePage({ route, navigation }) {
+export function SuccessfulEditPage({ route, navigation }) {
   const [loaded] = useFonts({
     UbuntuBold: require("../../assets/fonts/Ubuntu-Bold.ttf"),
     UbuntuLight: require("../../assets/fonts/Ubuntu-Light.ttf"),
@@ -31,7 +31,7 @@ export function SuccessfulCreatePage({ route, navigation }) {
       ></View>
       <Text style={styles.headerText}>Congragulations 🎉</Text>
       <Text style={styles.Text}>
-        {session.title} Session Created Successfully! 🏋️‍♂️
+        {session.title} Session Edited Successfully! 🏋️‍♂️
       </Text>
       <Text style={styles.Text}>Session Will be at:</Text>
       <Text style={styles.Text}>

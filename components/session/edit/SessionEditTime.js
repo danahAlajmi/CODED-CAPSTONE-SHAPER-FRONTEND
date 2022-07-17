@@ -12,14 +12,18 @@ import {
 import sessionStore from "../../../stores/sessionStore";
 import userStore from "../../../stores/userStore";
 import { useFonts } from "expo-font";
-import { ALERT_TYPE, Dialog, Root, Toast } from 'react-native-alert-notification';
-
+import {
+  ALERT_TYPE,
+  Dialog,
+  Root,
+  Toast,
+} from "react-native-alert-notification";
 
 export function SessionEditTime({ route, navigation }) {
   const [date, setDate] = useState(new Date());
   const [duration, setDuration] = useState(new Date());
   const [showError, setShowError] = useState(false);
-  const [conflictSession,setConflictSession]=useState(null)
+  const [conflictSession, setConflictSession] = useState(null);
   const [loaded] = useFonts({
     UbuntuBold: require("../../../assets/fonts/Ubuntu-Bold.ttf"),
     UbuntuLight: require("../../../assets/fonts/Ubuntu-Light.ttf"),
@@ -48,126 +52,140 @@ export function SessionEditTime({ route, navigation }) {
     session.date = date.getTime();
     session.duration = convDur;
     session.trainer = userStore.user._id;
-    const filteredSessions = sessionStore.sessions.filter((session) => session.trainer === userStore.user._id)
-    let pass = true
-    let newEnd = session.date + convDur*60*1000
+    const filteredSessions = sessionStore.sessions.filter(
+      (session) => session.trainer === userStore.user._id
+    );
+    let pass = true;
+    let newEnd = session.date + convDur * 60 * 1000;
     filteredSessions.forEach((session) => {
-      if((newEnd < session.date) || (date.getTime() > (session.date + session.duration*60*1000)))
-        console.log(pass)
-      else if(sessionId!==session._id) {
+      if (
+        newEnd < session.date ||
+        date.getTime() > session.date + session.duration * 60 * 1000
+      )
+        console.log(pass);
+      else if (sessionId !== session._id) {
         setConflictSession({
-        title:session.title,
-        startTime: new Date(session.date).toLocaleString("en-US", {
-          hour: "numeric",
-          minute: "numeric",
-          hour12: true,
-        }) ,
-        endTime: new Date(session.date + (session.duration*60*1000)).toLocaleString("en-US", {
-          hour: "numeric",
-          minute: "numeric",
-          hour12: true,
-        })
-        })
-        console.log(conflictSession)
-        pass = false
+          title: session.title,
+          startTime: new Date(session.date).toLocaleString("en-US", {
+            hour: "numeric",
+            minute: "numeric",
+            hour12: true,
+          }),
+          endTime: new Date(
+            session.date + session.duration * 60 * 1000
+          ).toLocaleString("en-US", {
+            hour: "numeric",
+            minute: "numeric",
+            hour12: true,
+          }),
+        });
+        console.log(conflictSession);
+        pass = false;
       }
-    })
-    
-    if(pass)
-    {
+    });
+
+    if (pass) {
       sessionStore.UpdateSession(session, sessionId);
-      navigation.navigate("SuccessCreate", { session });
-    }
-    else {
-      setShowError(true)
+      navigation.navigate("SuccessEdit", { session });
+    } else {
+      setShowError(true);
     }
   };
 
   return (
     <Root>
-    <SafeAreaView>
-      <ScrollView>
-      <View style={{backgroundColor:"white",position:"absolute", height:10000 , width:10000}}></View>
-        <View style={styles.container}>
-          <Text style={styles.headerText}>Please select the session date</Text>
-          <View style={styles.inputView}>
-            <TextInput
-              style={styles.TextInput}
-              placeholder={date.toLocaleDateString()}
-              placeholderTextColor="#003f5c"
-              editable={false}
+      <SafeAreaView>
+        <ScrollView>
+          <View
+            style={{
+              backgroundColor: "white",
+              position: "absolute",
+              height: 10000,
+              width: 10000,
+            }}
+          ></View>
+          <View style={styles.container}>
+            <Text style={styles.headerText}>
+              Please select the session date
+            </Text>
+            <View style={styles.inputView}>
+              <TextInput
+                style={styles.TextInput}
+                placeholder={date.toLocaleDateString()}
+                placeholderTextColor="#003f5c"
+                editable={false}
+              />
+            </View>
+            <RNDateTimePicker
+              minimumDate={new Date(Date.now())}
+              // maximumDate={new Date(Date.now()+604800000)}
+              value={date}
+              mode={"date"}
+              display={"inline"}
+              onChange={onChangeDate}
+              style={{ maxHeight: "28%" }}
+              accentColor="#FFA90D"
             />
-          </View>
-          <RNDateTimePicker
-            minimumDate={new Date(Date.now())}
-            // maximumDate={new Date(Date.now()+604800000)}
-            value={date}
-            mode={"date"}
-            display={"inline"}
-            onChange={onChangeDate}
-            style={{ maxHeight: "28%" }}
-            accentColor="#FFA90D"
-          />
-          <Text style={styles.headerText}>
-            Please select the session start time
-          </Text>
-          <View style={styles.inputView}>
-            <TextInput
-              style={styles.TextInput}
-              placeholder={date.toLocaleString("en-US", {
-                hour: "numeric",
-                minute: "numeric",
-                hour12: true,
-              })}
-              placeholderTextColor="#003f5c"
-              editable={false}
+            <Text style={styles.headerText}>
+              Please select the session start time
+            </Text>
+            <View style={styles.inputView}>
+              <TextInput
+                style={styles.TextInput}
+                placeholder={date.toLocaleString("en-US", {
+                  hour: "numeric",
+                  minute: "numeric",
+                  hour12: true,
+                })}
+                placeholderTextColor="#003f5c"
+                editable={false}
+              />
+            </View>
+            <RNDateTimePicker
+              value={date}
+              mode={"time"}
+              display={"spinner"}
+              is24Hour={true}
+              onChange={onChangeDate}
             />
-          </View>
-          <RNDateTimePicker
-            value={date}
-            mode={"time"}
-            display={"spinner"}
-            is24Hour={true}
-            onChange={onChangeDate}
-          />
-          <Text style={styles.headerText}>
-            Please select the session Duration
-          </Text>
-          <View style={styles.inputView}>
-            <TextInput
-              style={styles.TextInput}
-              placeholder={
-                duration.getHours() +
-                " hours and " +
-                duration.getMinutes() +
-                " minutes"
-              }
-              placeholderTextColor="#003f5c"
-              editable={false}
+            <Text style={styles.headerText}>
+              Please select the session Duration
+            </Text>
+            <View style={styles.inputView}>
+              <TextInput
+                style={styles.TextInput}
+                placeholder={
+                  duration.getHours() +
+                  " hours and " +
+                  duration.getMinutes() +
+                  " minutes"
+                }
+                placeholderTextColor="#003f5c"
+                editable={false}
+              />
+            </View>
+            <RNDateTimePicker
+              value={duration}
+              mode={"countdown"}
+              onChange={onChangeDuration}
             />
+            <TouchableOpacity onPress={editSession} style={styles.CreateBtn}>
+              <Text style={styles.CreateText}>Edit Session</Text>
+            </TouchableOpacity>
           </View>
-          <RNDateTimePicker
-            value={duration}
-            mode={"countdown"}
-            onChange={onChangeDuration}
-          />
-          <TouchableOpacity onPress={editSession} style={styles.CreateBtn}>
-            <Text style={styles.CreateText}>Edit Session</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-    {showError ? (
-          (Dialog.show({
-            type: ALERT_TYPE.WARNING,
-            title: "Invalid",
-            textBody: `Your session is in conflict with another session called ${conflictSession.title} that starts at ${conflictSession.startTime} and ends at ${conflictSession.endTime}` ,
-            onShow: () => setShowError(false),
-            onHide: () => setShowError(false)
-          }))
-        ) : (
-          <></>
-        )}
+        </ScrollView>
+      </SafeAreaView>
+      {showError ? (
+        Dialog.show({
+          type: ALERT_TYPE.WARNING,
+          title: "Invalid",
+          textBody: `Your session is in conflict with another session called ${conflictSession.title} that starts at ${conflictSession.startTime} and ends at ${conflictSession.endTime}`,
+          onShow: () => setShowError(false),
+          onHide: () => setShowError(false),
+        })
+      ) : (
+        <></>
+      )}
     </Root>
   );
 }
