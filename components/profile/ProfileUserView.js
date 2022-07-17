@@ -17,9 +17,16 @@ import profileStore from "../../stores/profileStore";
 import { useFonts } from "expo-font";
 import ProfileSessionLTraining from "./ProfileSessionLTraining";
 import ProfileSessionLEnrolled from "./ProfileSessionLEnrolled";
+import { Menu, MenuItem, MenuDivider } from "react-native-material-menu";
+import { useState } from "react";
+import { Entypo } from "@expo/vector-icons";
+
 import userStore from "../../stores/userStore";
 const Tab = createMaterialTopTabNavigator();
 function ProfileUserView({ route }) {
+  const [visible, setVisible] = useState(false);
+  const hideMenu = () => setVisible(false);
+  const showMenu = () => setVisible(true);
   const [loaded] = useFonts({
     UbuntuBold: require("../../assets/fonts/Ubuntu-Bold.ttf"),
     UbuntuLight: require("../../assets/fonts/Ubuntu-Light.ttf"),
@@ -30,6 +37,22 @@ function ProfileUserView({ route }) {
   if (!loaded) {
     return null;
   }
+  const createTwoButtonAlert = () =>
+    Alert.alert("Warning", "Are you sure you want to sign out", [
+      {
+        text: "Cancel",
+      },
+      { text: "Yes", onPress: handleSignout, style: "destructive" },
+    ]);
+
+  const handleSignout = () => {
+    hideMenu();
+    userStore.signout();
+  };
+  const handleEdit = () => {
+    hideMenu();
+    navigation.navigate("EditProfile");
+  };
   if (profileStore.isLoading) return <Text>Loading</Text>;
 
   const user = userStore.getUserById(route.params);
@@ -38,6 +61,40 @@ function ProfileUserView({ route }) {
   return (
     <SafeAreaView style={styles.containerSaveView}>
       <View style={styles.container}>
+        {route.params == userStore.user._id ? (
+          <View style={{ position: "absolute", right: 0, marginRight: 30 }}>
+            <Menu
+              visible={visible}
+              anchor={
+                <Entypo
+                  onPress={showMenu}
+                  name="dots-three-horizontal"
+                  size={24}
+                  color="black"
+                />
+              }
+              onRequestClose={hideMenu}
+            >
+              <MenuItem
+                textStyle={{ color: "black", fontFamily: "Ubuntu" }}
+                onPress={handleEdit}
+              >
+                {" "}
+                Edit profile{" "}
+              </MenuItem>
+              <MenuItem
+                pressColor="red"
+                textStyle={{ color: "red", fontFamily: "Ubuntu" }}
+                onPress={createTwoButtonAlert}
+              >
+                {" "}
+                Sign out{" "}
+              </MenuItem>
+            </Menu>
+          </View>
+        ) : (
+          <></>
+        )}
         <View style={styles.profileItems}>
           <Image
             style={styles.image}
@@ -59,22 +116,6 @@ function ProfileUserView({ route }) {
               <Text> Hours 🏋️</Text>
             </View>
           </View>
-          {route.params == userStore.user._id ? (
-            <TouchableOpacity
-              style={styles.EditBtn}
-              onPress={() => {
-                navigation.navigate("EditProfile");
-              }}
-            >
-              <MaterialCommunityIcons
-                name="account-edit-outline"
-                size={30}
-                color="black"
-              />
-            </TouchableOpacity>
-          ) : (
-            <></>
-          )}
         </View>
         <View style={styles.border} />
         <View
@@ -153,7 +194,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: "#000000",
     fontWeight: "600",
-    fontFamily: "UbuntuBold",
+    fontFamily: "Ubuntu",
     maxWidth: 120,
     overflow: "hidden",
   },

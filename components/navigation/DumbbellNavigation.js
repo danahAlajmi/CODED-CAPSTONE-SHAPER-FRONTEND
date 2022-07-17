@@ -11,12 +11,12 @@ import { SessionCreateLocation } from "../session/create/SessionCreateLocation";
 import { SessionCreateTime } from "../session/create/SessionCreateTime";
 import { SuccessfulCreatePage } from "../session/SuccessfulCreatePage";
 import { SuccessfulJoinPage } from "../session/SuccessfulJoinPage";
-import { SuccessfulCancelPage } from "../session/SuccessfulCancelPage";
+import { SuccessfulEditPage } from "../session/SuccessfulEditPage";
 import { SessionEditDetail } from "../session/edit/SessionEditDetail";
 import { SessionEditTime } from "../session/edit/SessionEditTime";
 import { SessionEditLocation } from "../session/edit/SessionEditLocaion";
 import Dumbbell from "../session/Dumbbell";
-import EditProfile from "../profile/EditProfile";
+import Profile from "../profile/EditProfile";
 const Stack = createNativeStackNavigator();
 
 function DumbbellNavigation() {
@@ -70,11 +70,13 @@ function DumbbellNavigation() {
       <Stack.Screen
         name="SessionDetails"
         component={SessionDetails}
-        options={({ route }) => {
-          return {
-            title: sessionStore.getSessionById(route.params._id).title,
-          };
-        }}
+        options={{ headerShown: false }}
+
+        // options={({ route }) => {
+        //   return {
+        //     title: sessionStore.getSessionById(route.params._id).title,
+        //   };
+        // }}
       />
       <Stack.Screen
         name="SuccessJoin"
@@ -82,13 +84,13 @@ function DumbbellNavigation() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="SuccessCancel"
-        component={SuccessfulCancelPage}
+        name="SuccessEdit"
+        component={SuccessfulEditPage}
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="EditProfile"
-        component={EditProfile}
+        name="MyProfile"
+        component={Profile}
         options={{ headerShown: false }}
       />
       <Stack.Screen

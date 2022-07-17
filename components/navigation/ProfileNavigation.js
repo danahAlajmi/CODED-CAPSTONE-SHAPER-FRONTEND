@@ -5,7 +5,7 @@ import { observer } from "mobx-react";
 import EditProfile from "../profile/EditProfile";
 import Profile from "../profile/Profile";
 import SessionDetails from "../session/display/SessionDetails";
-import { SuccessfulCancelPage } from "../session/SuccessfulCancelPage";
+import { SuccessfulEditPage } from "../session/SuccessfulEditPage";
 import { SuccessfulJoinPage } from "../session/SuccessfulJoinPage";
 import { SessionEditDetail } from "../session/edit/SessionEditDetail";
 import { SessionEditTime } from "../session/edit/SessionEditTime";
@@ -34,15 +34,17 @@ function ProfileNav() {
       <Screen
         name="SessionDetails"
         component={SessionDetails}
-        options={({ route }) => {
-          return {
-            title: sessionStore.getSessionById(route.params._id).title,
-          };
-        }}
+        options={{ headerShown: false }}
+
+        // options={({ route }) => {
+        //   return {
+        //     title: sessionStore.getSessionById(route.params._id).title,
+        //   };
+        // }}
       />
       <Screen
-        name="SuccessCancel"
-        component={SuccessfulCancelPage}
+        name="SuccessEdit"
+        component={SuccessfulEditPage}
         options={{ headerShown: false }}
       />
       <Screen
