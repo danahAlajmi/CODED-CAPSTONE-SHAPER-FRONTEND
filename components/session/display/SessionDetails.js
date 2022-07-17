@@ -287,7 +287,7 @@ function SessionDetails({ route }) {
         </ScrollView>
         {isDeleted ? (
           Dialog.show({
-            type: ALERT_TYPE.SUCCESS,
+            type: ALERT_TYPE.WARNING,
             title: "Session Deleted",
             textBody: "Session Deleted Successfuly",
             button: "Ok",
