@@ -121,11 +121,11 @@ function Dumbbell() {
 const styles = StyleSheet.create({
   container: { backgroundColor: "white", height: "100%" },
   header: {
-    fontSize: 35,
+    fontSize: 25,
     marginHorizontal: 30,
     marginVertical: 10,
     backgroundColor: "white",
-    fontFamily: "Ubuntu",
+    fontFamily: "UbuntuBold",
   },
   section: { backgroundColor: "white", height: 220 },
   sectionScroll: { marginLeft: 30 },

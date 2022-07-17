@@ -6,15 +6,15 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from "react-native";
-import { observer } from "mobx-react"; 
-import { useFonts } from 'expo-font';
+import { observer } from "mobx-react";
+import { useFonts } from "expo-font";
 // import SessionDetails from "./SessionDetails";
 
 function SessionsListItem({ session }) {
   const [loaded] = useFonts({
-    'UbuntuBold': require('../../../assets/fonts/Ubuntu-Bold.ttf'),
-    'UbuntuLight': require('../../../assets/fonts/Ubuntu-Light.ttf'),
-    'Ubuntu': require('../../../assets/fonts/Ubuntu-Regular.ttf'),
+    UbuntuBold: require("../../../assets/fonts/Ubuntu-Bold.ttf"),
+    UbuntuLight: require("../../../assets/fonts/Ubuntu-Light.ttf"),
+    Ubuntu: require("../../../assets/fonts/Ubuntu-Regular.ttf"),
   });
 
   if (!loaded) {
@@ -53,11 +53,13 @@ const styles = StyleSheet.create({
   sessionTitle: {
     backgroundColor: "rgba(0, 0, 0, 0.5)",
     color: "white",
-    fontSize: 30,
-    fontFamily:"Ubuntu",
-    padding: 12.5,
-    position: "relative",
-    top: "50%",
+    fontSize: 20,
+    padding: 18,
+    fontFamily: "Ubuntu",
+    position: "absolute",
+    top: 80,
+    height: 80,
+    width: "100%",
   },
 });
 export default observer(SessionsListItem);

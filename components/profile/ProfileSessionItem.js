@@ -44,8 +44,8 @@ function ProfileSessionItem({ session }) {
 }
 const styles = StyleSheet.create({
   container: {
-    height: 130,
-    width: 310,
+    height: 140,
+    width: 330,
     borderRadius: 20,
     overflow: "hidden",
     marginVertical: 10,
@@ -60,14 +60,21 @@ const styles = StyleSheet.create({
     backgroundColor: "green",
     borderRadius: 20,
   },
+  BGsessionTitle: {
+    position: "absolute",
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
+    width: "100%",
+    height: 100,
+  },
   sessionTitle: {
     backgroundColor: "rgba(0, 0, 0, 0.5)",
     color: "white",
-    fontSize: 30,
-    padding: 12.5,
+    fontSize: 20,
+    padding: 18,
     fontFamily: "Ubuntu",
-    position: "relative",
-    top: "50%",
+    position: "absolute",
+    top: 85,
+    width: "100%",
   },
 });
 export default observer(ProfileSessionItem);

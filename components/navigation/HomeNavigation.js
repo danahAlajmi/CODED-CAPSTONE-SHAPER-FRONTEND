@@ -7,7 +7,7 @@ import ProfileUserView from "../profile/ProfileUserView";
 import SessionDetails from "../session/display/SessionDetails";
 import sessionStore from "../../stores/sessionStore";
 import { SuccessfulJoinPage } from "../session/SuccessfulJoinPage";
-import { SuccessfulCancelPage } from "../session/SuccessfulCancelPage";
+import { SuccessfulEditPage } from "../session/SuccessfulEditPage";
 import { SuccessfulCreatePage } from "../session/SuccessfulCreatePage";
 import { SessionEditDetail } from "../session/edit/SessionEditDetail";
 import { SessionEditTime } from "../session/edit/SessionEditTime";
@@ -42,11 +42,13 @@ function Home() {
       <Stack.Screen
         name="SessionDetails"
         component={SessionDetails}
-        options={({ route }) => {
-          return {
-            title: sessionStore.getSessionById(route.params._id).title,
-          };
-        }}
+        options={{ headerShown: false }}
+
+        // options={({ route }) => {
+        //   return {
+        //     title: sessionStore.getSessionById(route.params._id).title,
+        //   };
+        // }}
       />
       <Stack.Screen
         name="SuccessJoin"
@@ -54,8 +56,8 @@ function Home() {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="SuccessCancel"
-        component={SuccessfulCancelPage}
+        name="SuccessEdit"
+        component={SuccessfulEditPage}
         options={{ headerShown: false }}
       />
       <Stack.Screen

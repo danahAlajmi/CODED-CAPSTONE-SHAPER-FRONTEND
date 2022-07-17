@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, Image } from "react-native";
 import React from "react";
 import { observer } from "mobx-react";
 import profileStore from "../../../stores/profileStore";
-import { useFonts } from 'expo-font';
+import { useFonts } from "expo-font";
 
 function ParticipantInfo({ participant }) {
   const [loaded] = useFonts({
@@ -27,7 +27,6 @@ export default observer(ParticipantInfo);
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    marginHorizontal: -2,
     marginBottom: 5,
     height: 45,
     width: "100%",
@@ -41,6 +40,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     top: 8,
     marginHorizontal: 10,
-    fontFamily:"Ubuntu",
+    fontFamily: "Ubuntu",
   },
 });
