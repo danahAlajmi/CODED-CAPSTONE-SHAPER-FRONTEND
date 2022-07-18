@@ -8,6 +8,7 @@ import {
   Image,
   RefreshControl,
   Alert,
+  Linking,
 } from "react-native";
 import { observer } from "mobx-react";
 import React from "react";
@@ -29,6 +30,7 @@ import {
 import { useFonts } from "expo-font";
 
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
+import { TouchableWithoutFeedback } from "react-native-web";
 
 function SessionDetails({ route }) {
   const [visible, setVisible] = useState(false);
@@ -52,8 +54,8 @@ function SessionDetails({ route }) {
   const detailsLocation = {
     latitude: loc[0],
     longitude: loc[1],
-    latitudeDelta: 0.0035,
-    longitudeDelta: 0.0035,
+    latitudeDelta: 0.02,
+    longitudeDelta: 0.02,
   };
 
   let profile = profileStore.getProfileById(session.trainer);
@@ -269,8 +271,24 @@ function SessionDetails({ route }) {
                   </View>
                 )}
               </View>
-              <View>
+              <View
+                style={{
+                  borderWidth: 2,
+                  borderColor: "black",
+                  flexDirection: "row",
+                }}
+              >
                 <Text style={styles.locationTitle}>📍 Location</Text>
+                <TouchableOpacity
+                  onPress={async () => {
+                    const url = `https://www.google.com/maps/@?api=1&map_action=map?=${detailsLocation.latitude}%2C${detailsLocation.longitude}&zoom=12`;
+                    await Linking.canOpenURL(url);
+                    Linking.openURL(url);
+                  }}
+                >
+                  <Text>Open in googleMaps</Text>
+                </TouchableOpacity>
+
                 <View style={styles.map}>
                   <MapView
                     provider={PROVIDER_GOOGLE}
@@ -444,7 +462,7 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     marginTop: 50,
     height: 300,
-    borderWidth: 2,
+    borderWidth: 0.75,
     borderColor: "#FFA90D",
   },
   parti: {
