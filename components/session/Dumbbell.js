@@ -10,10 +10,11 @@ import {
 import { observer } from "mobx-react";
 import sessionStore from "../../stores/sessionStore";
 import SessionDumbbellCard from "./SessionDumbbellCard";
+import SessionDumbbellCardInd from "./SessionDumbbellCardInd.js";
 import userStore from "../../stores/userStore";
 import { FontAwesome } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { Menu, MenuItem, MenuDivider } from "react-native-material-menu";
+
 import { useFonts } from "expo-font";
 
 function Dumbbell() {
@@ -38,6 +39,7 @@ function Dumbbell() {
   };
 
   sessionStore.sessions
+
     .filter(
       (session) =>
         session.participants.includes(userStore.user._id) ||
@@ -53,7 +55,10 @@ function Dumbbell() {
         new Date().toLocaleDateString()
       ) {
         timeSections.today.push(
-          <SessionDumbbellCard key={session._id} session={session} />
+          <View style={styles.bigCard} key={session._id}>
+            <SessionDumbbellCard session={session} />
+            <SessionDumbbellCardInd session={session} />
+          </View>
         );
       } else {
         timeSections.upcoming.push(
@@ -140,14 +145,19 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFA90D",
     borderRadius: 100,
     shadowColor: "black",
-shadowOffset: {
-	width: 0,
-	height: 1,
-},
-shadowOpacity: 0.22,
-shadowRadius: 2.22,
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
 
-elevation: 3,
+    elevation: 3,
+  },
+
+  bigCard: {
+    width: "auto",
+    flexDirection: "row",
   },
 });
 export default observer(Dumbbell);

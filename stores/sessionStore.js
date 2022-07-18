@@ -53,6 +53,7 @@ class SessionStore {
     try {
       const response = await instance.post("/api/sessions/create", session);
       this.sessions.push(response.data);
+      this.fetchAllSessions();
     } catch (error) {
       console.log(error);
     }
