@@ -273,20 +273,18 @@ function SessionDetails({ route }) {
               </View>
               <View
                 style={{
-                  borderWidth: 2,
-                  borderColor: "black",
                   flexDirection: "row",
                 }}
               >
                 <Text style={styles.locationTitle}>📍 Location</Text>
                 <TouchableOpacity
                   onPress={async () => {
-                    const url = `https://www.google.com/maps/@?api=1&map_action=map?=${detailsLocation.latitude}%2C${detailsLocation.longitude}&zoom=12`;
+                    const url = `https://www.google.com/maps/?q=${detailsLocation.latitude},${detailsLocation.longitude}`;
                     await Linking.canOpenURL(url);
                     Linking.openURL(url);
                   }}
                 >
-                  <Text>Open in googleMaps</Text>
+                  <Text style={styles.locationLink}>Open in googleMaps</Text>
                 </TouchableOpacity>
 
                 <View style={styles.map}>
@@ -512,5 +510,12 @@ const styles = StyleSheet.create({
     fontFamily: "Ubuntu",
 
     // marginHorizontal: 5,
+  },
+  locationLink: {
+    marginTop: 25,
+    fontSize: 15,
+    fontFamily: "Ubuntu",
+    left: 135,
+    color: "#00A2ED",
   },
 });
