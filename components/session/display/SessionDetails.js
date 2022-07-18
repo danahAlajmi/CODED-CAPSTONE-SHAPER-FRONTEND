@@ -94,7 +94,7 @@ function SessionDetails({ route }) {
     setIsEnroll(false);
     refr;
 
-    navigation.navigate("SuccessCancel", { session });
+    navigation.pop(2);
   };
 
   let isEnrolled = session.participants.some((patricipent) => {
