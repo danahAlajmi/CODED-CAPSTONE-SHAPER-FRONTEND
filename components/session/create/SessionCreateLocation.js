@@ -12,7 +12,7 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
 import { useFonts } from "expo-font";
-import googleApi from "../../../constantsSecret";
+import googleApi from "../../../ignoreThis/constantsSecret";
 export function SessionCreateLocation({ route, navigation }) {
   const [loaded] = useFonts({
     UbuntuBold: require("../../../assets/fonts/Ubuntu-Bold.ttf"),
