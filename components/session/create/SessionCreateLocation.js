@@ -1,13 +1,5 @@
 import { useState } from "react";
-import {
-  Text,
-  Image,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-  TextInput,
-  ImageBackground,
-} from "react-native";
+import { Text, Image, View, StyleSheet, TouchableOpacity } from "react-native";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
@@ -50,7 +42,7 @@ export function SessionCreateLocation({ route, navigation }) {
           onPress={(event) => handleLocation(event.nativeEvent.coordinate)}
         >
           <GooglePlacesAutocomplete
-            placeholder="Search"
+            placeholder="🔍 Search here"
             GooglePlacesSearchQuery={{
               rankby: "distance",
             }}
@@ -66,6 +58,16 @@ export function SessionCreateLocation({ route, navigation }) {
               key: googleApi,
               language: "en",
               components: "country:kw",
+            }}
+            renderRow={(rowData) => {
+              const title = rowData.structured_formatting.main_text;
+              const address = rowData.structured_formatting.secondary_text;
+              return (
+                <View>
+                  <Text style={{ fontSize: 12 }}>{title}</Text>
+                  <Text style={{ fontSize: 12 }}>{address}</Text>
+                </View>
+              );
             }}
           />
           <Marker coordinate={location}></Marker>
@@ -93,7 +95,7 @@ const styles = StyleSheet.create({
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 550,
+    marginTop: 530,
     backgroundColor: "#FFA90D",
     shadowColor: "#000",
   },
