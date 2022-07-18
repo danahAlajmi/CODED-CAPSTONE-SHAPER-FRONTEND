@@ -9,6 +9,6 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
-constantsSecret
+constantsSecret.js
 # macOS
 .DS_Store
