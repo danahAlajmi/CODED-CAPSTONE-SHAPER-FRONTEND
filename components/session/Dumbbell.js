@@ -56,7 +56,7 @@ function Dumbbell() {
       ) {
         timeSections.today.push(
           <View style={styles.bigCard} key={session._id}>
-            <SessionDumbbellCard session={session} />
+            {/* <SessionDumbbellCard session={session} /> */}
             <SessionDumbbellCardInd session={session} />
           </View>
         );

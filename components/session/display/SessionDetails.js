@@ -224,7 +224,7 @@ function SessionDetails({ route }) {
                   })}
               </Text>
               <Text style={styles.duration}>⏳ {session.duration} Min</Text>
-              <Text style={styles.datePrice}>💰 10KD</Text>
+              <Text style={styles.datePrice}>💰 Free</Text>
               {session.date < Date.now() ? (
                 <TouchableOpacity disabled style={styles.btnPast}>
                   <Text style={styles.btnText}>Finished</Text>
