@@ -62,7 +62,7 @@ function SessionDumbbellCardInd({ session }) {
 const styles = StyleSheet.create({
   container: {
     height: 140,
-    width: 320,
+    width: 250,
     borderRadius: 20,
     overflow: "hidden",
     marginVertical: 10,
