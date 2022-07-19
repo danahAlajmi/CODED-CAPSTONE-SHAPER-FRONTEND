@@ -20,7 +20,7 @@ import { FloatingLabelInput } from 'react-native-floating-label-input';
 export function SessionCreateDetail({ navigation }) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [nop, setNop] = useState("");
+  const [nop, setNop] = useState("1");
   const [showError, setShowError] = useState(false);
 const [loaded] = useFonts({
   'UbuntuBold': require('../../../assets/fonts/Ubuntu-Bold.ttf'),
@@ -97,23 +97,29 @@ if (!loaded) {
         <View style={styles.NumImageView}>
         <View style={styles.inputNumberView}>
           <FloatingLabelInput
-           containerStyles={{borderColor:"#EAEAEA", height:50, borderWidth: 0,borderBottomWidth: 0,alignContent:"center"}}
-          labelStyles={{fontFamily:"UbuntuLight",marginLeft:5}}
-          inputStyles={{fontFamily:"Ubuntu",color:"black",marginLeft:45,fontSize:16}}
+           containerStyles={{borderColor:"#EAEAEA", height:50, borderWidth: 0,borderBottomWidth: 0,}}
+          labelStyles={{fontFamily:"UbuntuLight",marginLeft:27, fontSize:14}}
+          inputStyles={{fontFamily:"Ubuntu",color:"black",marginLeft:50,fontSize:16}}
           label={'No. Participants'}
+          staticLabel={true}
           value={nop}
           keyboardType="numeric"
-          rightComponent={<TouchableOpacity style={{backgroundColor:"#FFA90D",borderTopRightRadius:30,borderBottomRightRadius:30,width:40,height:40,}} onPress={() => {
+          rightComponent={<TouchableOpacity style={{backgroundColor:"#FFA90D",borderTopLeftRadius:30,borderBottomLeftRadius:30,width:40,height:40,}} onPress={() => {
             let num = +nop;
             num++;
             num = num+""
             setNop(num)}}><Text style={{fontSize:30,alignSelf:"center",fontFamily:"UbuntuBold",color:"white"}}>+</Text></TouchableOpacity>}
-          leftComponent={<TouchableOpacity style={{backgroundColor:"#FFA90D",borderTopLeftRadius:30,borderBottomLeftRadius:30,width:40,height:40,}} onPress={() => {
+          leftComponent={<TouchableOpacity style={{backgroundColor:"#FFA90D",borderTopRightRadius:30,borderBottomRightRadius:30,width:40,height:40,}} onPress={() => {
             let num = +nop;
             num--;
+            if(num<=1)
+              num=1 
             num = num+""
             setNop(num)}}><Text style={{fontSize:30,alignSelf:"center",fontFamily:"UbuntuBold",color:"white"}}>-</Text></TouchableOpacity>}
-          onChangeText={(nop) => setNop(nop)}
+          onChangeText={(nop) => 
+         {   if(nop=="0")
+              nop="1"
+            setNop(nop)}}
         />
         </View>
       </View>
