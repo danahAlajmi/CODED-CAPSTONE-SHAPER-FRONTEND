@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import instance from "./instance";
 import sessionStore from "./sessionStore";
 import userStore from "./userStore";
@@ -12,8 +12,12 @@ class ProfileStore {
   fetchProfile = async () => {
     try {
       const response = await instance.get("/api/profile");
-      this.profiles = response.data;
-      this.isLoading = false;
+      runInAction(() => {
+        this.profiles = response.data;
+        this.isLoading = false;
+      });
+      //this.profiles = response.data;
+      //this.isLoading = false;
     } catch (error) {
       console.log("ProfileStore -> fetchProfile -> error", error);
     }
