@@ -30,7 +30,6 @@ import {
 import { useFonts } from "expo-font";
 
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
-import { TouchableWithoutFeedback } from "react-native-web";
 
 function SessionDetails({ route }) {
   const [visible, setVisible] = useState(false);
@@ -116,7 +115,6 @@ function SessionDetails({ route }) {
     sessionStore.DeleteSession(session, session._id, showIsDeleted);
   };
   const hideMenu = () => setVisible(false);
-
   const showMenu = () => setVisible(true);
   const participantsList = session.participants.map((participant) => {
     return (
@@ -228,6 +226,10 @@ function SessionDetails({ route }) {
               {session.date < Date.now() ? (
                 <TouchableOpacity disabled style={styles.btnPast}>
                   <Text style={styles.btnText}>Finished</Text>
+                </TouchableOpacity>
+              ) : session.trainer === userStore.user._id ? (
+                <TouchableOpacity disabled style={styles.btnPast}>
+                  <Text style={styles.btnText}>Training</Text>
                 </TouchableOpacity>
               ) : isEnrolled || isEnroll ? (
                 <TouchableOpacity
@@ -376,15 +378,10 @@ const styles = StyleSheet.create({
     fontFamily: "UbuntuLight",
   },
   btn: {
-    // alignItems: "center",
-    // alignContent: "center",
-    // justifyContent: "center",
-    // marginTop: 30,
-    marginHorizontal: 40,
-    // backgroundColor: "#FFA90D",
     width: 300,
     // height: 55,
     // borderRadius: 10,
+    marginHorizontal: 22.5,
     minWidth: "40%",
     borderRadius: 10,
     height: 50,
@@ -410,7 +407,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
 
-    marginHorizontal: 40,
+    marginHorizontal: 22.5,
     marginTop: 40,
     elevation: 3,
 
@@ -425,7 +422,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4.0,
   },
   btnPressed: {
-    marginHorizontal: 40,
+    marginHorizontal: 22.5,
     width: 300,
     minWidth: "40%",
     borderRadius: 10,
