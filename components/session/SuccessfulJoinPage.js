@@ -16,7 +16,7 @@ export function SuccessfulJoinPage({ route, navigation }){
 
 
     const goBack = () => {
-      navigation.pop(2)
+      navigation.pop(1)
 
     }
 

@@ -8,8 +8,9 @@ import {
   TextInput,
   ImageBackground,
 } from "react-native";
-
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import MapView, { PROVIDER_GOOGLE, Marker, Callout } from "react-native-maps";
+import googleApi from "../../../ignoreThis/constantsSecret";
 import { useFonts } from "expo-font";
 
 export function SessionEditLocation({ route, navigation }) {
@@ -48,6 +49,38 @@ export function SessionEditLocation({ route, navigation }) {
           mapType={"satelite"}
           onPress={(event) => handleLocation(event.nativeEvent.coordinate)}
         >
+          <GooglePlacesAutocomplete
+            placeholder="🔍 Search here"
+            GooglePlacesSearchQuery={{
+              rankby: "distance",
+            }}
+            isRowScrollable={false}
+            enablePoweredByContainer={false}
+            styles={{listView:{position:"absolute",marginTop:41,width:371,marginLeft:10,borderBottomLeftRadius:10,borderBottomRightRadius:10},textInput:{borderRadius:10,maxWidth:"95%",marginLeft:10,marginTop:10,}}}
+            fetchDetails={true}
+            onPress={(data, details = null) => {
+              let loc = {
+                latitude: details.geometry.location.lat,
+                longitude: details.geometry.location.lng,
+              };
+              handleLocation(loc);
+            }}
+            query={{
+              key: googleApi,
+              language: "en",
+              components: "country:kw",
+            }}
+            renderRow={(rowData) => {
+              const title = rowData.structured_formatting.main_text;
+              const address = rowData.structured_formatting.secondary_text;
+              return (
+                <View>
+                  <Text style={{ fontSize: 12 }}>{title}</Text>
+                  <Text style={{ fontSize: 12 }}>{address}</Text>
+                </View>
+              );
+            }}
+          />
           <Marker coordinate={location}></Marker>
         </MapView>
       </View>
