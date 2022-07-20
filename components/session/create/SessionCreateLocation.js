@@ -46,6 +46,9 @@ export function SessionCreateLocation({ route, navigation }) {
             GooglePlacesSearchQuery={{
               rankby: "distance",
             }}
+            isRowScrollable={false}
+            enablePoweredByContainer={false}
+            styles={{listView:{position:"absolute",marginTop:41,width:371,marginLeft:10,borderBottomLeftRadius:10,borderBottomRightRadius:10,fontFamily:"UbuntuLight"},textInput:{borderRadius:10,maxWidth:"95%",marginLeft:10,marginTop:10,fontFamily:"UbuntuLight"},row:{fontFamily:"UbuntuLight"}}}
             fetchDetails={true}
             onPress={(data, details = null) => {
               let loc = {
