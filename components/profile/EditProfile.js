@@ -67,7 +67,7 @@ function EditProfile() {
       lastName: lastName,
     };
     profileStore.updateProfile(update, profile._id, showEdited);
-    // navigation.goBack();
+    navigation.goBack();
   };
 
   const handleCancel = () => {
@@ -172,23 +172,6 @@ function EditProfile() {
           </Card>
         </View>
       </SafeAreaView>
-      {!edited ? (
-        Dialog.show({
-          type: ALERT_TYPE.SUCCESS,
-          title: "Profile Edited",
-          textBody: "Profile Edited Successfuly",
-          button: "To Profile",
-          onPressButton: () => {
-            navigation.goBack();
-            showEdited(false);
-          },
-          onHide: () => {
-            navigation.goBack();
-          },
-        })
-      ) : (
-        <></>
-      )}
     </Root>
   );
 }
