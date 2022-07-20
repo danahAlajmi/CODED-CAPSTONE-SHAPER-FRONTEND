@@ -1,8 +1,7 @@
-import { makeAutoObservable } from "mobx";
+import { runInAction, makeAutoObservable } from "mobx";
 import instance from "./instance";
 import jwt_decode from "jwt-decode";
 import * as SecureStore from "expo-secure-store";
-import profileStore from "./profileStore";
 
 class UserStore {
   constructor() {
@@ -17,7 +16,11 @@ class UserStore {
     try {
       const response = await instance.post("api/users/signin", newUser);
       instance.defaults.headers.common.Authorization = `Bearer${response.data.token}`;
-      this.user = jwt_decode(response.data.token);
+      runInAction(() => {
+        this.user = jwt_decode(response.data.token);
+      });
+
+      //this.user = jwt_decode(response.data.token);
       await SecureStore.setItemAsync("token", response.data.token);
     } catch (error) {
       setShowErrorin(true);
@@ -28,7 +31,11 @@ class UserStore {
       const response = await instance.post("api/users/signup", newUser);
       instance.defaults.headers.common.Authorization = `Bearer${response.data.token}`;
       const decodedUser = jwt_decode(response.data.token);
-      this.profile = decodedUser.profile;
+
+      runInAction(() => {
+        this.profile = decodedUser.profile;
+      });
+
       await SecureStore.setItemAsync("token", response.data.token);
       userStore.fetchUsers();
       userStore.fetchTrainers();
@@ -40,8 +47,10 @@ class UserStore {
   };
   signout = async () => {
     try {
-      this.user = null;
-      this.profile = null;
+      runInAction(() => {
+        this.user = null;
+        this.profile = null;
+      });
       instance.defaults.headers.common.Authorization = null;
       SecureStore.deleteItemAsync("token");
     } catch (error) {}
@@ -52,13 +61,19 @@ class UserStore {
     //console.log(userToken);
     if (userToken) {
       const newUser = jwt_decode(userToken);
-      this.user = newUser;
+      runInAction(() => {
+        this.user = newUser;
+      });
+      //this.user = newUser;
     }
   };
   fetchTrainers = async () => {
     try {
       const response = await instance.get("/api/users/trainers");
-      this.trainers = response.data;
+      //this.trainers = response.data;
+      runInAction(() => {
+        this.trainers = response.data;
+      });
     } catch (error) {
       console.log(error);
     }
@@ -67,13 +82,29 @@ class UserStore {
   fetchUsers = async () => {
     try {
       const response = await instance.get("/api/users");
-      this.users = response.data;
+      //this.users = response.data;
+      runInAction(() => {
+        this.users = response.data;
+      });
     } catch (error) {
       console.log(error);
     }
   };
   getUserById = (id) => {
     return this.users.find((user) => user._id === id);
+  };
+
+  joinSessionAssist = (sessionId) => {
+    runInAction(() => {
+      this.user.enrolled.push(sessionId);
+    });
+    this.fetchUsers();
+  };
+  cancelSessionAssist = (sessionId) => {
+    runInAction(() => {
+      this.user.enrolled.splice(this.user.enrolled.indexOf(sessionId), 1);
+    });
+    userStore.fetchUsers();
   };
 }
 

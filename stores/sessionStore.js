@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, runInAction } from "mobx";
 import instance from "./instance";
 import userStore from "./userStore";
 class SessionStore {
@@ -7,11 +7,14 @@ class SessionStore {
   }
   sessions = [];
   isLoading = true;
-
   fetchAllSessions = async () => {
     try {
       const response = await instance.get("/api/sessions");
-      this.sessions = response.data;
+
+      runInAction(() => {
+        this.sessions = response.data;
+      });
+      //this.sessions = response.data;
     } catch (error) {
       console.log(error);
     }
@@ -22,8 +25,7 @@ class SessionStore {
       const res = await instance.post(
         `/api/sessions/${sessionId}/user/${userId}`
       );
-      userStore.user.enrolled.push(sessionId);
-      userStore.fetchUsers();
+      userStore.joinSessionAssist(sessionId);
       this.fetchAllSessions();
     } catch (error) {
       console.log(error);
@@ -34,12 +36,8 @@ class SessionStore {
       const res = await instance.post(
         `/api/sessions/cancel/${sessionId}/${userId}`
       );
-      userStore.user.enrolled.splice(
-        userStore.user.enrolled.indexOf(sessionId),
-        1
-      );
+      userStore.cancelSessionAssist(sessionId);
 
-      userStore.fetchUsers();
       this.fetchAllSessions();
     } catch (error) {
       console.log(error);
@@ -52,7 +50,9 @@ class SessionStore {
   CreateSession = async (session) => {
     try {
       const response = await instance.post("/api/sessions/create", session);
-      this.sessions.push(response.data);
+      runInAction(() => {
+        this.sessions.push(response.data);
+      });
       this.fetchAllSessions();
     } catch (error) {
       console.log(error);
