@@ -279,22 +279,18 @@ function SessionDetails({ route }) {
                 }}
               >
                 <Text style={styles.locationTitle}>📍 Location</Text>
-                <TouchableOpacity
-                  onPress={async () => {
-                    const url = `https://www.google.com/maps/?q=${detailsLocation.latitude},${detailsLocation.longitude}`;
-                    await Linking.canOpenURL(url);
-                    Linking.openURL(url);
-                  }}
-                >
-                  <Text style={styles.locationLink}>Open in googleMaps</Text>
-                </TouchableOpacity>
-
+                
                 <View style={styles.map}>
                   <MapView
                     provider={PROVIDER_GOOGLE}
                     region={detailsLocation}
                     style={StyleSheet.absoluteFillObject}
                     mapType={"satelite"}
+                    onPress={async () => {
+                      const url = `https://www.google.com/maps/?q=${detailsLocation.latitude},${detailsLocation.longitude}`;
+                      await Linking.canOpenURL(url);
+                      Linking.openURL(url);
+                    }}
                   >
                     <Marker coordinate={detailsLocation}></Marker>
                   </MapView>
@@ -381,7 +377,7 @@ const styles = StyleSheet.create({
     width: 300,
     // height: 55,
     // borderRadius: 10,
-    marginHorizontal: 22.5,
+    alignSelf:"center",
     minWidth: "40%",
     borderRadius: 10,
     height: 50,
@@ -403,7 +399,7 @@ const styles = StyleSheet.create({
     height: 50,
     width: 300,
     minWidth: "40%",
-
+    alignSelf:"center",
     alignItems: "center",
     justifyContent: "center",
 
@@ -425,6 +421,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 22.5,
     width: 300,
     minWidth: "40%",
+    alignSelf:"center",
+
     borderRadius: 10,
     height: 50,
     alignItems: "center",

@@ -12,13 +12,15 @@ import {
 import { observer } from "mobx-react";
 import { useFonts } from "expo-font";
 import userStore from "../../stores/userStore";
+import { useNavigation } from "@react-navigation/native";
+
 function SessionDumbbellCardInd({ session }) {
   const [loaded] = useFonts({
     UbuntuBold: require("../../assets/fonts/Ubuntu-Bold.ttf"),
     UbuntuLight: require("../../assets/fonts/Ubuntu-Light.ttf"),
     Ubuntu: require("../../assets/fonts/Ubuntu-Regular.ttf"),
   });
-
+  const navigation = useNavigation();
   if (!loaded) {
     return null;
   }
@@ -29,7 +31,7 @@ function SessionDumbbellCardInd({ session }) {
   var diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
   var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
   const remaining =
-    diffHrs === 0 ? `${diffMins} minutes.` : `${diffHrs} hrs ${diffMins} mins.`;
+    diffHrs === 0 ? `${diffMins} minutes` : `${diffHrs} hrs ${diffMins} mins`;
   return (
     <View style={styles.container}>
       <TouchableOpacity
