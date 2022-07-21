@@ -15,9 +15,9 @@ import { useFonts } from "expo-font";
 
 export function SessionEditLocation({ route, navigation }) {
   const [loaded] = useFonts({
-    'UbuntuBold': require('../../../assets/fonts/Ubuntu-Bold.ttf'),
-    'UbuntuLight': require('../../../assets/fonts/Ubuntu-Light.ttf'),
-    'Ubuntu': require('../../../assets/fonts/Ubuntu-Regular.ttf'),
+    UbuntuBold: require("../../../assets/fonts/Ubuntu-Bold.ttf"),
+    UbuntuLight: require("../../../assets/fonts/Ubuntu-Light.ttf"),
+    Ubuntu: require("../../../assets/fonts/Ubuntu-Regular.ttf"),
   });
   const [location, setLocation] = useState({
     latitude: 29.358,
@@ -56,7 +56,22 @@ export function SessionEditLocation({ route, navigation }) {
             }}
             isRowScrollable={false}
             enablePoweredByContainer={false}
-            styles={{listView:{position:"absolute",marginTop:41,width:371,marginLeft:10,borderBottomLeftRadius:10,borderBottomRightRadius:10},textInput:{borderRadius:10,maxWidth:"95%",marginLeft:10,marginTop:10,}}}
+            styles={{
+              listView: {
+                position: "absolute",
+                marginTop: 41,
+                width: "95%",
+                marginLeft: 10,
+                borderBottomLeftRadius: 10,
+                borderBottomRightRadius: 10,
+              },
+              textInput: {
+                borderRadius: 10,
+                maxWidth: "95%",
+                marginLeft: 10,
+                marginTop: 10,
+              },
+            }}
             fetchDetails={true}
             onPress={(data, details = null) => {
               let loc = {
