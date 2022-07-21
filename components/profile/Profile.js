@@ -219,6 +219,7 @@ const styles = StyleSheet.create({
   number: {
     color: "#FFA90D",
     fontSize: 15,
+    marginTop: 3.5,
     fontWeight: "300",
     fontFamily: "Ubuntu",
   },
