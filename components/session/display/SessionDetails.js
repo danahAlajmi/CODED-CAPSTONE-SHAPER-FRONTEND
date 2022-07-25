@@ -273,29 +273,42 @@ function SessionDetails({ route }) {
                   </View>
                 )}
               </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                }}
-              >
-                <Text style={styles.locationTitle}>📍 Location</Text>
-                
-                <View style={styles.map}>
-                  <MapView
-                    provider={PROVIDER_GOOGLE}
-                    region={detailsLocation}
-                    style={StyleSheet.absoluteFillObject}
-                    mapType={"satelite"}
-                    onPress={async () => {
-                      const url = `https://www.google.com/maps/?q=${detailsLocation.latitude},${detailsLocation.longitude}`;
-                      await Linking.canOpenURL(url);
-                      Linking.openURL(url);
-                    }}
+              {session.isOnline ? (
+                <View>
+                  <Text style={styles.locationTitle}>🖥️ Online</Text>
+
+                  <Text
+                    style={styles.link}
+                    onPress={() => Linking.openURL(profile.zoomLink)}
                   >
-                    <Marker coordinate={detailsLocation}></Marker>
-                  </MapView>
+                    Open Link
+                  </Text>
                 </View>
-              </View>
+              ) : (
+                <View
+                  style={{
+                    flexDirection: "row",
+                  }}
+                >
+                  <Text style={styles.locationTitle}>📍 Location</Text>
+
+                  <View style={styles.map}>
+                    <MapView
+                      provider={PROVIDER_GOOGLE}
+                      region={detailsLocation}
+                      style={StyleSheet.absoluteFillObject}
+                      mapType={"satelite"}
+                      onPress={async () => {
+                        const url = `https://www.google.com/maps/?q=${detailsLocation.latitude},${detailsLocation.longitude}`;
+                        await Linking.canOpenURL(url);
+                        Linking.openURL(url);
+                      }}
+                    >
+                      <Marker coordinate={detailsLocation}></Marker>
+                    </MapView>
+                  </View>
+                </View>
+              )}
             </View>
           </View>
         </ScrollView>
@@ -377,7 +390,7 @@ const styles = StyleSheet.create({
     width: 300,
     // height: 55,
     // borderRadius: 10,
-    alignSelf:"center",
+    alignSelf: "center",
     minWidth: "40%",
     borderRadius: 10,
     height: 50,
@@ -399,7 +412,7 @@ const styles = StyleSheet.create({
     height: 50,
     width: 300,
     minWidth: "40%",
-    alignSelf:"center",
+    alignSelf: "center",
     alignItems: "center",
     justifyContent: "center",
 
@@ -421,7 +434,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 22.5,
     width: 300,
     minWidth: "40%",
-    alignSelf:"center",
+    alignSelf: "center",
 
     borderRadius: 10,
     height: 50,
@@ -511,6 +524,13 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontFamily: "Ubuntu",
     left: 135,
+    color: "#00A2ED",
+  },
+  link: {
+    marginTop: 10,
+    textAlign: "center",
+    fontSize: 15,
+    fontFamily: "Ubuntu",
     color: "#00A2ED",
   },
 });
