@@ -281,7 +281,7 @@ function SessionDetails({ route }) {
                     style={styles.link}
                     onPress={() => Linking.openURL(profile.zoomLink)}
                   >
-                    Open Link
+                    Start Session
                   </Text>
                 </View>
               ) : (

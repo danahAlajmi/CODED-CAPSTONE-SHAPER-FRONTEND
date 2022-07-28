@@ -59,7 +59,7 @@ export function SessionEditDetail({ navigation, route }) {
         limit: +nop,
         isOnline: isOnline,
       };
-      navigation.navigate("SessionEditTime", { session });
+      navigation.navigate("SessionEditTime", { session, id: sessionid });
     } else {
       let session = {
         title: name,
@@ -67,7 +67,7 @@ export function SessionEditDetail({ navigation, route }) {
         limit: +nop,
         isOnline: isOnline,
       };
-      navigation.navigate("SessionEditLocation", { session });
+      navigation.navigate("SessionEditLocation", { session, id: sessionid });
     }
   };
 
