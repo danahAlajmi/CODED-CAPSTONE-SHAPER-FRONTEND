@@ -32,11 +32,11 @@ function EditProfile() {
   if (profileStore.isLoading) return <Text>Loading</Text>;
   let user = userStore.user;
   let profile = profileStore.getProfileById(user._id);
-
   const [bio, onChangeBio] = useState(profile.bio);
   const [image, onChangeImage] = useState(profile.image);
   const [firstName, onChangeFirstName] = useState(profile.firstName);
   const [lastName, onChangeLastName] = useState(profile.lastName);
+  const [zoomLink, onChangeZoomLink] = useState(profile.zoomLink);
   const [edited, showEdited] = useState(true);
   const [loaded] = useFonts({
     UbuntuBold: require("../../assets/fonts/Ubuntu-Bold.ttf"),
@@ -65,13 +65,13 @@ function EditProfile() {
       image: image,
       firstName: firstName,
       lastName: lastName,
+      zoomLink: zoomLink,
     };
     profileStore.updateProfile(update, profile._id, showEdited);
     navigation.goBack();
   };
 
   const handleCancel = () => {
-    // navigation.navigate("MyProfile");
     navigation.goBack();
   };
 
@@ -111,13 +111,7 @@ function EditProfile() {
                 />
               </TouchableOpacity>
             </View>
-            {/* <View style={styles.imageContainer}>
-            <TouchableOpacity
-              style={styles.imageViewContainer}
-              onPress={handleUpload}
-            ></TouchableOpacity>
-            <Text style={styles.imageText}>Change profile photo</Text>
-          </View> */}
+
             <View style={{ flexDirection: "row", marginTop: 40 }}>
               <Card.Title style={styles.text}>First Name</Card.Title>
               <View style={styles.textContainer}>
@@ -145,7 +139,7 @@ function EditProfile() {
 
             <View style={{ flexDirection: "row", marginTop: 20 }}>
               <Card.Title style={styles.text}>Bio</Card.Title>
-              <View style={{ marginLeft: 76 }}>
+              <View style={{ marginLeft: 70 }}>
                 <TextInput
                   style={styles.input}
                   onChangeText={onChangeBio}
@@ -155,20 +149,22 @@ function EditProfile() {
                 <Card.Divider style={styles.divider} />
               </View>
             </View>
-            {/* <Card.Title>Image</Card.Title>
-          <Button title="Upload" color="#199EF3" /> */}
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-evenly",
-                marginTop: 30,
-              }}
-            >
-              {/* <TouchableOpacity style={styles.cancleBtn} onPress={handleClear}>
-              <Text style={styles.btnText}>Cancle</Text>
-            </TouchableOpacity> */}
-            </View>
+            {userStore.user.isTrainer ? (
+              <View style={{ flexDirection: "row", marginTop: 20 }}>
+                <Card.Title style={styles.text}>zoom Link</Card.Title>
+                <View style={{ marginLeft: 22 }}>
+                  <TextInput
+                    style={styles.input}
+                    onChangeText={onChangeZoomLink}
+                    value={zoomLink}
+                    placeholder={profile.zoomLink}
+                  />
+                  <Card.Divider style={styles.divider} />
+                </View>
+              </View>
+            ) : (
+              <></>
+            )}
           </Card>
         </View>
       </SafeAreaView>

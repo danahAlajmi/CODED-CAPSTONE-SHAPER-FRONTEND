@@ -36,7 +36,9 @@ function SessionDumbbellCard({ session }) {
           style={styles.sessionImage}
           source={{ uri: session.image }}
         >
-          <Text style={styles.sessionTitle}>{session.title}</Text>
+          <View style={styles.sessionTitle}>
+            <Text style={styles.STitle}>{session.title}</Text>
+          </View>
           {userStore.user._id === session.trainer ? (
             <Image
               style={styles.trainerInd}
@@ -67,6 +69,14 @@ const styles = StyleSheet.create({
   holdingTitle: {
     backgroundColor: "green",
     borderRadius: 20,
+  },
+  STitle: {
+    color: "white",
+    fontSize: 14,
+    // padding: 12.5,
+    position: "relative",
+    top: "-20%",
+    fontFamily: "Ubuntu",
   },
   sessionTitle: {
     backgroundColor: "rgba(0, 0, 0, 0.5)",
